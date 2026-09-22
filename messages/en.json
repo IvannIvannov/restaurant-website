@@ -1,0 +1,31 @@
+{
+    "navigation": {
+        "experience": "Experience",
+        "menu": "Menu",
+        "events": "Events",
+        "contact": "Contact",
+        "reserve": "Reserve a table"
+    },
+    "hero": {
+        "eyebrow": "Food · Atmosphere · Moments",
+        "titleLine1": "TASTE",
+        "titleLine2": "THE MOMENT",
+        "description": "A contemporary dining experience built around food, atmosphere and unforgettable moments.",
+        "reserve": "Reserve a table",
+        "menu": "Explore the menu",
+        "scroll": "Scroll to discover",
+        "bottomLabel": "Restaurant experience"
+    },
+    "actions": {
+        "eyebrow": "Choose your experience",
+        "title": "IT ALL STARTS HERE",
+        "bookingLabel": "Reservations",
+        "bookingTitle": "RESERVE YOUR TABLE",
+        "bookingDescription": "Choose your date, time, number of guests and preferred seating area. We will take care of the rest.",
+        "bookingButton": "Make a reservation",
+        "menuLabel": "Menu",
+        "menuTitle": "DISCOVER THE MENU",
+        "menuDescription": "Explore our food, drinks and special selections.",
+        "menuButton": "Explore the menu"
+    }
+}
