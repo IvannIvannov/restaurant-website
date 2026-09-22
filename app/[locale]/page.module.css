@@ -1,0 +1,280 @@
+.main {
+    min-height: 100vh;
+    background: #151815;
+    color: #f4efe5;
+}
+
+.hero {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.heroGlow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+            rgba(255, 255, 255, 0.06),
+            transparent 55%);
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.2),
+            transparent,
+            rgba(0, 0, 0, 0.5));
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 64px;
+}
+
+.logo {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    font-size: 14px;
+}
+
+.navigation a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
+}
+
+.navigation a:hover {
+    opacity: 0.6;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.languageSwitcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.languageSwitcher a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
+}
+
+.languageSwitcher span {
+    opacity: 0.3;
+}
+
+.languageActive {
+    opacity: 1;
+}
+
+.languageInactive {
+    opacity: 0.4;
+}
+
+.languageInactive:hover {
+    opacity: 1;
+}
+
+.reserveHeaderButton {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: inherit;
+    padding: 12px 20px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.reserveHeaderButton:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1150px;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.eyebrow {
+    margin-bottom: 24px;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.heroTitle {
+    margin: 0;
+    font-size: clamp(64px, 10vw, 160px);
+    font-weight: 300;
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+}
+
+.heroDescription {
+    max-width: 580px;
+    margin: 40px auto 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.heroButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.primaryButton,
+.secondaryButton {
+    padding: 16px 28px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        opacity 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.primaryButton {
+    border: 1px solid #f4efe5;
+    background: #f4efe5;
+    color: #000000;
+}
+
+.primaryButton:hover {
+    opacity: 0.8;
+}
+
+.secondaryButton {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: inherit;
+}
+
+.secondaryButton:hover {
+    border-color: #ffffff;
+}
+
+.scrollText {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 900px) {
+    .header {
+        padding: 24px 32px;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .heroTitle {
+        font-size: clamp(58px, 14vw, 110px);
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 20px;
+    }
+
+    .logo {
+        font-size: 11px;
+        letter-spacing: 0.25em;
+    }
+
+    .headerActions {
+        gap: 12px;
+    }
+
+    .reserveHeaderButton {
+        padding: 10px 14px;
+        font-size: 10px;
+    }
+
+    .languageSwitcher {
+        font-size: 10px;
+        letter-spacing: 0.15em;
+    }
+
+    .heroContent {
+        padding: 0 20px;
+    }
+
+    .eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.25em;
+    }
+
+    .heroTitle {
+        font-size: clamp(54px, 16vw, 90px);
+        line-height: 0.82;
+    }
+
+    .heroDescription {
+        margin-top: 28px;
+        font-size: 14px;
+    }
+
+    .heroButtons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .primaryButton,
+    .secondaryButton {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .scrollText {
+        bottom: 20px;
+    }
+}

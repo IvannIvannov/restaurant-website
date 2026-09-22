@@ -5,6 +5,10 @@
   --foreground: #f4efe5;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -16,11 +20,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 button,
 a {
+  font: inherit;
+}
+
+button {
   cursor: pointer;
 }
