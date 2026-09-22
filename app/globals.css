@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #151815;
-  --foreground: #f4efe5;
+  --color-background: #151815;
+  --color-surface: #1d211d;
+
+  --color-text-primary: #f4efe5;
+  --color-text-secondary: rgba(244, 239, 229, 0.65);
+
+  --color-accent: #b49a63;
+  --color-border: rgba(255, 255, 255, 0.18);
+
+  --font-display: serif;
+  --font-body: sans-serif;
 }
 
 * {
@@ -15,16 +24,24 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
-a {
+a,
+input,
+textarea,
+select {
   font: inherit;
 }
 
 button {
   cursor: pointer;
+}
+
+a {
+  color: inherit;
 }

@@ -1,7 +1,7 @@
 .main {
     min-height: 100vh;
-    background: #151815;
-    color: #f4efe5;
+    background: var(--color-background);
+    color: var(--color-text-primary);
 }
 
 .hero {
@@ -43,8 +43,9 @@
 }
 
 .logo {
-    font-size: 14px;
-    font-weight: 500;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
     letter-spacing: 0.35em;
 }
 
@@ -131,27 +132,31 @@
 
 .eyebrow {
     margin-bottom: 24px;
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-secondary);
 }
 
 .heroTitle {
     margin: 0;
-    font-size: clamp(64px, 10vw, 160px);
-    font-weight: 300;
-    line-height: 0.78;
-    letter-spacing: -0.06em;
+    font-family: var(--font-display);
+    font-size: clamp(70px, 10vw, 165px);
+    font-weight: 500;
+    line-height: 0.72;
+    letter-spacing: -0.055em;
     text-transform: uppercase;
 }
 
 .heroDescription {
     max-width: 580px;
     margin: 40px auto 0;
+    font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-secondary);
 }
 
 .heroButtons {
@@ -165,6 +170,7 @@
 .primaryButton,
 .secondaryButton {
     padding: 16px 28px;
+    font-family: var(--font-body);
     font-size: 12px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -176,8 +182,8 @@
 }
 
 .primaryButton {
-    border: 1px solid #f4efe5;
-    background: #f4efe5;
+    border: 1px solid var(--color-text-primary);
+    background: var(--color-text-primary);
     color: #000000;
 }
 
@@ -186,7 +192,7 @@
 }
 
 .secondaryButton {
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--color-border);
     background: transparent;
     color: inherit;
 }
@@ -200,6 +206,7 @@
     bottom: 32px;
     left: 50%;
     transform: translateX(-50%);
+    font-family: var(--font-body);
     font-size: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -216,7 +223,7 @@
     }
 
     .heroTitle {
-        font-size: clamp(58px, 14vw, 110px);
+        font-size: clamp(62px, 14vw, 110px);
     }
 }
 
@@ -254,8 +261,8 @@
     }
 
     .heroTitle {
-        font-size: clamp(54px, 16vw, 90px);
-        line-height: 0.82;
+        font-size: clamp(56px, 16vw, 90px);
+        line-height: 0.8;
     }
 
     .heroDescription {
