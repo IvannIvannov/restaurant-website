@@ -1,0 +1,18 @@
+{
+    "navigation": {
+        "experience": "Experience",
+        "menu": "Menu",
+        "events": "Events",
+        "contact": "Contact",
+        "reserve": "Reserve"
+    },
+    "hero": {
+        "eyebrow": "Food · Atmosphere · Moments",
+        "titleLine1": "TASTE",
+        "titleLine2": "THE MOMENT",
+        "description": "A contemporary dining experience built around food, atmosphere and unforgettable moments.",
+        "reserve": "Reserve a table",
+        "menu": "Explore menu",
+        "scroll": "Scroll to discover"
+    }
+}
