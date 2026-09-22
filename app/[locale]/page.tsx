@@ -27,16 +27,20 @@ export default async function HomePage({ params }: Props) {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
-        <div className={styles.heroGlow} />
+        <div className={styles.heroBackground} />
         <div className={styles.heroOverlay} />
+        <div className={styles.heroGlow} />
 
         <header className={styles.header}>
           <div className={styles.logo}>RESTAURANT</div>
 
           <nav className={styles.navigation}>
             <a href="#experience">{messages.navigation.experience}</a>
+
             <a href="#menu">{messages.navigation.menu}</a>
+
             <a href="#events">{messages.navigation.events}</a>
+
             <a href="#contact">{messages.navigation.contact}</a>
           </nav>
 
@@ -73,13 +77,17 @@ export default async function HomePage({ params }: Props) {
           </div>
         </header>
 
+        <div className={styles.sideLabel}>
+          <span>EST.</span>
+          <span>2026</span>
+        </div>
+
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
 
           <h1 className={styles.heroTitle}>
-            {messages.hero.titleLine1}
-            <br />
-            {messages.hero.titleLine2}
+            <span>{messages.hero.titleLine1}</span>
+            <span>{messages.hero.titleLine2}</span>
           </h1>
 
           <p className={styles.heroDescription}>{messages.hero.description}</p>
@@ -95,7 +103,26 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
 
-        <div className={styles.scrollText}>{messages.hero.scroll}</div>
+        <div className={styles.bottomBar}>
+          <div className={styles.bottomLocation}>
+            <span className={styles.bottomLine} />
+            <span>Restaurant experience</span>
+          </div>
+
+          <div className={styles.scrollIndicator}>
+            <span>{messages.hero.scroll}</span>
+
+            <div className={styles.scrollLine}>
+              <span />
+            </div>
+          </div>
+
+          <div className={styles.bottomInfo}>
+            <span>Food</span>
+            <span>Drinks</span>
+            <span>Atmosphere</span>
+          </div>
+        </div>
       </section>
     </main>
   );
