@@ -15,50 +15,54 @@ const translations = {
     home: "Начало",
 
     title: "Вход",
-    subtitle: "Влез в профила си, за да управляваш резервациите си.",
+
+    subtitle: "Влез в профила си, за да управляваш своите резервации.",
 
     email: "Имейл",
+
     password: "Парола",
 
     show: "Покажи",
     hide: "Скрий",
 
+    forgot: "Забравена парола?",
+
     submit: "Вход",
-    loading: "Влизане...",
+
+    submitting: "Влизане...",
+
+    error: "Невалиден имейл или парола.",
 
     noAccount: "Все още нямаш профил?",
+
     register: "Регистрация",
-
-    required: "Моля, въведи имейл и парола.",
-
-    invalidCredentials: "Невалиден имейл или парола.",
-
-    genericError: "Възникна проблем при входа. Опитай отново.",
   },
 
   en: {
     home: "Home",
 
     title: "Log in",
+
     subtitle: "Log in to manage your reservations.",
 
     email: "Email",
+
     password: "Password",
 
     show: "Show",
     hide: "Hide",
 
+    forgot: "Forgot password?",
+
     submit: "Log in",
-    loading: "Logging in...",
+
+    submitting: "Logging in...",
+
+    error: "Invalid email or password.",
 
     noAccount: "Don't have an account yet?",
-    register: "Register",
 
-    required: "Please enter your email and password.",
-
-    invalidCredentials: "Invalid email or password.",
-
-    genericError: "Something went wrong while logging in. Please try again.",
+    register: "Create account",
   },
 };
 
@@ -71,6 +75,7 @@ export default function LoginClient() {
   const t = translations[locale];
 
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
@@ -82,32 +87,33 @@ export default function LoginClient() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setError("");
-
-    if (!email.trim() || !password) {
-      setError(t.required);
-      return;
-    }
-
     setLoading(true);
+    setError("");
 
     try {
       const supabase = createClient();
 
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
+
         password,
       });
 
       if (signInError) {
-        setError(t.invalidCredentials);
+        console.error("Login error:", signInError);
+
+        setError(t.error);
+
         return;
       }
 
-      router.push(`/${locale}`);
+      router.push(`/${locale}/account`);
+
       router.refresh();
-    } catch {
-      setError(t.genericError);
+    } catch (caughtError) {
+      console.error("Login error:", caughtError);
+
+      setError(t.error);
     } finally {
       setLoading(false);
     }
@@ -154,22 +160,33 @@ export default function LoginClient() {
               <input
                 id="email"
                 type="email"
+                required
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
                 autoComplete="email"
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="password">{t.password}</label>
+              <div className={styles.passwordLabelRow}>
+                <label htmlFor="password">{t.password}</label>
+
+                <Link
+                  href={`/${locale}/forgot-password`}
+                  className={styles.forgotLink}
+                >
+                  {t.forgot}
+                </Link>
+              </div>
 
               <div className={styles.passwordWrap}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  required
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
                   autoComplete="current-password"
+                  onChange={(event) => setPassword(event.target.value)}
                 />
 
                 <button
@@ -186,17 +203,17 @@ export default function LoginClient() {
 
             <button
               type="submit"
-              disabled={loading}
               className={styles.submitButton}
+              disabled={loading}
             >
-              {loading ? t.loading : t.submit}
+              {loading ? t.submitting : t.submit}
             </button>
           </form>
-        </section>
 
-        <p className={styles.bottomText}>
-          {t.noAccount} <Link href={`/${locale}/register`}>{t.register}</Link>
-        </p>
+          <p className={styles.bottomText}>
+            {t.noAccount} <Link href={`/${locale}/register`}>{t.register}</Link>
+          </p>
+        </section>
       </div>
     </main>
   );
