@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "../../lib/supabase/server";
 
 import styles from "./page.module.css";
+import sectionStyles from "./home-sections.module.css";
 
 type Locale = "bg" | "en";
 
@@ -189,17 +190,13 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
-
                   <span>↗</span>
                 </Link>
               </div>
             </div>
           </article>
 
-          <article
-            id="menu"
-            className={`${styles.actionCard} ${styles.menuCard}`}
-          >
+          <article className={`${styles.actionCard} ${styles.menuCard}`}>
             <div className={styles.actionOverlay} />
 
             <div className={styles.actionContent}>
@@ -221,7 +218,6 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
-
                   <span>↗</span>
                 </Link>
               </div>
@@ -229,6 +225,202 @@ export default async function HomePage({ params }: Props) {
           </article>
         </div>
       </section>
+
+      <section id="events" className={sectionStyles.eventsSection}>
+        <div className={sectionStyles.sectionContainer}>
+          <div className={sectionStyles.sectionHeading}>
+            <div className={sectionStyles.sectionHeadingText}>
+              <p className={sectionStyles.eyebrow}>{messages.events.eyebrow}</p>
+
+              <h2>{messages.events.title}</h2>
+            </div>
+
+            <p className={sectionStyles.sectionDescription}>
+              {messages.events.description}
+            </p>
+          </div>
+
+          <div className={sectionStyles.eventsGrid}>
+            {messages.events.items.map((event, index) => (
+              <article key={event.title} className={sectionStyles.eventCard}>
+                <div className={sectionStyles.eventCardInner}>
+                  <div className={sectionStyles.eventTop}>
+                    <span className={sectionStyles.eventNumber}>
+                      0{index + 1}
+                    </span>
+
+                    <span className={sectionStyles.eventTag}>{event.tag}</span>
+                  </div>
+
+                  <div className={sectionStyles.eventContent}>
+                    <h3>{event.title}</h3>
+
+                    <p>{event.description}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className={sectionStyles.contactSection}>
+        <div className={sectionStyles.contactGrid}>
+          <div className={sectionStyles.contactIntro}>
+            <p className={sectionStyles.eyebrow}>{messages.contact.eyebrow}</p>
+
+            <h2>{messages.contact.title}</h2>
+
+            <p>{messages.contact.description}</p>
+
+            <div className={sectionStyles.contactActions}>
+              <Link
+                href={`/${currentLocale}/reservations`}
+                className={sectionStyles.primaryContactButton}
+              >
+                {messages.contact.reserve}
+              </Link>
+
+              <a
+                href="mailto:contact@restaurant-demo.com"
+                className={sectionStyles.secondaryContactButton}
+              >
+                {messages.contact.emailButton}
+              </a>
+            </div>
+          </div>
+
+          <div className={sectionStyles.contactDetails}>
+            <div className={sectionStyles.contactItem}>
+              <span className={sectionStyles.contactLabel}>
+                {messages.contact.addressLabel}
+              </span>
+
+              <span className={sectionStyles.contactValue}>
+                {messages.contact.address}
+              </span>
+            </div>
+
+            <div className={sectionStyles.contactItem}>
+              <span className={sectionStyles.contactLabel}>
+                {messages.contact.hoursLabel}
+              </span>
+
+              <span className={sectionStyles.contactValue}>
+                {messages.contact.hours}
+              </span>
+            </div>
+
+            <div className={sectionStyles.contactItem}>
+              <span className={sectionStyles.contactLabel}>
+                {messages.contact.phoneLabel}
+              </span>
+
+              <a
+                href="tel:+359881234567"
+                className={sectionStyles.contactValue}
+              >
+                +359 88 123 4567
+              </a>
+            </div>
+
+            <div className={sectionStyles.contactItem}>
+              <span className={sectionStyles.contactLabel}>
+                {messages.contact.emailLabel}
+              </span>
+
+              <a
+                href="mailto:contact@restaurant-demo.com"
+                className={sectionStyles.contactValue}
+              >
+                contact@restaurant-demo.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className={sectionStyles.footer}>
+        <div className={sectionStyles.footerInner}>
+          <div className={sectionStyles.footerTop}>
+            <div className={sectionStyles.footerBrand}>
+              <span className={sectionStyles.footerLogo}>RESTAURANT</span>
+
+              <p>{messages.footer.description}</p>
+            </div>
+
+            <div className={sectionStyles.footerLinks}>
+              <div className={sectionStyles.footerColumn}>
+                <span className={sectionStyles.footerColumnTitle}>
+                  {messages.footer.navigation}
+                </span>
+
+                <Link href={`/${currentLocale}/menu`}>
+                  {messages.navigation.menu}
+                </Link>
+
+                <Link href={`/${currentLocale}/reservations`}>
+                  {messages.navigation.reserve}
+                </Link>
+
+                <a href="#events">{messages.navigation.events}</a>
+
+                <a href="#contact">{messages.navigation.contact}</a>
+              </div>
+
+              <div className={sectionStyles.footerColumn}>
+                <span className={sectionStyles.footerColumnTitle}>
+                  {messages.footer.account}
+                </span>
+
+                <Link
+                  href={
+                    user
+                      ? `/${currentLocale}/account`
+                      : `/${currentLocale}/login`
+                  }
+                >
+                  {user
+                    ? messages.navigation.account
+                    : messages.navigation.login}
+                </Link>
+
+                {!user && (
+                  <Link href={`/${currentLocale}/register`}>
+                    {messages.footer.register}
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className={sectionStyles.footerBottom}>
+            <span>© 2026 RESTAURANT · {messages.footer.demo}</span>
+
+            <div className={sectionStyles.footerLanguages}>
+              <Link
+                href="/bg"
+                className={
+                  currentLocale === "bg" ? sectionStyles.activeLanguage : ""
+                }
+              >
+                BG
+              </Link>
+
+              <span>/</span>
+
+              <Link
+                href="/en"
+                className={
+                  currentLocale === "en" ? sectionStyles.activeLanguage : ""
+                }
+              >
+                EN
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

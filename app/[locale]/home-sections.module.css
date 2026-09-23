@@ -1,0 +1,386 @@
+.eventsSection {
+    background: #f3efe8;
+    padding: 110px 24px;
+    color: #202420;
+    font-family: var(--font-body);
+}
+
+.sectionContainer {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+.sectionHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 45px;
+}
+
+.sectionHeadingText {
+    max-width: 650px;
+}
+
+.eyebrow {
+    margin: 0 0 12px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(32, 36, 32, 0.48);
+}
+
+.sectionHeading h2 {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.sectionDescription {
+    max-width: 390px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(32, 36, 32, 0.55);
+}
+
+.eventsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.eventCard {
+    position: relative;
+    min-height: 370px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #263126;
+    color: #ffffff;
+}
+
+.eventCard:nth-child(2) {
+    background: #404638;
+}
+
+.eventCard:nth-child(3) {
+    background: #2d302b;
+}
+
+.eventCardInner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
+}
+
+.eventTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.eventNumber {
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.45;
+}
+
+.eventTag {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 100px;
+    padding: 7px 10px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.eventContent h3 {
+    margin: 0 0 14px;
+    font-family: var(--font-body);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.eventContent p {
+    max-width: 310px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.contactSection {
+    background: #ffffff;
+    color: #202420;
+    font-family: var(--font-body);
+    padding: 110px 24px;
+}
+
+.contactGrid {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.contactIntro h2 {
+    margin: 0 0 20px;
+    font-family: var(--font-body);
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+}
+
+.contactIntro p {
+    max-width: 450px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(32, 36, 32, 0.55);
+}
+
+.contactDetails {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid rgba(32, 36, 32, 0.12);
+}
+
+.contactItem {
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(32, 36, 32, 0.12);
+}
+
+.contactItem:nth-child(odd) {
+    padding-right: 28px;
+}
+
+.contactItem:nth-child(even) {
+    padding-left: 28px;
+    border-left: 1px solid rgba(32, 36, 32, 0.12);
+}
+
+.contactLabel {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(32, 36, 32, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.contactValue {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #202420;
+    text-decoration: none;
+}
+
+.contactValue:hover {
+    opacity: 0.6;
+}
+
+.contactActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.primaryContactButton,
+.secondaryContactButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 45px;
+    border-radius: 9px;
+    padding: 0 18px;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.primaryContactButton {
+    background: #263126;
+    color: #ffffff;
+}
+
+.primaryContactButton:hover {
+    background: #1c251c;
+}
+
+.secondaryContactButton {
+    border: 1px solid rgba(32, 36, 32, 0.14);
+    color: #202420;
+}
+
+.secondaryContactButton:hover {
+    background: #f5f2ec;
+}
+
+.footer {
+    background: #202720;
+    color: #ffffff;
+    font-family: var(--font-body);
+    padding: 55px 24px 26px;
+}
+
+.footerInner {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+.footerTop {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+    padding-bottom: 55px;
+}
+
+.footerBrand {
+    max-width: 380px;
+}
+
+.footerLogo {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.footerBrand p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footerLinks {
+    display: flex;
+    gap: 50px;
+}
+
+.footerColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footerColumnTitle {
+    margin-bottom: 5px;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.footerColumn a {
+    color: #ffffff;
+    font-size: 11px;
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+.footerColumn a:hover {
+    opacity: 1;
+}
+
+.footerBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.footerLanguages {
+    display: flex;
+    gap: 8px;
+}
+
+.footerLanguages a {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.4;
+}
+
+.footerLanguages .activeLanguage {
+    opacity: 1;
+}
+
+@media (max-width: 850px) {
+    .sectionHeading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .eventsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .eventCard {
+        min-height: 290px;
+    }
+
+    .contactGrid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .footerTop {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .eventsSection,
+    .contactSection {
+        padding: 75px 16px;
+    }
+
+    .contactDetails {
+        grid-template-columns: 1fr;
+    }
+
+    .contactItem:nth-child(odd),
+    .contactItem:nth-child(even) {
+        padding: 22px 0;
+        border-left: 0;
+    }
+
+    .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .footerLinks {
+        width: 100%;
+        justify-content: space-between;
+        gap: 25px;
+    }
+
+    .footerBottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

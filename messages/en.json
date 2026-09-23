@@ -29,5 +29,47 @@
         "menuTitle": "DISCOVER THE MENU",
         "menuDescription": "Explore our food, drinks and special selections.",
         "menuButton": "Explore the menu"
+    },
+    "events": {
+        "eyebrow": "Events and occasions",
+        "title": "MORE THAN DINNER",
+        "description": "A place for special evenings, private occasions and moments that deserve a different atmosphere.",
+        "items": [
+            {
+                "tag": "Evenings",
+                "title": "Special evenings",
+                "description": "Seasonal selections, themed menus and evenings with their own character."
+            },
+            {
+                "tag": "Events",
+                "title": "Private events",
+                "description": "A welcoming setting for birthdays, family gatherings and personal occasions."
+            },
+            {
+                "tag": "Groups",
+                "title": "Group reservations",
+                "description": "A coordinated experience for larger groups with details arranged in advance."
+            }
+        ]
+    },
+    "contact": {
+        "eyebrow": "Contact",
+        "title": "SEE YOU HERE",
+        "description": "Contact us for reservations, events, group visits or additional information.",
+        "reserve": "Reserve a table",
+        "emailButton": "Send an email",
+        "addressLabel": "Address",
+        "address": "Demo location · Bulgaria",
+        "hoursLabel": "Opening hours",
+        "hours": "Daily · 11:00 – 23:00",
+        "phoneLabel": "Phone",
+        "emailLabel": "Email"
+    },
+    "footer": {
+        "description": "A demo restaurant website with online reservations, customer accounts and an administration dashboard.",
+        "navigation": "Navigation",
+        "account": "Account",
+        "register": "Create account",
+        "demo": "Portfolio demo"
     }
 }
