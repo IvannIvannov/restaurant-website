@@ -1,0 +1,379 @@
+.header {
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 50%;
+
+    display: flex;
+    width: min(1400px,
+            calc(100% - 64px));
+
+    align-items: center;
+    justify-content: space-between;
+
+    transform: translateX(-50%);
+
+    padding: 28px 0;
+
+    color: #ffffff;
+
+    font-family: var(--font-body);
+}
+
+.logo {
+    flex-shrink: 0;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+
+    text-decoration: none;
+}
+
+.desktopNavigation {
+    display: flex;
+    align-items: center;
+
+    gap: 34px;
+}
+
+.desktopNavigation a {
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    opacity: 0.72;
+
+    transition: opacity 0.2s ease;
+}
+
+.desktopNavigation a:hover {
+    opacity: 1;
+}
+
+.desktopActions {
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+}
+
+.languageSwitcher,
+.mobileLanguages {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.languageSwitcher a,
+.mobileLanguages a {
+    color: inherit;
+
+    text-decoration: none;
+
+    opacity: 0.4;
+}
+
+.languageSwitcher span,
+.mobileLanguages span {
+    opacity: 0.3;
+}
+
+.languageSwitcher .activeLanguage,
+.mobileLanguages .activeLanguage {
+    opacity: 1;
+}
+
+.accountLink {
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    opacity: 0.65;
+
+    transition: opacity 0.2s ease;
+}
+
+.accountLink:hover {
+    opacity: 1;
+}
+
+.reserveButton {
+    display: inline-flex;
+
+    min-height: 38px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    border-radius: 100px;
+
+    padding: 0 17px;
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.reserveButton:hover {
+    background: #ffffff;
+    color: #202420;
+}
+
+/* Mobile button */
+
+.menuButton {
+    position: relative;
+    z-index: 70;
+
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(255, 255, 255, 0.32);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.menuButton span {
+    position: absolute;
+    left: 50%;
+
+    width: 15px;
+    height: 1px;
+
+    background: #ffffff;
+
+    transition:
+        transform 0.25s ease,
+        top 0.25s ease;
+}
+
+.menuButton span:first-child {
+    top: 17px;
+
+    transform:
+        translateX(-50%);
+}
+
+.menuButton span:last-child {
+    top: 23px;
+
+    transform:
+        translateX(-50%);
+}
+
+.menuButtonOpen span:first-child {
+    top: 20px;
+
+    transform:
+        translateX(-50%) rotate(45deg);
+}
+
+.menuButtonOpen span:last-child {
+    top: 20px;
+
+    transform:
+        translateX(-50%) rotate(-45deg);
+}
+
+/* Mobile menu */
+
+.mobileMenu {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+
+    visibility: hidden;
+
+    background: #202720;
+
+    color: #ffffff;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+
+    font-family: var(--font-body);
+}
+
+.mobileMenuOpen {
+    visibility: visible;
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.mobileMenuContent {
+    display: flex;
+
+    min-height: 100%;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding:
+        115px 24px 30px;
+}
+
+.mobileNavigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileNavigation a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 20px 0;
+
+    color: #ffffff;
+
+    font-size: clamp(27px,
+            8vw,
+            40px);
+    font-weight: 500;
+
+    letter-spacing: -0.035em;
+
+    text-decoration: none;
+}
+
+.mobileNavigation a:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileNavigation a span {
+    min-width: 20px;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    letter-spacing: 0.05em;
+
+    opacity: 0.35;
+}
+
+.mobileMenuBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 40px;
+}
+
+.mobileReserveButton {
+    display: inline-flex;
+
+    min-height: 44px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    padding: 0 18px;
+
+    color: #202720;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+@media (max-width: 950px) {
+    .header {
+        width: calc(100% - 40px);
+    }
+
+    .desktopNavigation {
+        gap: 20px;
+    }
+
+    .desktopActions {
+        gap: 14px;
+    }
+
+    .reserveButton {
+        padding: 0 13px;
+    }
+}
+
+@media (max-width: 760px) {
+    .header {
+        position: absolute;
+
+        width: calc(100% - 32px);
+
+        padding: 20px 0;
+    }
+
+    .desktopNavigation,
+    .desktopActions {
+        display: none;
+    }
+
+    .menuButton {
+        display: block;
+    }
+}
+
+@media (min-width: 761px) {
+    .mobileMenu {
+        display: none;
+    }
+}

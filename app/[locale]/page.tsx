@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import { createClient } from "../../lib/supabase/server";
 
+import HomeHeader from "./HomeHeader";
+
 import styles from "./page.module.css";
 import sectionStyles from "./home-sections.module.css";
 
@@ -38,70 +40,28 @@ export default async function HomePage({ params }: Props) {
     <main className={styles.main}>
       <section className={styles.hero}>
         <div className={styles.heroBackground} />
+
         <div className={styles.heroOverlay} />
+
         <div className={styles.heroGlow} />
 
-        <header className={styles.header}>
-          <div className={styles.logo}>RESTAURANT</div>
+        <HomeHeader
+          locale={currentLocale}
+          isLoggedIn={Boolean(user)}
+          labels={{
+            menu: messages.navigation.menu,
 
-          <nav className={styles.navigation}>
-            <Link href={`/${currentLocale}/reservations`}>
-              {messages.navigation.reserve}
-            </Link>
+            events: messages.navigation.events,
 
-            <Link href={`/${currentLocale}/menu`}>
-              {messages.navigation.menu}
-            </Link>
+            contact: messages.navigation.contact,
 
-            <a href="#events">{messages.navigation.events}</a>
+            reserve: messages.navigation.reserve,
 
-            <a href="#contact">{messages.navigation.contact}</a>
-          </nav>
+            login: messages.navigation.login,
 
-          <div className={styles.headerActions}>
-            <div className={styles.languageSwitcher}>
-              <Link
-                href="/bg"
-                className={
-                  currentLocale === "bg"
-                    ? styles.languageActive
-                    : styles.languageInactive
-                }
-              >
-                BG
-              </Link>
-
-              <span>/</span>
-
-              <Link
-                href="/en"
-                className={
-                  currentLocale === "en"
-                    ? styles.languageActive
-                    : styles.languageInactive
-                }
-              >
-                EN
-              </Link>
-            </div>
-
-            <Link
-              href={
-                user ? `/${currentLocale}/account` : `/${currentLocale}/login`
-              }
-              className={styles.accountHeaderLink}
-            >
-              {user ? messages.navigation.account : messages.navigation.login}
-            </Link>
-
-            <Link
-              href={`/${currentLocale}/reservations`}
-              className={styles.reserveHeaderButton}
-            >
-              {messages.navigation.reserve}
-            </Link>
-          </div>
-        </header>
+            account: messages.navigation.account,
+          }}
+        />
 
         <div className={styles.sideLabel}>
           <span>Dining</span>
@@ -190,6 +150,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
+
                   <span>↗</span>
                 </Link>
               </div>
@@ -218,6 +179,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
+
                   <span>↗</span>
                 </Link>
               </div>
