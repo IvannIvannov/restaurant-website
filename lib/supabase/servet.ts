@@ -31,11 +31,7 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          /*
-           * setAll can be called from a Server Component,
-           * where cookies may be read-only.
-           * Session refresh will be handled separately.
-           */
+          // Cookies can be read-only in Server Components.
         }
       },
     },
