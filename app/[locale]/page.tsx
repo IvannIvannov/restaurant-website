@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import { createClient } from "../../lib/supabase/server";
+
 import styles from "./page.module.css";
 
 type Locale = "bg" | "en";
@@ -24,6 +27,12 @@ export default async function HomePage({ params }: Props) {
       ? (await import("../../messages/bg.json")).default
       : (await import("../../messages/en.json")).default;
 
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -35,9 +44,16 @@ export default async function HomePage({ params }: Props) {
           <div className={styles.logo}>RESTAURANT</div>
 
           <nav className={styles.navigation}>
-            <a href="#booking">{messages.navigation.reserve}</a>
-            <a href="#menu">{messages.navigation.menu}</a>
+            <Link href={`/${currentLocale}/reservations`}>
+              {messages.navigation.reserve}
+            </Link>
+
+            <Link href={`/${currentLocale}/menu`}>
+              {messages.navigation.menu}
+            </Link>
+
             <a href="#events">{messages.navigation.events}</a>
+
             <a href="#contact">{messages.navigation.contact}</a>
           </nav>
 
@@ -68,9 +84,21 @@ export default async function HomePage({ params }: Props) {
               </Link>
             </div>
 
-            <a href="#booking" className={styles.reserveHeaderButton}>
+            <Link
+              href={
+                user ? `/${currentLocale}/account` : `/${currentLocale}/login`
+              }
+              className={styles.accountHeaderLink}
+            >
+              {user ? messages.navigation.account : messages.navigation.login}
+            </Link>
+
+            <Link
+              href={`/${currentLocale}/reservations`}
+              className={styles.reserveHeaderButton}
+            >
               {messages.navigation.reserve}
-            </a>
+            </Link>
           </div>
         </header>
 
@@ -85,25 +113,33 @@ export default async function HomePage({ params }: Props) {
 
           <h1 className={styles.heroTitle}>
             <span>{messages.hero.titleLine1}</span>
+
             <span>{messages.hero.titleLine2}</span>
           </h1>
 
           <p className={styles.heroDescription}>{messages.hero.description}</p>
 
           <div className={styles.heroButtons}>
-            <a href="#booking" className={styles.primaryButton}>
+            <Link
+              href={`/${currentLocale}/reservations`}
+              className={styles.primaryButton}
+            >
               {messages.hero.reserve}
-            </a>
+            </Link>
 
-            <a href="#menu" className={styles.secondaryButton}>
+            <Link
+              href={`/${currentLocale}/menu`}
+              className={styles.secondaryButton}
+            >
               {messages.hero.menu}
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className={styles.bottomBar}>
           <div className={styles.bottomLocation}>
             <span className={styles.bottomLine} />
+
             <span>{messages.hero.bottomLabel}</span>
           </div>
 
@@ -153,6 +189,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
+
                   <span>↗</span>
                 </Link>
               </div>
@@ -184,6 +221,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
+
                   <span>↗</span>
                 </Link>
               </div>

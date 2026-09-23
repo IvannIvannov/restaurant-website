@@ -4,7 +4,9 @@
         "menu": "Menu",
         "events": "Events",
         "contact": "Contact",
-        "reserve": "Reserve a table"
+        "reserve": "Reserve a table",
+        "login": "Log in",
+        "account": "Account"
     },
     "hero": {
         "eyebrow": "Food · Atmosphere · Moments",

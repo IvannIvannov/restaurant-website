@@ -31,7 +31,7 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          // Cookies can be read-only in Server Components.
+          // Cookies may be read-only in Server Components.
         }
       },
     },
