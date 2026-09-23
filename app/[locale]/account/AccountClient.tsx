@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/client";
@@ -17,13 +17,15 @@ type Profile = {
   role: string;
 };
 
+type ReservationStatus = "pending" | "confirmed" | "cancelled" | "completed";
+
 type Reservation = {
   id: string;
   reservation_date: string;
   reservation_time: string;
   guests: number;
   seating_preference: "inside" | "outside" | "none";
-  status: "pending" | "confirmed" | "cancelled" | "completed";
+  status: ReservationStatus;
 };
 
 const translations = {
@@ -44,8 +46,18 @@ const translations = {
 
     noPhone: "Не е добавен",
 
+    edit: "Редактирай",
+    save: "Запази",
+    saving: "Запазване...",
+    cancel: "Отказ",
+
+    profileUpdated: "Профилът е обновен успешно.",
+
+    profileUpdateError: "Неуспешно обновяване на профила.",
+
     reservations: "Моите резервации",
-    noReservations: "Все още нямаш резервации.",
+
+    noReservations: "Все още нямаш предстоящи резервации.",
 
     createReservation: "Запази маса",
 
@@ -60,9 +72,18 @@ const translations = {
     none: "Без предпочитание",
 
     pending: "Очаква потвърждение",
+
     confirmed: "Потвърдена",
     cancelled: "Отказана",
     completed: "Завършена",
+
+    cancelReservation: "Откажи резервацията",
+
+    cancelling: "Отказване...",
+
+    cancelConfirm: "Сигурна ли си, че искаш да откажеш тази резервация?",
+
+    cancelError: "Резервацията не можа да бъде отказана.",
 
     logout: "Изход",
     loggingOut: "Излизане...",
@@ -89,8 +110,18 @@ const translations = {
 
     noPhone: "Not added",
 
+    edit: "Edit",
+    save: "Save",
+    saving: "Saving...",
+    cancel: "Cancel",
+
+    profileUpdated: "Profile updated successfully.",
+
+    profileUpdateError: "Unable to update profile.",
+
     reservations: "My reservations",
-    noReservations: "You don't have any reservations yet.",
+
+    noReservations: "You don't have any upcoming reservations yet.",
 
     createReservation: "Reserve a table",
 
@@ -108,6 +139,14 @@ const translations = {
     confirmed: "Confirmed",
     cancelled: "Cancelled",
     completed: "Completed",
+
+    cancelReservation: "Cancel reservation",
+
+    cancelling: "Cancelling...",
+
+    cancelConfirm: "Are you sure you want to cancel this reservation?",
+
+    cancelError: "The reservation could not be cancelled.",
 
     logout: "Log out",
     loggingOut: "Logging out...",
@@ -136,7 +175,19 @@ export default function AccountClient() {
 
   const [logoutLoading, setLogoutLoading] = useState(false);
 
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+
   const [error, setError] = useState("");
+
+  const [message, setMessage] = useState("");
+
+  const [editing, setEditing] = useState(false);
+
+  const [editName, setEditName] = useState("");
+
+  const [editPhone, setEditPhone] = useState("");
+
+  const [savingProfile, setSavingProfile] = useState(false);
 
   useEffect(() => {
     const loadAccount = async () => {
@@ -171,18 +222,22 @@ export default function AccountClient() {
 
         setProfile(profileData);
 
+        setEditName(profileData.full_name ?? "");
+
+        setEditPhone(profileData.phone ?? "");
+
         const { data: reservationsData, error: reservationsError } =
           await supabase
             .from("reservations")
             .select(
               `
-            id,
-            reservation_date,
-            reservation_time,
-            guests,
-            seating_preference,
-            status
-            `,
+              id,
+              reservation_date,
+              reservation_time,
+              guests,
+              seating_preference,
+              status
+              `,
             )
             .eq("user_id", user.id)
             .gte("reservation_date", new Date().toISOString().split("T")[0])
@@ -219,9 +274,113 @@ export default function AccountClient() {
       await supabase.auth.signOut();
 
       router.push(`/${locale}/login`);
+
       router.refresh();
     } finally {
       setLogoutLoading(false);
+    }
+  };
+
+  const handleProfileSave = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!profile) {
+      return;
+    }
+
+    setSavingProfile(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const supabase = createClient();
+
+      const { data, error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          full_name: editName.trim(),
+          phone: editPhone.trim() ? editPhone.trim() : null,
+        })
+        .eq("id", profile.id)
+        .select("id, full_name, phone, role")
+        .single();
+
+      if (updateError) {
+        console.error("Profile update error:", updateError);
+
+        setError(t.profileUpdateError);
+
+        return;
+      }
+
+      setProfile(data);
+
+      setEditing(false);
+
+      setMessage(t.profileUpdated);
+    } catch (caughtError) {
+      console.error("Profile update error:", caughtError);
+
+      setError(t.profileUpdateError);
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  const cancelProfileEdit = () => {
+    setEditName(profile?.full_name ?? "");
+
+    setEditPhone(profile?.phone ?? "");
+
+    setEditing(false);
+  };
+
+  const cancelReservation = async (reservationId: string) => {
+    const shouldCancel = window.confirm(t.cancelConfirm);
+
+    if (!shouldCancel) {
+      return;
+    }
+
+    setCancellingId(reservationId);
+
+    setError("");
+    setMessage("");
+
+    try {
+      const supabase = createClient();
+
+      const { error: cancelError } = await supabase.rpc(
+        "cancel_own_reservation",
+        {
+          reservation_id: reservationId,
+        },
+      );
+
+      if (cancelError) {
+        console.error("Cancel reservation error:", cancelError);
+
+        setError(t.cancelError);
+
+        return;
+      }
+
+      setReservations((current) =>
+        current.map((reservation) =>
+          reservation.id === reservationId
+            ? {
+                ...reservation,
+                status: "cancelled",
+              }
+            : reservation,
+        ),
+      );
+    } catch (caughtError) {
+      console.error("Cancel reservation error:", caughtError);
+
+      setError(t.cancelError);
+    } finally {
+      setCancellingId(null);
     }
   };
 
@@ -237,7 +396,7 @@ export default function AccountClient() {
     return t.none;
   };
 
-  const getStatusLabel = (status: Reservation["status"]) => {
+  const getStatusLabel = (status: ReservationStatus) => {
     if (status === "confirmed") {
       return t.confirmed;
     }
@@ -251,6 +410,10 @@ export default function AccountClient() {
     }
 
     return t.pending;
+  };
+
+  const canCancel = (status: ReservationStatus) => {
+    return status === "pending" || status === "confirmed";
   };
 
   if (loading) {
@@ -307,47 +470,101 @@ export default function AccountClient() {
 
         {error && <p className={styles.error}>{error}</p>}
 
+        {message && <p className={styles.successMessage}>{message}</p>}
+
         {profile && (
           <section className={styles.card}>
-            <div className={styles.sectionHeading}>
+            <div className={styles.profileHeader}>
               <h2>{t.personalInfo}</h2>
+
+              {!editing && (
+                <button
+                  type="button"
+                  className={styles.editButton}
+                  onClick={() => setEditing(true)}
+                >
+                  {t.edit}
+                </button>
+              )}
             </div>
 
-            <div className={styles.infoGrid}>
-              <div>
-                <span>{t.name}</span>
+            {editing ? (
+              <form className={styles.profileForm} onSubmit={handleProfileSave}>
+                <div className={styles.profileInputGroup}>
+                  <label htmlFor="profile-name">{t.name}</label>
 
-                <strong>{profile.full_name || "—"}</strong>
+                  <input
+                    id="profile-name"
+                    type="text"
+                    value={editName}
+                    onChange={(event) => setEditName(event.target.value)}
+                  />
+                </div>
+
+                <div className={styles.profileInputGroup}>
+                  <label htmlFor="profile-phone">{t.phone}</label>
+
+                  <input
+                    id="profile-phone"
+                    type="tel"
+                    value={editPhone}
+                    onChange={(event) => setEditPhone(event.target.value)}
+                  />
+                </div>
+
+                <div className={styles.profileActions}>
+                  <button
+                    type="button"
+                    className={styles.profileCancelButton}
+                    onClick={cancelProfileEdit}
+                  >
+                    {t.cancel}
+                  </button>
+
+                  <button
+                    type="submit"
+                    className={styles.profileSaveButton}
+                    disabled={savingProfile}
+                  >
+                    {savingProfile ? t.saving : t.save}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className={styles.infoGrid}>
+                <div>
+                  <span>{t.name}</span>
+
+                  <strong>{profile.full_name || "—"}</strong>
+                </div>
+
+                <div>
+                  <span>{t.email}</span>
+
+                  <strong>{email}</strong>
+                </div>
+
+                <div>
+                  <span>{t.phone}</span>
+
+                  <strong>{profile.phone || t.noPhone}</strong>
+                </div>
+
+                <div>
+                  <span>{t.role}</span>
+
+                  <strong>
+                    {profile.role === "admin" ? t.admin : t.customer}
+                  </strong>
+                </div>
               </div>
-
-              <div>
-                <span>{t.email}</span>
-
-                <strong>{email}</strong>
-              </div>
-
-              <div>
-                <span>{t.phone}</span>
-
-                <strong>{profile.phone || t.noPhone}</strong>
-              </div>
-
-              <div>
-                <span>{t.role}</span>
-
-                <strong>
-                  {profile.role === "admin" ? t.admin : t.customer}
-                </strong>
-              </div>
-            </div>
+            )}
           </section>
         )}
 
         <section className={styles.card}>
           <div className={styles.reservationsHeader}>
-            <div>
-              <h2>{t.reservations}</h2>
-            </div>
+            <h2>{t.reservations}</h2>
 
             <Link
               href={`/${locale}/reservations`}
@@ -396,6 +613,20 @@ export default function AccountClient() {
 
                     <strong>{getStatusLabel(reservation.status)}</strong>
                   </div>
+
+                  {canCancel(reservation.status) && (
+                    <div className={styles.reservationActions}>
+                      <button
+                        type="button"
+                        disabled={cancellingId === reservation.id}
+                        onClick={() => cancelReservation(reservation.id)}
+                      >
+                        {cancellingId === reservation.id
+                          ? t.cancelling
+                          : t.cancelReservation}
+                      </button>
+                    </div>
+                  )}
                 </article>
               ))}
             </div>
