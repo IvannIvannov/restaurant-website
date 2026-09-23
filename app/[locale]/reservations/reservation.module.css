@@ -1,0 +1,446 @@
+.main {
+    min-height: 100vh;
+    background: #f2ede4;
+    color: #1a1d19;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 56px;
+}
+
+.homeLink {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+}
+
+.homeLink:hover {
+    opacity: 1;
+}
+
+.languageSwitcher {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+}
+
+.languageSwitcher a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.25s ease;
+}
+
+.languageSwitcher a:hover,
+.activeLanguage {
+    opacity: 1 !important;
+}
+
+.languageSwitcher span {
+    opacity: 0.2;
+}
+
+.page {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 70px 56px 120px;
+    gap: 120px;
+}
+
+.intro {
+    position: sticky;
+    top: 70px;
+    align-self: start;
+}
+
+.stepLabel {
+    margin: 0 0 30px;
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: rgba(26, 29, 25, 0.35);
+}
+
+.intro h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(62px, 7vw, 110px);
+    font-weight: 500;
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+}
+
+.subtitle {
+    max-width: 360px;
+    margin: 30px 0 0;
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(26, 29, 25, 0.52);
+}
+
+.formArea {
+    padding-top: 10px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+.step h2 {
+    margin: 0 0 5px;
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+}
+
+.fieldGroup,
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fieldGroup label,
+.inputGroup label,
+.label {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(26, 29, 25, 0.48);
+}
+
+.fieldGroup input,
+.inputGroup input,
+.inputGroup textarea {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(26, 29, 25, 0.2);
+    border-radius: 0;
+    background: transparent;
+    padding: 12px 0;
+    color: #1a1d19;
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease;
+}
+
+.fieldGroup input:focus,
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    border-color: #1a1d19;
+}
+
+.inputGroup textarea {
+    resize: vertical;
+}
+
+.inputGroup textarea::placeholder {
+    color: rgba(26, 29, 25, 0.3);
+}
+
+.optionGrid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border-top: 1px solid rgba(26, 29, 25, 0.15);
+    border-left: 1px solid rgba(26, 29, 25, 0.15);
+}
+
+.timeGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(26, 29, 25, 0.15);
+    border-left: 1px solid rgba(26, 29, 25, 0.15);
+}
+
+.optionButton,
+.optionActive {
+    min-height: 58px;
+    border: 0;
+    border-right: 1px solid rgba(26, 29, 25, 0.15);
+    border-bottom: 1px solid rgba(26, 29, 25, 0.15);
+    background: transparent;
+    color: #1a1d19;
+    font-family: var(--font-body);
+    font-size: 11px;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.optionButton:hover {
+    background: rgba(26, 29, 25, 0.05);
+}
+
+.optionActive {
+    background: #1a1d19;
+    color: #f2ede4;
+}
+
+.seatingGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.seatingButton,
+.seatingActive {
+    border: 1px solid rgba(26, 29, 25, 0.18);
+    background: transparent;
+    padding: 18px;
+    color: #1a1d19;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.seatingButton:hover {
+    border-color: rgba(26, 29, 25, 0.5);
+}
+
+.seatingActive {
+    background: #1a1d19;
+    color: #f2ede4;
+    border-color: #1a1d19;
+}
+
+.helperText {
+    max-width: 520px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 10px;
+    line-height: 1.6;
+    color: rgba(26, 29, 25, 0.42);
+}
+
+.textFields {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.error {
+    margin: -15px 0 0;
+    font-family: var(--font-body);
+    font-size: 10px;
+    color: #874b3e;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.primaryButton,
+.secondaryButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    border: 0;
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.primaryButton {
+    align-self: flex-end;
+    min-width: 190px;
+    background: #1a1d19;
+    color: #f2ede4;
+    padding: 17px 22px;
+}
+
+.secondaryButton {
+    background: transparent;
+    color: rgba(26, 29, 25, 0.52);
+    padding: 12px 0;
+}
+
+.primaryButton span {
+    transition: transform 0.25s ease;
+}
+
+.primaryButton:hover span {
+    transform: translateX(4px);
+}
+
+.summary {
+    border-top: 1px solid rgba(26, 29, 25, 0.14);
+}
+
+.summaryRow {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 30px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(26, 29, 25, 0.14);
+}
+
+.summaryRow span {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(26, 29, 25, 0.42);
+}
+
+.summaryRow strong {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.success {
+    display: flex;
+    min-height: calc(100vh - 100px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.successMark {
+    display: flex;
+    width: 52px;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+    border: 1px solid rgba(26, 29, 25, 0.25);
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.success h1 {
+    max-width: 900px;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(58px, 8vw, 120px);
+    font-weight: 500;
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+}
+
+.success p {
+    max-width: 500px;
+    margin: 30px 0;
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(26, 29, 25, 0.52);
+}
+
+.homeButton {
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(26, 29, 25, 0.4);
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .page {
+        grid-template-columns: 1fr;
+        padding: 50px 30px 90px;
+        gap: 65px;
+    }
+
+    .intro {
+        position: static;
+    }
+
+    .optionGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .timeGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 20px;
+    }
+
+    .page {
+        padding: 40px 20px 70px;
+        gap: 50px;
+    }
+
+    .intro h1 {
+        font-size: clamp(54px, 16vw, 82px);
+    }
+
+    .step {
+        gap: 38px;
+    }
+
+    .optionGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .timeGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .seatingGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .primaryButton {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .secondaryButton {
+        align-self: flex-start;
+    }
+
+    .summaryRow {
+        grid-template-columns: 95px 1fr;
+        gap: 15px;
+    }
+}
