@@ -3,18 +3,30 @@
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
+import { DayPicker } from "react-day-picker";
+import { bg, enUS } from "date-fns/locale";
+import { format } from "date-fns";
+
 import styles from "./reservation.module.css";
 
 type Locale = "bg" | "en";
-
 type Seating = "inside" | "outside" | "none";
 
 const times = [
+  "11:00",
+  "11:30",
   "12:00",
   "12:30",
   "13:00",
   "13:30",
   "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
   "18:00",
   "18:30",
   "19:00",
@@ -23,109 +35,97 @@ const times = [
   "20:30",
   "21:00",
   "21:30",
+  "22:00",
+  "22:30",
 ];
 
 const translations = {
   bg: {
     home: "Начало",
-    title: "РЕЗЕРВАЦИЯ",
-    subtitle: "Избери кога и как искаш да ни посетиш.",
+    title: "Запази маса",
+    subtitle: "Попълни формата и избери най-удобните за теб дата и час.",
 
     date: "Дата",
-    guests: "Гости",
-    guest: "гост",
-    guestsPlural: "гости",
-
+    guests: "Брой гости",
     time: "Час",
-
     seating: "Предпочитана зона",
+
     inside: "Вътре",
     outside: "Вън",
     noPreference: "Без предпочитание",
 
-    seatingNote:
-      "Ще направим всичко възможно да се съобразим с избраната зона според наличността.",
+    seatingNote: "Зоната е предпочитание и зависи от наличността.",
 
-    details: "Твоите данни",
+    details: "Контактни данни",
 
     name: "Име",
     phone: "Телефон",
     email: "Имейл",
     note: "Бележка",
-
-    notePlaceholder: "Повод, детско столче, специално изискване...",
+    notePlaceholder: "Например повод, детско столче или друго изискване",
 
     continue: "Продължи",
     back: "Назад",
-
-    review: "Провери резервацията",
+    review: "Преглед",
     confirm: "Потвърди",
 
-    confirmed: "ЗАЯВКАТА Е ГОТОВА",
+    selectedDate: "Избрана дата",
 
-    confirmedText:
-      "Следващата стъпка е да свържем резервацията с профил и реалната база данни.",
+    guest: "гост",
+    guestsPlural: "гости",
 
-    dateLabel: "Дата",
-    timeLabel: "Час",
-    guestsLabel: "Гости",
-    seatingLabel: "Зона",
-    contactLabel: "Контакт",
+    summary: "Преглед на резервацията",
 
     required: "Моля, попълни всички задължителни полета.",
 
-    change: "Промени",
+    confirmed: "Заявката е готова",
+    confirmedText:
+      "След свързването с базата данни тук ще се изпраща реалната резервация.",
   },
 
   en: {
     home: "Home",
-    title: "RESERVATION",
-    subtitle: "Choose when and how you would like to visit us.",
+    title: "Reserve a table",
+    subtitle:
+      "Complete the form and choose the date and time that suit you best.",
 
     date: "Date",
-    guests: "Guests",
-    guest: "guest",
-    guestsPlural: "guests",
-
+    guests: "Number of guests",
     time: "Time",
-
     seating: "Preferred seating",
+
     inside: "Inside",
     outside: "Outside",
     noPreference: "No preference",
 
     seatingNote:
-      "We will do our best to accommodate your preferred area depending on availability.",
+      "Your seating choice is a preference and depends on availability.",
 
-    details: "Your details",
+    details: "Contact details",
 
     name: "Name",
     phone: "Phone",
     email: "Email",
     note: "Note",
-
-    notePlaceholder: "Occasion, high chair, special request...",
+    notePlaceholder: "For example occasion, high chair or another request",
 
     continue: "Continue",
     back: "Back",
-
-    review: "Review reservation",
+    review: "Review",
     confirm: "Confirm",
 
-    confirmed: "REQUEST READY",
+    selectedDate: "Selected date",
 
-    confirmedText:
-      "The next step is connecting the reservation to an account and the real database.",
+    guest: "guest",
+    guestsPlural: "guests",
 
-    dateLabel: "Date",
-    timeLabel: "Time",
-    guestsLabel: "Guests",
-    seatingLabel: "Seating",
-    contactLabel: "Contact",
+    summary: "Reservation summary",
 
     required: "Please complete all required fields.",
 
-    change: "Change",
+    confirmed: "Request ready",
+    confirmedText:
+      "Once connected to the database, the real reservation will be submitted here.",
   },
 };
 
@@ -138,29 +138,55 @@ export default function ReservationClient() {
 
   const [step, setStep] = useState(1);
 
-  const [date, setDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
 
-  const [guests, setGuests] = useState<number | null>(null);
+  const [guests, setGuests] = useState(2);
 
   const [time, setTime] = useState("");
 
-  const [seating, setSeating] = useState<Seating | null>(null);
+  const [seating, setSeating] = useState<Seating>("none");
 
   const [name, setName] = useState("");
-
   const [phone, setPhone] = useState("");
-
   const [email, setEmail] = useState("");
-
   const [note, setNote] = useState("");
 
   const [error, setError] = useState("");
-
   const [confirmed, setConfirmed] = useState(false);
 
   const today = useMemo(() => {
-    return new Date().toISOString().split("T")[0];
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    return currentDate;
   }, []);
+
+  const formattedDate = selectedDate
+    ? format(selectedDate, locale === "bg" ? "d MMMM yyyy" : "MMMM d, yyyy", {
+        locale: locale === "bg" ? bg : enUS,
+      })
+    : "";
+
+  const decreaseGuests = () => {
+    setGuests((current) => (current > 1 ? current - 1 : 1));
+  };
+
+  const increaseGuests = () => {
+    setGuests((current) => (current < 100 ? current + 1 : 100));
+  };
+
+  const handleGuestsInput = (value: string) => {
+    const number = Number(value);
+
+    if (!value) {
+      setGuests(1);
+      return;
+    }
+
+    if (Number.isInteger(number) && number >= 1 && number <= 100) {
+      setGuests(number);
+    }
+  };
 
   const getSeatingLabel = () => {
     if (seating === "inside") {
@@ -171,15 +197,11 @@ export default function ReservationClient() {
       return t.outside;
     }
 
-    if (seating === "none") {
-      return t.noPreference;
-    }
-
-    return "";
+    return t.noPreference;
   };
 
   const goToDetails = () => {
-    if (!date || !guests || !time || !seating) {
+    if (!selectedDate || !time) {
       setError(t.required);
       return;
     }
@@ -200,48 +222,20 @@ export default function ReservationClient() {
     setStep(3);
   };
 
-  const confirmReservation = () => {
-    setConfirmed(true);
-  };
-
   if (confirmed) {
     return (
       <main className={styles.main}>
-        <header className={styles.header}>
-          <Link href={`/${locale}`} className={styles.homeLink}>
-            ← {t.home}
-          </Link>
-
-          <div className={styles.languageSwitcher}>
-            <Link
-              href="/bg/reservations"
-              className={locale === "bg" ? styles.activeLanguage : ""}
-            >
-              BG
-            </Link>
-
-            <span>/</span>
-
-            <Link
-              href="/en/reservations"
-              className={locale === "en" ? styles.activeLanguage : ""}
-            >
-              EN
-            </Link>
-          </div>
-        </header>
-
-        <section className={styles.success}>
-          <span className={styles.successMark}>✓</span>
+        <div className={styles.successCard}>
+          <div className={styles.successIcon}>✓</div>
 
           <h1>{t.confirmed}</h1>
 
           <p>{t.confirmedText}</p>
 
-          <Link href={`/${locale}`} className={styles.homeButton}>
-            {t.home}
+          <Link href={`/${locale}`} className={styles.backHome}>
+            ← {t.home}
           </Link>
-        </section>
+        </div>
       </main>
     );
   }
@@ -272,65 +266,106 @@ export default function ReservationClient() {
         </div>
       </header>
 
-      <div className={styles.page}>
-        <aside className={styles.intro}>
-          <p className={styles.stepLabel}>0{step} / 03</p>
-
+      <div className={styles.container}>
+        <div className={styles.heading}>
           <h1>{t.title}</h1>
 
-          <p className={styles.subtitle}>{t.subtitle}</p>
-        </aside>
+          <p>{t.subtitle}</p>
+        </div>
 
-        <section className={styles.formArea}>
+        <div className={styles.steps}>
+          <span className={step >= 1 ? styles.stepActive : ""}>1</span>
+
+          <div />
+
+          <span className={step >= 2 ? styles.stepActive : ""}>2</span>
+
+          <div />
+
+          <span className={step >= 3 ? styles.stepActive : ""}>3</span>
+        </div>
+
+        <section className={styles.formCard}>
           {step === 1 && (
-            <div className={styles.step}>
-              <div className={styles.fieldGroup}>
-                <label htmlFor="date">{t.date}</label>
+            <div className={styles.formContent}>
+              <div className={styles.field}>
+                <label>{t.date}</label>
 
-                <input
-                  id="date"
-                  type="date"
-                  min={today}
-                  value={date}
-                  onChange={(event) => setDate(event.target.value)}
-                />
+                <div className={styles.calendarBox}>
+                  <DayPicker
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    disabled={{
+                      before: today,
+                    }}
+                    locale={locale === "bg" ? bg : enUS}
+                    weekStartsOn={1}
+                    classNames={{
+                      root: styles.calendar,
+                      months: styles.calendarMonths,
+                      month: styles.calendarMonth,
+                      month_caption: styles.calendarCaption,
+                      caption_label: styles.calendarCaptionLabel,
+                      nav: styles.calendarNav,
+                      button_previous: styles.calendarNavButton,
+                      button_next: styles.calendarNavButton,
+                      month_grid: styles.calendarGrid,
+                      weekdays: styles.calendarWeekdays,
+                      weekday: styles.calendarWeekday,
+                      week: styles.calendarWeek,
+                      day: styles.calendarDay,
+                      day_button: styles.calendarDayButton,
+                      selected: styles.calendarSelected,
+                      today: styles.calendarToday,
+                      outside: styles.calendarOutside,
+                      disabled: styles.calendarDisabled,
+                      chevron: styles.calendarChevron,
+                    }}
+                  />
+                </div>
+
+                {formattedDate && (
+                  <p className={styles.selectedDate}>
+                    {t.selectedDate}: <strong>{formattedDate}</strong>
+                  </p>
+                )}
               </div>
 
-              <div className={styles.fieldGroup}>
-                <span className={styles.label}>{t.guests}</span>
+              <div className={styles.field}>
+                <label>{t.guests}</label>
 
-                <div className={styles.optionGrid}>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
-                    <button
-                      key={number}
-                      type="button"
-                      className={
-                        guests === number
-                          ? styles.optionActive
-                          : styles.optionButton
-                      }
-                      onClick={() => setGuests(number)}
-                    >
-                      {number}
-                    </button>
-                  ))}
+                <div className={styles.guestControl}>
+                  <button type="button" onClick={decreaseGuests}>
+                    −
+                  </button>
+
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={guests}
+                    onChange={(event) => handleGuestsInput(event.target.value)}
+                  />
+
+                  <button type="button" onClick={increaseGuests}>
+                    +
+                  </button>
                 </div>
               </div>
 
-              <div className={styles.fieldGroup}>
-                <span className={styles.label}>{t.time}</span>
+              <div className={styles.field}>
+                <label>{t.time}</label>
 
                 <div className={styles.timeGrid}>
                   {times.map((slot) => (
                     <button
                       key={slot}
                       type="button"
-                      className={
-                        time === slot
-                          ? styles.optionActive
-                          : styles.optionButton
-                      }
                       onClick={() => setTime(slot)}
+                      className={
+                        time === slot ? styles.timeActive : styles.timeButton
+                      }
                     >
                       {slot}
                     </button>
@@ -338,48 +373,48 @@ export default function ReservationClient() {
                 </div>
               </div>
 
-              <div className={styles.fieldGroup}>
-                <span className={styles.label}>{t.seating}</span>
+              <div className={styles.field}>
+                <label>{t.seating}</label>
 
                 <div className={styles.seatingGrid}>
                   <button
                     type="button"
+                    onClick={() => setSeating("inside")}
                     className={
                       seating === "inside"
                         ? styles.seatingActive
                         : styles.seatingButton
                     }
-                    onClick={() => setSeating("inside")}
                   >
                     {t.inside}
                   </button>
 
                   <button
                     type="button"
+                    onClick={() => setSeating("outside")}
                     className={
                       seating === "outside"
                         ? styles.seatingActive
                         : styles.seatingButton
                     }
-                    onClick={() => setSeating("outside")}
                   >
                     {t.outside}
                   </button>
 
                   <button
                     type="button"
+                    onClick={() => setSeating("none")}
                     className={
                       seating === "none"
                         ? styles.seatingActive
                         : styles.seatingButton
                     }
-                    onClick={() => setSeating("none")}
                   >
                     {t.noPreference}
                   </button>
                 </div>
 
-                <p className={styles.helperText}>{t.seatingNote}</p>
+                <p className={styles.helper}>{t.seatingNote}</p>
               </div>
 
               {error && <p className={styles.error}>{error}</p>}
@@ -390,158 +425,145 @@ export default function ReservationClient() {
                 onClick={goToDetails}
               >
                 {t.continue}
-
-                <span>→</span>
               </button>
             </div>
           )}
 
           {step === 2 && (
-            <form className={styles.step} onSubmit={goToReview}>
+            <form className={styles.formContent} onSubmit={goToReview}>
               <h2>{t.details}</h2>
 
-              <div className={styles.textFields}>
-                <div className={styles.inputGroup}>
-                  <label htmlFor="name">{t.name} *</label>
+              <div className={styles.inputGroup}>
+                <label htmlFor="name">{t.name} *</label>
 
-                  <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    autoComplete="name"
-                  />
-                </div>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  autoComplete="name"
+                />
+              </div>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="phone">{t.phone} *</label>
+              <div className={styles.inputGroup}>
+                <label htmlFor="phone">{t.phone} *</label>
 
-                  <input
-                    id="phone"
-                    type="tel"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    autoComplete="tel"
-                  />
-                </div>
+                <input
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  autoComplete="tel"
+                />
+              </div>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="email">{t.email} *</label>
+              <div className={styles.inputGroup}>
+                <label htmlFor="email">{t.email} *</label>
 
-                  <input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    autoComplete="email"
-                  />
-                </div>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  autoComplete="email"
+                />
+              </div>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="note">{t.note}</label>
+              <div className={styles.inputGroup}>
+                <label htmlFor="note">{t.note}</label>
 
-                  <textarea
-                    id="note"
-                    value={note}
-                    placeholder={t.notePlaceholder}
-                    onChange={(event) => setNote(event.target.value)}
-                    rows={4}
-                  />
-                </div>
+                <textarea
+                  id="note"
+                  rows={4}
+                  value={note}
+                  placeholder={t.notePlaceholder}
+                  onChange={(event) => setNote(event.target.value)}
+                />
               </div>
 
               {error && <p className={styles.error}>{error}</p>}
 
-              <div className={styles.buttons}>
+              <div className={styles.actions}>
                 <button
                   type="button"
                   className={styles.secondaryButton}
-                  onClick={() => {
-                    setError("");
-                    setStep(1);
-                  }}
+                  onClick={() => setStep(1)}
                 >
                   ← {t.back}
                 </button>
 
                 <button type="submit" className={styles.primaryButton}>
                   {t.review}
-
-                  <span>→</span>
                 </button>
               </div>
             </form>
           )}
 
           {step === 3 && (
-            <div className={styles.step}>
-              <h2>{t.review}</h2>
+            <div className={styles.formContent}>
+              <h2>{t.summary}</h2>
 
               <div className={styles.summary}>
-                <div className={styles.summaryRow}>
-                  <span>{t.dateLabel}</span>
-
-                  <strong>{date}</strong>
+                <div>
+                  <span>{t.date}</span>
+                  <strong>{formattedDate}</strong>
                 </div>
 
-                <div className={styles.summaryRow}>
-                  <span>{t.timeLabel}</span>
-
+                <div>
+                  <span>{t.time}</span>
                   <strong>{time}</strong>
                 </div>
 
-                <div className={styles.summaryRow}>
-                  <span>{t.guestsLabel}</span>
-
+                <div>
+                  <span>{t.guests}</span>
                   <strong>
                     {guests} {guests === 1 ? t.guest : t.guestsPlural}
                   </strong>
                 </div>
 
-                <div className={styles.summaryRow}>
-                  <span>{t.seatingLabel}</span>
-
+                <div>
+                  <span>{t.seating}</span>
                   <strong>{getSeatingLabel()}</strong>
                 </div>
 
-                <div className={styles.summaryRow}>
-                  <span>{t.contactLabel}</span>
+                <div>
+                  <span>{t.name}</span>
+                  <strong>{name}</strong>
+                </div>
 
-                  <strong>
-                    {name}
-                    <br />
-                    {phone}
-                    <br />
-                    {email}
-                  </strong>
+                <div>
+                  <span>{t.phone}</span>
+                  <strong>{phone}</strong>
+                </div>
+
+                <div>
+                  <span>{t.email}</span>
+                  <strong>{email}</strong>
                 </div>
 
                 {note && (
-                  <div className={styles.summaryRow}>
+                  <div>
                     <span>{t.note}</span>
-
                     <strong>{note}</strong>
                   </div>
                 )}
               </div>
 
-              <div className={styles.buttons}>
+              <div className={styles.actions}>
                 <button
                   type="button"
                   className={styles.secondaryButton}
                   onClick={() => setStep(2)}
                 >
-                  ← {t.change}
+                  ← {t.back}
                 </button>
 
                 <button
                   type="button"
                   className={styles.primaryButton}
-                  onClick={confirmReservation}
+                  onClick={() => setConfirmed(true)}
                 >
                   {t.confirm}
-
-                  <span>→</span>
                 </button>
               </div>
             </div>
