@@ -6,8 +6,6 @@ import { FormEvent, useEffect, useState } from "react";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-import { useRouter } from "next/navigation";
-
 import { createClient } from "../../lib/supabase/client";
 
 import styles from "./auth-modal.module.css";
@@ -21,6 +19,7 @@ type AuthModalProps = {
   isOpen: boolean;
   initialMode?: AuthMode;
   onClose: () => void;
+  onAuthenticated: () => void;
 };
 
 export default function AuthModal({
@@ -28,9 +27,8 @@ export default function AuthModal({
   isOpen,
   initialMode = "login",
   onClose,
+  onAuthenticated,
 }: AuthModalProps) {
-  const router = useRouter();
-
   const shouldReduceMotion = useReducedMotion();
 
   const [mode, setMode] = useState<AuthMode>(initialMode);
@@ -127,11 +125,9 @@ export default function AuthModal({
 
       setSuccess(isBg ? "Успешен вход." : "Successfully signed in.");
 
-      router.refresh();
-
       window.setTimeout(() => {
-        onClose();
-      }, 450);
+        onAuthenticated();
+      }, 350);
     } catch (authError) {
       const message = authError instanceof Error ? authError.message : "";
 
@@ -216,17 +212,17 @@ export default function AuthModal({
             : "Your account was created successfully.",
         );
 
-        router.refresh();
-
         window.setTimeout(() => {
-          onClose();
-        }, 500);
+          onAuthenticated();
+        }, 400);
 
         return;
       }
 
       setSuccess(
-        isBg ? "Регистрацията е успешна." : "Registration successful.",
+        isBg
+          ? "Регистрацията е успешна. Влез в профила си."
+          : "Registration successful. Please sign in.",
       );
 
       window.setTimeout(() => {
@@ -237,7 +233,7 @@ export default function AuthModal({
         setConfirmPassword("");
 
         setSuccess("");
-      }, 700);
+      }, 900);
     } catch (authError) {
       const message = authError instanceof Error ? authError.message : "";
 
@@ -350,8 +346,8 @@ export default function AuthModal({
               <p className={styles.description}>
                 {mode === "login"
                   ? isBg
-                    ? "Влез в профила си, за да управляваш своите резервации."
-                    : "Sign in to manage your reservations."
+                    ? "Влез в профила си, за да продължиш."
+                    : "Sign in to continue."
                   : isBg
                     ? "Създай профил за по-бързи резервации и лесно управление."
                     : "Create an account for faster bookings and easy reservation management."}
@@ -635,6 +631,9 @@ export default function AuthModal({
                         animate={{
                           opacity: 1,
                           y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
                         }}
                       >
                         {success}

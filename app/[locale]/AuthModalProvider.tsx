@@ -10,6 +10,8 @@ import {
   useState,
 } from "react";
 
+import { useRouter } from "next/navigation";
+
 import AuthModal from "./AuthModal";
 
 type Locale = "bg" | "en";
@@ -17,9 +19,17 @@ type Locale = "bg" | "en";
 type AuthMode = "login" | "register";
 
 type AuthModalContextValue = {
-  openLogin: () => void;
-  openRegister: () => void;
+  openLogin: (returnTo?: string) => void;
+
+  openRegister: (returnTo?: string) => void;
+
   closeAuth: () => void;
+};
+
+type AuthState = {
+  isOpen: boolean;
+  mode: AuthMode;
+  returnTo: string | null;
 };
 
 const AuthModalContext = createContext<AuthModalContextValue | null>(null);
@@ -27,31 +37,35 @@ const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 type AuthModalProviderProps = {
   children: ReactNode;
   locale: Locale;
+  isLoggedIn: boolean;
 };
 
 export default function AuthModalProvider({
   children,
   locale,
+  isLoggedIn,
 }: AuthModalProviderProps) {
-  const [authState, setAuthState] = useState<{
-    isOpen: boolean;
-    mode: AuthMode;
-  }>({
+  const router = useRouter();
+
+  const [authState, setAuthState] = useState<AuthState>({
     isOpen: false,
     mode: "login",
+    returnTo: null,
   });
 
-  const openLogin = useCallback(() => {
+  const openLogin = useCallback((returnTo?: string) => {
     setAuthState({
       isOpen: true,
       mode: "login",
+      returnTo: returnTo ?? null,
     });
   }, []);
 
-  const openRegister = useCallback(() => {
+  const openRegister = useCallback((returnTo?: string) => {
     setAuthState({
       isOpen: true,
       mode: "register",
+      returnTo: returnTo ?? null,
     });
   }, []);
 
@@ -59,8 +73,25 @@ export default function AuthModalProvider({
     setAuthState((current) => ({
       ...current,
       isOpen: false,
+      returnTo: null,
     }));
   }, []);
+
+  const handleAuthenticated = useCallback(() => {
+    const destination = authState.returnTo;
+
+    setAuthState((current) => ({
+      ...current,
+      isOpen: false,
+      returnTo: null,
+    }));
+
+    if (destination) {
+      router.push(destination);
+    }
+
+    router.refresh();
+  }, [authState.returnTo, router]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -76,13 +107,29 @@ export default function AuthModalProvider({
 
       const target = event.target;
 
-      if (!(target instanceof Element)) {
+      if (!(target instanceof Node)) {
         return;
       }
 
-      const anchor = target.closest("a");
+      let element: Element | null = null;
 
-      if (!anchor) {
+      if (target instanceof Element) {
+        element = target;
+      } else {
+        element = target.parentElement;
+      }
+
+      if (!element) {
+        return;
+      }
+
+      const anchor = element.closest("a[href]");
+
+      if (!(anchor instanceof HTMLAnchorElement)) {
+        return;
+      }
+
+      if (anchor.target === "_blank") {
         return;
       }
 
@@ -104,29 +151,58 @@ export default function AuthModalProvider({
         return;
       }
 
-      if (url.pathname === `/${locale}/login`) {
+      const normalizedPath = url.pathname.replace(/\/+$/, "");
+
+      const loginPath = `/${locale}/login`;
+
+      const registerPath = `/${locale}/register`;
+
+      const protectedPaths = [
+        `/${locale}/reservations`,
+        `/${locale}/account`,
+        `/${locale}/admin`,
+      ];
+
+      if (normalizedPath === loginPath) {
         event.preventDefault();
-        event.stopPropagation();
+
+        event.stopImmediatePropagation();
 
         openLogin();
 
         return;
       }
 
-      if (url.pathname === `/${locale}/register`) {
+      if (normalizedPath === registerPath) {
         event.preventDefault();
-        event.stopPropagation();
+
+        event.stopImmediatePropagation();
 
         openRegister();
+
+        return;
+      }
+
+      const isProtectedPath = protectedPaths.some(
+        (path) =>
+          normalizedPath === path || normalizedPath.startsWith(`${path}/`),
+      );
+
+      if (!isLoggedIn && isProtectedPath) {
+        event.preventDefault();
+
+        event.stopImmediatePropagation();
+
+        openLogin(`${url.pathname}${url.search}${url.hash}`);
       }
     };
 
-    document.addEventListener("click", handleClick, true);
+    window.addEventListener("click", handleClick, true);
 
     return () => {
-      document.removeEventListener("click", handleClick, true);
+      window.removeEventListener("click", handleClick, true);
     };
-  }, [locale, openLogin, openRegister]);
+  }, [isLoggedIn, locale, openLogin, openRegister]);
 
   const value = useMemo(
     () => ({
@@ -147,6 +223,7 @@ export default function AuthModalProvider({
         isOpen={authState.isOpen}
         initialMode={authState.mode}
         onClose={closeAuth}
+        onAuthenticated={handleAuthenticated}
       />
     </AuthModalContext.Provider>
   );

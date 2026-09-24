@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import { notFound } from "next/navigation";
 
+import { createClient } from "../../lib/supabase/server";
+
 import AuthModalProvider from "./AuthModalProvider";
 
 type LocaleLayoutProps = {
@@ -33,5 +35,15 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  return <AuthModalProvider locale={locale}>{children}</AuthModalProvider>;
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return (
+    <AuthModalProvider locale={locale} isLoggedIn={Boolean(user)}>
+      {children}
+    </AuthModalProvider>
+  );
 }
