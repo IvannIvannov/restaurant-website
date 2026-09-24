@@ -65,6 +65,28 @@
         "phoneLabel": "Phone",
         "emailLabel": "Email"
     },
+    "reviews": {
+        "eyebrow": "Guest reviews",
+        "title": "WHAT OUR GUESTS SAY",
+        "description": "A memorable evening is not only about taste, but also about the atmosphere, the people and the smallest details.",
+        "items": [
+            {
+                "name": "Maria P.",
+                "initials": "MP",
+                "text": "A lovely atmosphere, attentive service and beautifully presented food. Definitely a place we would happily return to."
+            },
+            {
+                "name": "Alexander K.",
+                "initials": "AK",
+                "text": "A perfect setting for a relaxed evening with friends. We enjoyed both the food and the overall feeling of the restaurant."
+            },
+            {
+                "name": "Elena S.",
+                "initials": "ES",
+                "text": "From the welcome to dessert, everything felt effortless and thoughtful. I would definitely choose it again for a special occasion."
+            }
+        ]
+    },
     "footer": {
         "description": "A demo restaurant website with online reservations, customer accounts and an administration dashboard.",
         "navigation": "Navigation",
