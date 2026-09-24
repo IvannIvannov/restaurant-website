@@ -1,114 +1,60 @@
 "use client";
 
 import Link from "next/link";
+
 import { FormEvent, useState } from "react";
-import { useParams } from "next/navigation";
+
+import { motion, useReducedMotion } from "motion/react";
+
+import { useRouter } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/client";
 
-import styles from "../auth.module.css";
+import styles from "./reset-password.module.css";
 
 type Locale = "bg" | "en";
 
-const translations = {
-  bg: {
-    home: "Начало",
-
-    title: "Нова парола",
-
-    subtitle: "Избери нова парола за своя акаунт.",
-
-    password: "Нова парола",
-
-    confirmPassword: "Повтори паролата",
-
-    requirement: "Паролата трябва да съдържа поне 8 символа.",
-
-    mismatch: "Паролите не съвпадат.",
-
-    submit: "Запази новата парола",
-
-    submitting: "Запазване...",
-
-    show: "Покажи",
-
-    hide: "Скрий",
-
-    success: "Паролата е променена успешно.",
-
-    successText: "Вече можеш да влезеш с новата си парола.",
-
-    login: "Вход в профила",
-
-    error: "Паролата не можа да бъде променена. Линкът може да е изтекъл.",
-  },
-
-  en: {
-    home: "Home",
-
-    title: "New password",
-
-    subtitle: "Choose a new password for your account.",
-
-    password: "New password",
-
-    confirmPassword: "Confirm password",
-
-    requirement: "Your password must contain at least 8 characters.",
-
-    mismatch: "The passwords do not match.",
-
-    submit: "Save new password",
-
-    submitting: "Saving...",
-
-    show: "Show",
-
-    hide: "Hide",
-
-    success: "Your password has been changed successfully.",
-
-    successText: "You can now log in using your new password.",
-
-    login: "Log in",
-
-    error:
-      "Your password could not be changed. The recovery link may have expired.",
-  },
+type ResetPasswordClientProps = {
+  locale: Locale;
 };
 
-export default function ResetPasswordClient() {
-  const params = useParams();
+export default function ResetPasswordClient({
+  locale,
+}: ResetPasswordClientProps) {
+  const router = useRouter();
 
-  const locale: Locale = params.locale === "en" ? "en" : "bg";
+  const shouldReduceMotion = useReducedMotion();
 
-  const t = translations[locale];
+  const isBg = locale === "bg";
 
   const [password, setPassword] = useState("");
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
 
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setError("");
+    setSuccess("");
 
-    if (password.length < 8) {
-      setError(t.requirement);
+    if (password.length < 6) {
+      setError(
+        isBg
+          ? "Паролата трябва да бъде поне 6 символа."
+          : "Password must be at least 6 characters.",
+      );
 
       return;
     }
 
     if (password !== confirmPassword) {
-      setError(t.mismatch);
+      setError(isBg ? "Паролите не съвпадат." : "Passwords do not match.");
 
       return;
     }
@@ -123,124 +69,176 @@ export default function ResetPasswordClient() {
       });
 
       if (updateError) {
-        console.error("Password update error:", updateError);
-
-        setError(updateError.message);
-
-        return;
+        throw updateError;
       }
 
-      await supabase.auth.signOut();
+      setSuccess(
+        isBg
+          ? "Паролата е променена успешно."
+          : "Your password has been changed successfully.",
+      );
 
-      setSuccess(true);
-    } catch (caughtError) {
-      console.error("Password update error:", caughtError);
+      setPassword("");
+      setConfirmPassword("");
 
-      setError(t.error);
+      window.setTimeout(() => {
+        router.push(`/${locale}`);
+
+        router.refresh();
+      }, 1200);
+    } catch (resetError) {
+      const message = resetError instanceof Error ? resetError.message : "";
+
+      if (message.toLowerCase().includes("session")) {
+        setError(
+          isBg
+            ? "Линкът за промяна на паролата е невалиден или е изтекъл. Изпрати нова заявка за възстановяване."
+            : "The password reset link is invalid or has expired. Please request a new reset link.",
+        );
+      } else {
+        setError(
+          isBg
+            ? "Не успяхме да променим паролата. Опитай отново."
+            : "We couldn't update your password. Please try again.",
+        );
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <Link href={`/${locale}`} className={styles.homeLink}>
-          ← {t.home}
-        </Link>
+    <main className={styles.page}>
+      <div className={styles.background} />
 
-        <div className={styles.languageSwitcher}>
-          <Link
-            href="/bg/reset-password"
-            className={locale === "bg" ? styles.activeLanguage : ""}
-          >
-            BG
-          </Link>
+      <div className={styles.overlay} />
 
-          <span>/</span>
+      <Link href={`/${locale}`} className={styles.logo}>
+        RESTAURANT
+      </Link>
 
-          <Link
-            href="/en/reset-password"
-            className={locale === "en" ? styles.activeLanguage : ""}
-          >
-            EN
-          </Link>
+      <motion.section
+        className={styles.card}
+        initial={
+          shouldReduceMotion
+            ? false
+            : {
+                opacity: 0,
+                y: 28,
+                scale: 0.975,
+              }
+        }
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: 1,
+        }}
+        transition={{
+          duration: shouldReduceMotion ? 0 : 0.7,
+
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <div className={styles.header}>
+          <p className={styles.eyebrow}>
+            {isBg ? "Възстановяване на достъп" : "Recover access"}
+          </p>
+
+          <h1>{isBg ? "Нова парола" : "New password"}</h1>
+
+          <p className={styles.description}>
+            {isBg
+              ? "Създай нова парола за профила си. Избери парола, която не си използвал преди."
+              : "Create a new password for your account. Choose one you haven't used before."}
+          </p>
         </div>
-      </header>
 
-      <div className={styles.container}>
-        <div className={styles.heading}>
-          <h1>{t.title}</h1>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label className={styles.field}>
+            <span>{isBg ? "Нова парола" : "New password"}</span>
 
-          <p>{t.subtitle}</p>
-        </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="new-password"
+              placeholder="••••••••"
+              disabled={loading}
+            />
+          </label>
 
-        <section className={styles.card}>
-          {success ? (
-            <div>
-              <p className={styles.success}>{t.success}</p>
+          <label className={styles.field}>
+            <span>{isBg ? "Повтори паролата" : "Confirm password"}</span>
 
-              <p className={styles.helper}>{t.successText}</p>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              autoComplete="new-password"
+              placeholder="••••••••"
+              disabled={loading}
+            />
+          </label>
 
-              <Link href={`/${locale}/login`} className={styles.submitLink}>
-                {t.login}
-              </Link>
-            </div>
-          ) : (
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="password">{t.password}</label>
-
-                <div className={styles.passwordWrap}>
-                  <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    required
-                    minLength={8}
-                    value={password}
-                    autoComplete="new-password"
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-
-                  <button
-                    type="button"
-                    className={styles.passwordButton}
-                    onClick={() => setShowPassword((current) => !current)}
-                  >
-                    {showPassword ? t.hide : t.show}
-                  </button>
-                </div>
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label htmlFor="confirm-password">{t.confirmPassword}</label>
-
-                <input
-                  id="confirm-password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  minLength={8}
-                  value={confirmPassword}
-                  autoComplete="new-password"
-                  onChange={(event) => setConfirmPassword(event.target.value)}
-                />
-              </div>
-
-              <p className={styles.helper}>{t.requirement}</p>
-
-              {error && <p className={styles.error}>{error}</p>}
-
-              <button
-                type="submit"
-                className={styles.submitButton}
-                disabled={loading}
-              >
-                {loading ? t.submitting : t.submit}
-              </button>
-            </form>
+          {error && (
+            <motion.p
+              className={styles.error}
+              initial={{
+                opacity: 0,
+                y: -6,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+            >
+              {error}
+            </motion.p>
           )}
-        </section>
-      </div>
+
+          {success && (
+            <motion.p
+              className={styles.success}
+              initial={{
+                opacity: 0,
+                y: -6,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+            >
+              {success}
+            </motion.p>
+          )}
+
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
+            <span>
+              {loading
+                ? isBg
+                  ? "Запазване..."
+                  : "Saving..."
+                : isBg
+                  ? "Запази новата парола"
+                  : "Save new password"}
+            </span>
+
+            {!loading && <span className={styles.arrow}>↗</span>}
+          </button>
+        </form>
+
+        <div className={styles.footer}>
+          <Link href={`/${locale}`}>
+            <span>←</span>
+
+            {isBg ? "Назад към началната страница" : "Back to home"}
+          </Link>
+        </div>
+      </motion.section>
     </main>
   );
 }

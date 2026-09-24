@@ -2,18 +2,18 @@ import { notFound } from "next/navigation";
 
 import ResetPasswordClient from "./ResetPasswordClient";
 
-type PageProps = {
+type Props = {
   params: Promise<{
     locale: string;
   }>;
 };
 
-export default async function ResetPasswordPage({ params }: PageProps) {
+export default async function ResetPasswordPage({ params }: Props) {
   const { locale } = await params;
 
   if (locale !== "bg" && locale !== "en") {
     notFound();
   }
 
-  return <ResetPasswordClient />;
+  return <ResetPasswordClient locale={locale} />;
 }

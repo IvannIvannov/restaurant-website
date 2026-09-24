@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import { FormEvent, useEffect, useState } from "react";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -13,6 +11,8 @@ import styles from "./auth-modal.module.css";
 type Locale = "bg" | "en";
 
 type AuthMode = "login" | "register";
+
+type ModalMode = AuthMode | "forgot";
 
 type AuthModalProps = {
   locale: Locale;
@@ -31,7 +31,7 @@ export default function AuthModal({
 }: AuthModalProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  const [mode, setMode] = useState<AuthMode>(initialMode);
+  const [mode, setMode] = useState<ModalMode>(initialMode);
 
   const [email, setEmail] = useState("");
 
@@ -80,7 +80,7 @@ export default function AuthModal({
     setSuccess("");
   };
 
-  const changeMode = (nextMode: AuthMode) => {
+  const changeMode = (nextMode: ModalMode) => {
     setMode(nextMode);
 
     resetMessages();
@@ -255,6 +255,97 @@ export default function AuthModal({
     }
   };
 
+  const handleForgotPassword = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    resetMessages();
+
+    const cleanEmail = email.trim();
+
+    if (!cleanEmail) {
+      setError(
+        isBg ? "Моля, въведи имейл адрес." : "Please enter your email address.",
+      );
+
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const supabase = createClient();
+
+      const redirectTo = `${window.location.origin}/${locale}/reset-password`;
+
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+        cleanEmail,
+        {
+          redirectTo,
+        },
+      );
+
+      if (resetError) {
+        throw resetError;
+      }
+
+      setSuccess(
+        isBg
+          ? "Изпратихме ти линк за промяна на паролата. Провери имейла си."
+          : "We sent you a password reset link. Check your email.",
+      );
+    } catch {
+      setError(
+        isBg
+          ? "Не успяхме да изпратим линка. Провери имейла и опитай отново."
+          : "We couldn't send the reset link. Check your email and try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getEyebrow = () => {
+    if (mode === "forgot") {
+      return isBg ? "Възстановяване на достъп" : "Recover access";
+    }
+
+    if (mode === "register") {
+      return isBg ? "Създай профил" : "Create an account";
+    }
+
+    return isBg ? "Добре дошли отново" : "Welcome back";
+  };
+
+  const getTitle = () => {
+    if (mode === "forgot") {
+      return isBg ? "Забравена парола" : "Forgot password";
+    }
+
+    if (mode === "register") {
+      return isBg ? "Регистрация" : "Register";
+    }
+
+    return isBg ? "Вход" : "Sign in";
+  };
+
+  const getDescription = () => {
+    if (mode === "forgot") {
+      return isBg
+        ? "Въведи имейла, с който си се регистрирал. Ще ти изпратим линк за създаване на нова парола."
+        : "Enter the email address you registered with. We'll send you a link to create a new password.";
+    }
+
+    if (mode === "register") {
+      return isBg
+        ? "Създай профил за по-бързи резервации и лесно управление."
+        : "Create an account for faster bookings and easy reservation management.";
+    }
+
+    return isBg
+      ? "Влез в профила си, за да продължиш."
+      : "Sign in to continue.";
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -323,69 +414,47 @@ export default function AuthModal({
             </button>
 
             <div className={styles.header}>
-              <p className={styles.eyebrow}>
-                {mode === "login"
-                  ? isBg
-                    ? "Добре дошли отново"
-                    : "Welcome back"
-                  : isBg
-                    ? "Създай профил"
-                    : "Create an account"}
-              </p>
+              <p className={styles.eyebrow}>{getEyebrow()}</p>
 
-              <h2 id="auth-modal-title">
-                {mode === "login"
-                  ? isBg
-                    ? "Вход"
-                    : "Sign in"
-                  : isBg
-                    ? "Регистрация"
-                    : "Register"}
-              </h2>
+              <h2 id="auth-modal-title">{getTitle()}</h2>
 
-              <p className={styles.description}>
-                {mode === "login"
-                  ? isBg
-                    ? "Влез в профила си, за да продължиш."
-                    : "Sign in to continue."
-                  : isBg
-                    ? "Създай профил за по-бързи резервации и лесно управление."
-                    : "Create an account for faster bookings and easy reservation management."}
-              </p>
+              <p className={styles.description}>{getDescription()}</p>
             </div>
 
-            <div className={styles.modeSwitch}>
-              <button
-                type="button"
-                className={mode === "login" ? styles.activeMode : ""}
-                onClick={() => changeMode("login")}
-              >
-                {isBg ? "Вход" : "Sign in"}
-              </button>
+            {mode !== "forgot" && (
+              <div className={styles.modeSwitch}>
+                <button
+                  type="button"
+                  className={mode === "login" ? styles.activeMode : ""}
+                  onClick={() => changeMode("login")}
+                >
+                  {isBg ? "Вход" : "Sign in"}
+                </button>
 
-              <button
-                type="button"
-                className={mode === "register" ? styles.activeMode : ""}
-                onClick={() => changeMode("register")}
-              >
-                {isBg ? "Регистрация" : "Register"}
-              </button>
+                <button
+                  type="button"
+                  className={mode === "register" ? styles.activeMode : ""}
+                  onClick={() => changeMode("register")}
+                >
+                  {isBg ? "Регистрация" : "Register"}
+                </button>
 
-              <motion.span
-                className={styles.modeIndicator}
-                animate={{
-                  x: mode === "login" ? "0%" : "100%",
-                }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.4,
+                <motion.span
+                  className={styles.modeIndicator}
+                  animate={{
+                    x: mode === "login" ? "0%" : "100%",
+                  }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.4,
 
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              />
-            </div>
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              </div>
+            )}
 
             <AnimatePresence mode="wait" initial={false}>
-              {mode === "login" ? (
+              {mode === "login" && (
                 <motion.form
                   key="login"
                   className={styles.form}
@@ -435,9 +504,9 @@ export default function AuthModal({
                   </label>
 
                   <div className={styles.formMeta}>
-                    <Link href={`/${locale}/forgot-password`} onClick={onClose}>
+                    <button type="button" onClick={() => changeMode("forgot")}>
                       {isBg ? "Забравена парола?" : "Forgot password?"}
-                    </Link>
+                    </button>
                   </div>
 
                   <AnimatePresence>
@@ -508,7 +577,9 @@ export default function AuthModal({
                     </button>
                   </p>
                 </motion.form>
-              ) : (
+              )}
+
+              {mode === "register" && (
                 <motion.form
                   key="register"
                   className={styles.form}
@@ -663,6 +734,110 @@ export default function AuthModal({
                     {isBg ? "Вече имаш профил?" : "Already have an account?"}{" "}
                     <button type="button" onClick={() => changeMode("login")}>
                       {isBg ? "Влез" : "Sign in"}
+                    </button>
+                  </p>
+                </motion.form>
+              )}
+
+              {mode === "forgot" && (
+                <motion.form
+                  key="forgot"
+                  className={styles.form}
+                  onSubmit={handleForgotPassword}
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : {
+                          opacity: 0,
+                          x: 12,
+                        }
+                  }
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: -12,
+                  }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.28,
+                  }}
+                >
+                  <label className={styles.field}>
+                    <span>Email</span>
+
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      autoComplete="email"
+                      placeholder="name@example.com"
+                    />
+                  </label>
+
+                  <AnimatePresence>
+                    {error && (
+                      <motion.p
+                        className={styles.error}
+                        initial={{
+                          opacity: 0,
+                          y: -5,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                        }}
+                      >
+                        {error}
+                      </motion.p>
+                    )}
+
+                    {success && (
+                      <motion.p
+                        className={styles.success}
+                        initial={{
+                          opacity: 0,
+                          y: -5,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                        }}
+                      >
+                        {success}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+
+                  <button
+                    type="submit"
+                    className={styles.submitButton}
+                    disabled={loading}
+                  >
+                    <span>
+                      {loading
+                        ? isBg
+                          ? "Изпращане..."
+                          : "Sending..."
+                        : isBg
+                          ? "Изпрати линк"
+                          : "Send reset link"}
+                    </span>
+
+                    {!loading && <span className={styles.submitArrow}>↗</span>}
+                  </button>
+
+                  <p className={styles.bottomText}>
+                    {isBg ? "Спомни си паролата?" : "Remember your password?"}{" "}
+                    <button type="button" onClick={() => changeMode("login")}>
+                      {isBg ? "Назад към вход" : "Back to sign in"}
                     </button>
                   </p>
                 </motion.form>
