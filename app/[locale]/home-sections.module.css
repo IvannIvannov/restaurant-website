@@ -25,7 +25,9 @@
 
 .eyebrow {
     margin: 0 0 12px;
+
     color: rgba(32, 36, 32, 0.48);
+
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.18em;
@@ -34,17 +36,25 @@
 
 .sectionHeading h2 {
     margin: 0;
+
     font-family: var(--font-body);
-    font-size: clamp(34px, 5vw, 56px);
+
+    font-size: clamp(34px,
+            5vw,
+            56px);
+
     font-weight: 600;
     line-height: 1;
+
     letter-spacing: -0.04em;
 }
 
 .sectionDescription {
     max-width: 390px;
     margin: 0;
+
     color: rgba(32, 36, 32, 0.55);
+
     font-size: 13px;
     line-height: 1.8;
 }
@@ -53,7 +63,10 @@
 
 .eventsGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 16px;
 }
 
@@ -65,6 +78,7 @@
     position: relative;
 
     display: flex;
+
     min-height: 470px;
     height: 100%;
 
@@ -85,11 +99,11 @@
         0 18px 44px rgba(26, 33, 26, 0.08);
 
     transition:
-        transform 0.5s cubic-bezier(0.22,
+        transform 0.55s cubic-bezier(0.22,
             1,
             0.36,
             1),
-        box-shadow 0.5s ease;
+        box-shadow 0.55s ease;
 }
 
 .eventImage {
@@ -104,19 +118,12 @@
     transform: scale(1.001);
 
     transition:
-        transform 0.9s cubic-bezier(0.22,
+        transform 1.1s cubic-bezier(0.22,
             1,
             0.36,
-            1);
+            1),
+        filter 0.6s ease;
 }
-
-/*
-  TEMPORARY PLACEHOLDERS
-
-  Когато получиш реалните снимки,
-  сменяме само background-image
-  в тези три класа.
-*/
 
 .eventImageOne {
     background-image:
@@ -126,11 +133,6 @@
         linear-gradient(145deg,
             #53614f 0%,
             #2b352b 100%);
-
-    /*
-  background-image:
-    url("/events/event-1.jpg");
-  */
 }
 
 .eventImageTwo {
@@ -141,11 +143,6 @@
         linear-gradient(145deg,
             #5e6257 0%,
             #333a32 100%);
-
-    /*
-  background-image:
-    url("/events/event-2.jpg");
-  */
 }
 
 .eventImageThree {
@@ -156,11 +153,6 @@
         linear-gradient(145deg,
             #424b40 0%,
             #222a23 100%);
-
-    /*
-  background-image:
-    url("/events/event-3.jpg");
-  */
 }
 
 .eventOverlay {
@@ -176,7 +168,7 @@
             rgba(15, 20, 15, 0.92) 100%);
 
     transition:
-        background 0.5s ease;
+        background 0.55s ease;
 }
 
 .eventCard::after {
@@ -195,27 +187,38 @@
     border-radius: inherit;
 
     pointer-events: none;
+
+    transition:
+        border-color 0.4s ease;
 }
 
 .eventCard:hover {
     transform:
-        translateY(-7px);
+        translateY(-8px) scale(1.008);
 
     box-shadow:
-        0 28px 58px rgba(24,
+        0 30px 64px rgba(24,
             31,
             24,
-            0.15);
+            0.16);
+}
+
+.eventCard:hover::after {
+    border-color:
+        rgba(255,
+            255,
+            255,
+            0.16);
 }
 
 .eventCard:hover .eventImage {
-    transform: scale(1.06);
+    transform: scale(1.065);
 }
 
 .eventCard:hover .eventOverlay {
     background:
         linear-gradient(180deg,
-            rgba(15, 20, 15, 0.05) 0%,
+            rgba(15, 20, 15, 0.04) 0%,
             rgba(15, 20, 15, 0.08) 30%,
             rgba(15, 20, 15, 0.68) 70%,
             rgba(15, 20, 15, 0.94) 100%);
@@ -265,11 +268,34 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 
     -webkit-backdrop-filter:
         blur(10px);
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.45s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+.eventCard:hover .eventTag {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(255,
+            255,
+            255,
+            0.32);
+
+    background:
+        rgba(20,
+            26,
+            20,
+            0.38);
 }
 
 .eventContent {
@@ -286,7 +312,7 @@
     padding: 26px;
 
     transition:
-        transform 0.5s cubic-bezier(0.22,
+        transform 0.55s cubic-bezier(0.22,
             1,
             0.36,
             1);
@@ -294,7 +320,7 @@
 
 .eventCard:hover .eventContent {
     transform:
-        translateY(-4px);
+        translateY(-5px);
 }
 
 .eventText {
@@ -318,6 +344,13 @@
     line-height: 1.03;
 
     letter-spacing: -0.04em;
+
+    transition:
+        letter-spacing 0.45s ease;
+}
+
+.eventCard:hover .eventText h3 {
+    letter-spacing: -0.03em;
 }
 
 .eventText p {
@@ -331,6 +364,17 @@
 
     font-size: 12px;
     line-height: 1.75;
+
+    transition:
+        color 0.35s ease;
+}
+
+.eventCard:hover .eventText p {
+    color:
+        rgba(255,
+            255,
+            255,
+            0.73);
 }
 
 .eventArrow {
@@ -366,7 +410,7 @@
         blur(10px);
 
     transition:
-        transform 0.45s cubic-bezier(0.22,
+        transform 0.5s cubic-bezier(0.22,
             1,
             0.36,
             1),
@@ -377,13 +421,13 @@
 
 .eventCard:hover .eventArrow {
     transform:
-        rotate(45deg) scale(1.04);
+        rotate(45deg) scale(1.05);
 
     border-color:
         rgba(255,
             255,
             255,
-            0.7);
+            0.72);
 
     background: #f3efe8;
 
@@ -393,7 +437,10 @@
 /* CONTACT */
 
 .contactSection {
+    overflow: hidden;
+
     background: #ffffff;
+
     color: #202420;
 
     font-family:
@@ -478,8 +525,12 @@
             0.12);
 
     transition:
-        background 0.3s ease,
-        padding-left 0.35s cubic-bezier(0.22,
+        background 0.35s ease,
+        padding-left 0.45s cubic-bezier(0.22,
+            1,
+            0.36,
+            1),
+        transform 0.4s cubic-bezier(0.22,
             1,
             0.36,
             1);
@@ -534,6 +585,17 @@
 
     letter-spacing:
         0.12em;
+
+    transition:
+        color 0.3s ease;
+}
+
+.contactItem:hover .contactLabel {
+    color:
+        rgba(32,
+            36,
+            32,
+            0.56);
 }
 
 .contactValue {
@@ -548,7 +610,7 @@
         none;
 
     transition:
-        opacity 0.25s ease;
+        opacity 0.3s ease;
 }
 
 .contactValue:hover {
@@ -584,11 +646,13 @@
     text-decoration: none;
 
     transition:
-        transform 0.3s cubic-bezier(0.22,
+        transform 0.4s cubic-bezier(0.22,
             1,
             0.36,
             1),
-        background 0.3s ease;
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .primaryContactButton {
@@ -599,9 +663,15 @@
 
 .primaryContactButton:hover {
     transform:
-        translateY(-2px);
+        translateY(-3px);
 
     background: #1c251c;
+
+    box-shadow:
+        0 12px 24px rgba(38,
+            49,
+            38,
+            0.14);
 }
 
 .secondaryContactButton {
@@ -616,9 +686,15 @@
 
 .secondaryContactButton:hover {
     transform:
-        translateY(-2px);
+        translateY(-3px);
 
     background: #f5f2ec;
+
+    box-shadow:
+        0 10px 20px rgba(38,
+            49,
+            38,
+            0.06);
 }
 
 /* REVIEWS */
@@ -780,13 +856,44 @@
         blur(10px);
 
     transition:
-        transform 0.45s cubic-bezier(0.22,
+        transform 0.5s cubic-bezier(0.22,
             1,
             0.36,
             1),
-        background 0.35s ease,
-        border-color 0.35s ease,
-        box-shadow 0.45s ease;
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.5s ease;
+}
+
+.reviewCard::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -110px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(89,
+                98,
+                78,
+                0.1),
+            transparent 70%);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.7s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
 }
 
 .reviewCard:hover {
@@ -808,6 +915,14 @@
             0.08);
 }
 
+.reviewCard:hover::before {
+    opacity: 1;
+
+    transform:
+        translate(-20px,
+            20px) scale(1.15);
+}
+
 .reviewTop {
     display: flex;
 
@@ -821,6 +936,14 @@
 
     letter-spacing:
         0.12em;
+
+    transition:
+        letter-spacing 0.4s ease;
+}
+
+.reviewCard:hover .stars {
+    letter-spacing:
+        0.18em;
 }
 
 .reviewText {
@@ -873,6 +996,17 @@
 
     font-size: 9px;
     font-weight: 600;
+
+    transition:
+        transform 0.45s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+.reviewCard:hover .reviewAvatar {
+    transform:
+        scale(1.06) rotate(-3deg);
 }
 
 .reviewAuthorInfo {
@@ -902,6 +1036,8 @@
 /* FOOTER */
 
 .footer {
+    overflow: hidden;
+
     background: #202720;
 
     color: #ffffff;
@@ -999,6 +1135,8 @@
 }
 
 .footerColumn a {
+    position: relative;
+
     width: fit-content;
 
     color: #ffffff;
@@ -1010,8 +1148,41 @@
     opacity: 0.7;
 
     transition:
-        opacity 0.25s ease,
-        transform 0.3s ease;
+        opacity 0.3s ease,
+        transform 0.4s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+.footerColumn a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -4px;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.55);
+
+    transform:
+        scaleX(0);
+
+    transform-origin:
+        right center;
+
+    transition:
+        transform 0.4s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
 }
 
 .footerColumn a:hover {
@@ -1019,6 +1190,14 @@
         translateX(3px);
 
     opacity: 1;
+}
+
+.footerColumn a:hover::after {
+    transform:
+        scaleX(1);
+
+    transform-origin:
+        left center;
 }
 
 .footerBottom {
@@ -1059,6 +1238,20 @@
     text-decoration: none;
 
     opacity: 0.4;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.35s cubic-bezier(0.22,
+            1,
+            0.36,
+            1);
+}
+
+.footerLanguages a:hover {
+    opacity: 0.75;
+
+    transform:
+        translateY(-1px);
 }
 
 .footerLanguages .activeLanguage {
@@ -1132,6 +1325,7 @@
     .eventsSection,
     .contactSection {
         padding-top: 78px;
+
         padding-bottom: 78px;
     }
 
@@ -1250,13 +1444,20 @@
     .eventCard,
     .eventImage,
     .eventOverlay,
+    .eventTag,
     .eventContent,
     .eventArrow,
     .contactItem,
+    .contactLabel,
     .primaryContactButton,
     .secondaryContactButton,
     .reviewCard,
-    .footerColumn a {
+    .reviewCard::before,
+    .stars,
+    .reviewAvatar,
+    .footerColumn a,
+    .footerColumn a::after,
+    .footerLanguages a {
         transition: none;
     }
 

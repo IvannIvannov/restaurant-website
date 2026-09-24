@@ -71,7 +71,7 @@ export default async function HomePage({ params }: Props) {
           <span>Moments</span>
         </div>
 
-        <Reveal delay={0.12} distance={22}>
+        <Reveal delay={0.12} duration={0.95} distance={30}>
           <div className={styles.heroContent}>
             <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
 
@@ -103,31 +103,33 @@ export default async function HomePage({ params }: Props) {
           </div>
         </Reveal>
 
-        <div className={styles.bottomBar}>
-          <div className={styles.bottomLocation}>
-            <span className={styles.bottomLine} />
+        <Reveal delay={0.38} duration={0.9} distance={14}>
+          <div className={styles.bottomBar}>
+            <div className={styles.bottomLocation}>
+              <span className={styles.bottomLine} />
 
-            <span>{messages.hero.bottomLabel}</span>
-          </div>
+              <span>{messages.hero.bottomLabel}</span>
+            </div>
 
-          <div className={styles.scrollIndicator}>
-            <span>{messages.hero.scroll}</span>
+            <div className={styles.scrollIndicator}>
+              <span>{messages.hero.scroll}</span>
 
-            <div className={styles.scrollLine}>
-              <span />
+              <div className={styles.scrollLine}>
+                <span />
+              </div>
+            </div>
+
+            <div className={styles.bottomInfo}>
+              <span>Food</span>
+              <span>Drinks</span>
+              <span>Atmosphere</span>
             </div>
           </div>
-
-          <div className={styles.bottomInfo}>
-            <span>Food</span>
-            <span>Drinks</span>
-            <span>Atmosphere</span>
-          </div>
-        </div>
+        </Reveal>
       </section>
 
       <section id="booking" className={styles.actionsSection}>
-        <Reveal>
+        <Reveal duration={0.8} distance={25}>
           <div className={styles.actionsHeader}>
             <p className={styles.sectionEyebrow}>{messages.actions.eyebrow}</p>
 
@@ -136,7 +138,7 @@ export default async function HomePage({ params }: Props) {
         </Reveal>
 
         <div className={styles.actionsGrid}>
-          <Reveal>
+          <Reveal duration={0.8} distance={28} scale={0.985}>
             <article className={`${styles.actionCard} ${styles.bookingCard}`}>
               <div className={styles.actionOverlay} />
 
@@ -167,7 +169,7 @@ export default async function HomePage({ params }: Props) {
             </article>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} duration={0.8} distance={28} scale={0.985}>
             <article className={`${styles.actionCard} ${styles.menuCard}`}>
               <div className={styles.actionOverlay} />
 
@@ -202,7 +204,7 @@ export default async function HomePage({ params }: Props) {
 
       <section id="events" className={sectionStyles.eventsSection}>
         <div className={sectionStyles.sectionContainer}>
-          <Reveal>
+          <Reveal duration={0.8} distance={25}>
             <div className={sectionStyles.sectionHeading}>
               <div className={sectionStyles.sectionHeadingText}>
                 <p className={sectionStyles.eyebrow}>
@@ -220,7 +222,13 @@ export default async function HomePage({ params }: Props) {
 
           <div className={sectionStyles.eventsGrid}>
             {messages.events.items.map((event, index) => (
-              <Reveal key={event.title} delay={index * 0.1}>
+              <Reveal
+                key={event.title}
+                delay={index * 0.12}
+                duration={0.85}
+                distance={30}
+                scale={0.98}
+              >
                 <article className={sectionStyles.eventCard}>
                   <div
                     className={`${sectionStyles.eventImage} ${
@@ -257,7 +265,7 @@ export default async function HomePage({ params }: Props) {
 
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
-          <Reveal>
+          <Reveal direction="right" duration={0.85} distance={30}>
             <div className={sectionStyles.contactIntro}>
               <p className={sectionStyles.eyebrow}>
                 {messages.contact.eyebrow}
@@ -285,7 +293,7 @@ export default async function HomePage({ params }: Props) {
             </div>
           </Reveal>
 
-          <Reveal delay={0.12} distance={20}>
+          <Reveal direction="left" delay={0.1} duration={0.85} distance={30}>
             <div className={sectionStyles.contactDetails}>
               <div className={sectionStyles.contactItem}>
                 <span className={sectionStyles.contactLabel}>
@@ -339,7 +347,7 @@ export default async function HomePage({ params }: Props) {
 
       <section className={sectionStyles.reviewsSection}>
         <div className={sectionStyles.reviewsHeader}>
-          <Reveal>
+          <Reveal duration={0.8} distance={24}>
             <div className={sectionStyles.reviewsHeading}>
               <p className={sectionStyles.eyebrow}>
                 {messages.reviews.eyebrow}
@@ -349,7 +357,7 @@ export default async function HomePage({ params }: Props) {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1} distance={18}>
+          <Reveal delay={0.1} duration={0.8} distance={20}>
             <p className={sectionStyles.reviewsDescription}>
               {messages.reviews.description}
             </p>
@@ -358,7 +366,13 @@ export default async function HomePage({ params }: Props) {
 
         <div className={sectionStyles.reviewsGrid}>
           {messages.reviews.items.map((review, index) => (
-            <Reveal key={review.name} delay={index * 0.1}>
+            <Reveal
+              key={review.name}
+              delay={index * 0.1}
+              duration={0.8}
+              distance={26}
+              scale={0.985}
+            >
               <article className={sectionStyles.reviewCard}>
                 <div>
                   <div className={sectionStyles.reviewTop}>
@@ -392,57 +406,59 @@ export default async function HomePage({ params }: Props) {
 
       <footer className={sectionStyles.footer}>
         <div className={sectionStyles.footerInner}>
-          <div className={sectionStyles.footerTop}>
-            <div className={sectionStyles.footerBrand}>
-              <span className={sectionStyles.footerLogo}>RESTAURANT</span>
+          <Reveal duration={0.8} distance={20}>
+            <div className={sectionStyles.footerTop}>
+              <div className={sectionStyles.footerBrand}>
+                <span className={sectionStyles.footerLogo}>RESTAURANT</span>
 
-              <p>{messages.footer.description}</p>
-            </div>
-
-            <div className={sectionStyles.footerLinks}>
-              <div className={sectionStyles.footerColumn}>
-                <span className={sectionStyles.footerColumnTitle}>
-                  {messages.footer.navigation}
-                </span>
-
-                <Link href={`/${currentLocale}/menu`}>
-                  {messages.navigation.menu}
-                </Link>
-
-                <Link href={`/${currentLocale}/reservations`}>
-                  {messages.navigation.reserve}
-                </Link>
-
-                <a href="#events">{messages.navigation.events}</a>
-
-                <a href="#contact">{messages.navigation.contact}</a>
+                <p>{messages.footer.description}</p>
               </div>
 
-              <div className={sectionStyles.footerColumn}>
-                <span className={sectionStyles.footerColumnTitle}>
-                  {messages.footer.account}
-                </span>
+              <div className={sectionStyles.footerLinks}>
+                <div className={sectionStyles.footerColumn}>
+                  <span className={sectionStyles.footerColumnTitle}>
+                    {messages.footer.navigation}
+                  </span>
 
-                <Link
-                  href={
-                    user
-                      ? `/${currentLocale}/account`
-                      : `/${currentLocale}/login`
-                  }
-                >
-                  {user
-                    ? messages.navigation.account
-                    : messages.navigation.login}
-                </Link>
-
-                {!user && (
-                  <Link href={`/${currentLocale}/register`}>
-                    {messages.footer.register}
+                  <Link href={`/${currentLocale}/menu`}>
+                    {messages.navigation.menu}
                   </Link>
-                )}
+
+                  <Link href={`/${currentLocale}/reservations`}>
+                    {messages.navigation.reserve}
+                  </Link>
+
+                  <a href="#events">{messages.navigation.events}</a>
+
+                  <a href="#contact">{messages.navigation.contact}</a>
+                </div>
+
+                <div className={sectionStyles.footerColumn}>
+                  <span className={sectionStyles.footerColumnTitle}>
+                    {messages.footer.account}
+                  </span>
+
+                  <Link
+                    href={
+                      user
+                        ? `/${currentLocale}/account`
+                        : `/${currentLocale}/login`
+                    }
+                  >
+                    {user
+                      ? messages.navigation.account
+                      : messages.navigation.login}
+                  </Link>
+
+                  {!user && (
+                    <Link href={`/${currentLocale}/register`}>
+                      {messages.footer.register}
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           <div className={sectionStyles.footerBottom}>
             <span>© 2026 RESTAURANT · {messages.footer.demo}</span>
