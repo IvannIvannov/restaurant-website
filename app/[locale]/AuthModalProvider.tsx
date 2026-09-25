@@ -12,6 +12,7 @@ import {
 
 import { useRouter } from "next/navigation";
 
+import AccountModal from "./AccountModal";
 import AuthModal from "./AuthModal";
 
 type Locale = "bg" | "en";
@@ -23,7 +24,11 @@ type AuthModalContextValue = {
 
   openRegister: (returnTo?: string) => void;
 
+  openAccount: () => void;
+
   closeAuth: () => void;
+
+  closeAccount: () => void;
 };
 
 type AuthState = {
@@ -53,7 +58,11 @@ export default function AuthModalProvider({
     returnTo: null,
   });
 
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+
   const openLogin = useCallback((returnTo?: string) => {
+    setIsAccountOpen(false);
+
     setAuthState({
       isOpen: true,
       mode: "login",
@@ -62,11 +71,23 @@ export default function AuthModalProvider({
   }, []);
 
   const openRegister = useCallback((returnTo?: string) => {
+    setIsAccountOpen(false);
+
     setAuthState({
       isOpen: true,
       mode: "register",
       returnTo: returnTo ?? null,
     });
+  }, []);
+
+  const openAccount = useCallback(() => {
+    setAuthState((current) => ({
+      ...current,
+      isOpen: false,
+      returnTo: null,
+    }));
+
+    setIsAccountOpen(true);
   }, []);
 
   const closeAuth = useCallback(() => {
@@ -77,8 +98,14 @@ export default function AuthModalProvider({
     }));
   }, []);
 
+  const closeAccount = useCallback(() => {
+    setIsAccountOpen(false);
+  }, []);
+
   const handleAuthenticated = useCallback(() => {
     const destination = authState.returnTo;
+
+    const accountPath = `/${locale}/account`;
 
     setAuthState((current) => ({
       ...current,
@@ -86,12 +113,26 @@ export default function AuthModalProvider({
       returnTo: null,
     }));
 
+    if (destination && destination.replace(/\/+$/, "") === accountPath) {
+      setIsAccountOpen(true);
+
+      router.refresh();
+
+      return;
+    }
+
     if (destination) {
       router.push(destination);
     }
 
     router.refresh();
-  }, [authState.returnTo, router]);
+  }, [authState.returnTo, locale, router]);
+
+  const handleLoggedOut = useCallback(() => {
+    setIsAccountOpen(false);
+
+    router.refresh();
+  }, [router]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -157,11 +198,9 @@ export default function AuthModalProvider({
 
       const registerPath = `/${locale}/register`;
 
-      const protectedPaths = [
-        `/${locale}/reservations`,
-        `/${locale}/account`,
-        `/${locale}/admin`,
-      ];
+      const accountPath = `/${locale}/account`;
+
+      const protectedPaths = [`/${locale}/reservations`, `/${locale}/admin`];
 
       if (normalizedPath === loginPath) {
         event.preventDefault();
@@ -179,6 +218,20 @@ export default function AuthModalProvider({
         event.stopImmediatePropagation();
 
         openRegister();
+
+        return;
+      }
+
+      if (normalizedPath === accountPath) {
+        event.preventDefault();
+
+        event.stopImmediatePropagation();
+
+        if (isLoggedIn) {
+          openAccount();
+        } else {
+          openLogin(accountPath);
+        }
 
         return;
       }
@@ -202,15 +255,17 @@ export default function AuthModalProvider({
     return () => {
       window.removeEventListener("click", handleClick, true);
     };
-  }, [isLoggedIn, locale, openLogin, openRegister]);
+  }, [isLoggedIn, locale, openAccount, openLogin, openRegister]);
 
   const value = useMemo(
     () => ({
       openLogin,
       openRegister,
+      openAccount,
       closeAuth,
+      closeAccount,
     }),
-    [openLogin, openRegister, closeAuth],
+    [openLogin, openRegister, openAccount, closeAuth, closeAccount],
   );
 
   return (
@@ -224,6 +279,13 @@ export default function AuthModalProvider({
         initialMode={authState.mode}
         onClose={closeAuth}
         onAuthenticated={handleAuthenticated}
+      />
+
+      <AccountModal
+        locale={locale}
+        isOpen={isAccountOpen}
+        onClose={closeAccount}
+        onLoggedOut={handleLoggedOut}
       />
     </AuthModalContext.Provider>
   );

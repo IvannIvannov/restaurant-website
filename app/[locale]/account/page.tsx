@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+
 import AccountClient from "./AccountClient";
 
 type PageProps = {

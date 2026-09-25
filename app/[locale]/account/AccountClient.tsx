@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+
 import { FormEvent, useEffect, useState } from "react";
+
 import { useParams, useRouter } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/client";
@@ -31,8 +33,11 @@ type Reservation = {
 const translations = {
   bg: {
     home: "Начало",
+    account: "Акаунт",
+
     title: "Моят профил",
-    subtitle: "Управлявай профила и резервациите си.",
+    subtitle:
+      "Управлявай личните си данни и предстоящите резервации на едно място.",
 
     personalInfo: "Лични данни",
 
@@ -74,7 +79,9 @@ const translations = {
     pending: "Очаква потвърждение",
 
     confirmed: "Потвърдена",
+
     cancelled: "Отказана",
+
     completed: "Завършена",
 
     cancelReservation: "Откажи резервацията",
@@ -95,8 +102,11 @@ const translations = {
 
   en: {
     home: "Home",
+    account: "Account",
+
     title: "My account",
-    subtitle: "Manage your profile and reservations.",
+    subtitle:
+      "Manage your personal details and upcoming reservations in one place.",
 
     personalInfo: "Personal information",
 
@@ -159,6 +169,7 @@ const translations = {
 
 export default function AccountClient() {
   const params = useParams();
+
   const router = useRouter();
 
   const locale: Locale = params.locale === "en" ? "en" : "bg";
@@ -217,6 +228,7 @@ export default function AccountClient() {
           console.error("Profile error:", profileError);
 
           setError(t.error);
+
           return;
         }
 
@@ -231,13 +243,13 @@ export default function AccountClient() {
             .from("reservations")
             .select(
               `
-              id,
-              reservation_date,
-              reservation_time,
-              guests,
-              seating_preference,
-              status
-              `,
+                id,
+                reservation_date,
+                reservation_time,
+                guests,
+                seating_preference,
+                status
+                `,
             )
             .eq("user_id", user.id)
             .gte("reservation_date", new Date().toISOString().split("T")[0])
@@ -273,7 +285,7 @@ export default function AccountClient() {
 
       await supabase.auth.signOut();
 
-      router.push(`/${locale}/login`);
+      router.push(`/${locale}`);
 
       router.refresh();
     } finally {
@@ -289,7 +301,9 @@ export default function AccountClient() {
     }
 
     setSavingProfile(true);
+
     setError("");
+
     setMessage("");
 
     try {
@@ -345,6 +359,7 @@ export default function AccountClient() {
     setCancellingId(reservationId);
 
     setError("");
+
     setMessage("");
 
     try {
@@ -419,6 +434,8 @@ export default function AccountClient() {
   if (loading) {
     return (
       <main className={styles.main}>
+        <div className={styles.background} />
+
         <div className={styles.loadingState}>{t.loading}</div>
       </main>
     );
@@ -426,211 +443,248 @@ export default function AccountClient() {
 
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
-        <Link href={`/${locale}`} className={styles.homeLink}>
-          ← {t.home}
-        </Link>
+      <div className={styles.background} />
 
-        <div className={styles.headerActions}>
-          <div className={styles.languageSwitcher}>
-            <Link
-              href="/bg/account"
-              className={locale === "bg" ? styles.activeLanguage : ""}
-            >
-              BG
+      <div className={styles.pageShell}>
+        <section className={styles.accountPanel}>
+          <div className={styles.topBar}>
+            <Link href={`/${locale}`} className={styles.homeLink}>
+              <span>←</span>
+
+              {t.home}
             </Link>
 
-            <span>/</span>
+            <div className={styles.topActions}>
+              <div className={styles.languageSwitcher}>
+                <Link
+                  href="/bg/account"
+                  className={locale === "bg" ? styles.activeLanguage : ""}
+                >
+                  BG
+                </Link>
 
-            <Link
-              href="/en/account"
-              className={locale === "en" ? styles.activeLanguage : ""}
-            >
-              EN
-            </Link>
+                <span>/</span>
+
+                <Link
+                  href="/en/account"
+                  className={locale === "en" ? styles.activeLanguage : ""}
+                >
+                  EN
+                </Link>
+              </div>
+
+              <button
+                type="button"
+                className={styles.logoutButton}
+                disabled={logoutLoading}
+                onClick={handleLogout}
+              >
+                {logoutLoading ? t.loggingOut : t.logout}
+              </button>
+            </div>
           </div>
 
-          <button
-            type="button"
-            className={styles.logoutButton}
-            disabled={logoutLoading}
-            onClick={handleLogout}
-          >
-            {logoutLoading ? t.loggingOut : t.logout}
-          </button>
-        </div>
-      </header>
+          <div className={styles.heading}>
+            <p className={styles.eyebrow}>{t.account}</p>
 
-      <div className={styles.container}>
-        <div className={styles.heading}>
-          <h1>{t.title}</h1>
+            <h1>{t.title}</h1>
 
-          <p>{t.subtitle}</p>
-        </div>
+            <p className={styles.subtitle}>{t.subtitle}</p>
+          </div>
 
-        {error && <p className={styles.error}>{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
 
-        {message && <p className={styles.successMessage}>{message}</p>}
+          {message && <p className={styles.successMessage}>{message}</p>}
 
-        {profile && (
-          <section className={styles.card}>
-            <div className={styles.profileHeader}>
-              <h2>{t.personalInfo}</h2>
+          {profile && (
+            <section className={styles.accountSection}>
+              <div className={styles.sectionHeader}>
+                <div>
+                  <span className={styles.sectionNumber}>01</span>
 
-              {!editing && (
-                <button
-                  type="button"
-                  className={styles.editButton}
-                  onClick={() => setEditing(true)}
-                >
-                  {t.edit}
-                </button>
-              )}
-            </div>
-
-            {editing ? (
-              <form className={styles.profileForm} onSubmit={handleProfileSave}>
-                <div className={styles.profileInputGroup}>
-                  <label htmlFor="profile-name">{t.name}</label>
-
-                  <input
-                    id="profile-name"
-                    type="text"
-                    value={editName}
-                    onChange={(event) => setEditName(event.target.value)}
-                  />
+                  <h2>{t.personalInfo}</h2>
                 </div>
 
-                <div className={styles.profileInputGroup}>
-                  <label htmlFor="profile-phone">{t.phone}</label>
-
-                  <input
-                    id="profile-phone"
-                    type="tel"
-                    value={editPhone}
-                    onChange={(event) => setEditPhone(event.target.value)}
-                  />
-                </div>
-
-                <div className={styles.profileActions}>
+                {!editing && (
                   <button
                     type="button"
-                    className={styles.profileCancelButton}
-                    onClick={cancelProfileEdit}
+                    className={styles.editButton}
+                    onClick={() => setEditing(true)}
                   >
-                    {t.cancel}
+                    {t.edit}
                   </button>
+                )}
+              </div>
 
-                  <button
-                    type="submit"
-                    className={styles.profileSaveButton}
-                    disabled={savingProfile}
-                  >
-                    {savingProfile ? t.saving : t.save}
-                  </button>
+              {editing ? (
+                <form
+                  className={styles.profileForm}
+                  onSubmit={handleProfileSave}
+                >
+                  <div className={styles.formGrid}>
+                    <div className={styles.profileInputGroup}>
+                      <label htmlFor="profile-name">{t.name}</label>
+
+                      <input
+                        id="profile-name"
+                        type="text"
+                        value={editName}
+                        onChange={(event) => setEditName(event.target.value)}
+                      />
+                    </div>
+
+                    <div className={styles.profileInputGroup}>
+                      <label htmlFor="profile-phone">{t.phone}</label>
+
+                      <input
+                        id="profile-phone"
+                        type="tel"
+                        value={editPhone}
+                        onChange={(event) => setEditPhone(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.profileActions}>
+                    <button
+                      type="button"
+                      className={styles.profileCancelButton}
+                      onClick={cancelProfileEdit}
+                    >
+                      {t.cancel}
+                    </button>
+
+                    <button
+                      type="submit"
+                      className={styles.profileSaveButton}
+                      disabled={savingProfile}
+                    >
+                      {savingProfile ? t.saving : t.save}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div className={styles.infoGrid}>
+                  <div className={styles.infoItem}>
+                    <span>{t.name}</span>
+
+                    <strong>{profile.full_name || "—"}</strong>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <span>{t.email}</span>
+
+                    <strong>{email}</strong>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <span>{t.phone}</span>
+
+                    <strong>{profile.phone || t.noPhone}</strong>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <span>{t.role}</span>
+
+                    <strong>
+                      {profile.role === "admin" ? t.admin : t.customer}
+                    </strong>
+                  </div>
                 </div>
-              </form>
+              )}
+            </section>
+          )}
+
+          <section className={styles.accountSection}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <span className={styles.sectionNumber}>02</span>
+
+                <h2>{t.reservations}</h2>
+              </div>
+
+              <Link
+                href={`/${locale}/reservations`}
+                className={styles.reservationButton}
+              >
+                {t.createReservation}
+
+                <span>↗</span>
+              </Link>
+            </div>
+
+            {reservations.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}>+</div>
+
+                <p>{t.noReservations}</p>
+              </div>
             ) : (
-              <div className={styles.infoGrid}>
-                <div>
-                  <span>{t.name}</span>
+              <div className={styles.reservationsList}>
+                {reservations.map((reservation) => (
+                  <article key={reservation.id} className={styles.reservation}>
+                    <div>
+                      <span>{t.date}</span>
 
-                  <strong>{profile.full_name || "—"}</strong>
-                </div>
+                      <strong>{reservation.reservation_date}</strong>
+                    </div>
 
-                <div>
-                  <span>{t.email}</span>
+                    <div>
+                      <span>{t.time}</span>
 
-                  <strong>{email}</strong>
-                </div>
+                      <strong>
+                        {reservation.reservation_time.slice(0, 5)}
+                      </strong>
+                    </div>
 
-                <div>
-                  <span>{t.phone}</span>
+                    <div>
+                      <span>{t.guests}</span>
 
-                  <strong>{profile.phone || t.noPhone}</strong>
-                </div>
+                      <strong>{reservation.guests}</strong>
+                    </div>
 
-                <div>
-                  <span>{t.role}</span>
+                    <div>
+                      <span>{t.seating}</span>
 
-                  <strong>
-                    {profile.role === "admin" ? t.admin : t.customer}
-                  </strong>
-                </div>
+                      <strong>
+                        {getSeatingLabel(reservation.seating_preference)}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>{t.status}</span>
+
+                      <strong
+                        className={`${styles.status} ${
+                          styles[
+                            `status${reservation.status
+                              .charAt(0)
+                              .toUpperCase()}${reservation.status.slice(1)}`
+                          ]
+                        }`}
+                      >
+                        {getStatusLabel(reservation.status)}
+                      </strong>
+                    </div>
+
+                    {canCancel(reservation.status) && (
+                      <div className={styles.reservationActions}>
+                        <button
+                          type="button"
+                          disabled={cancellingId === reservation.id}
+                          onClick={() => cancelReservation(reservation.id)}
+                        >
+                          {cancellingId === reservation.id
+                            ? t.cancelling
+                            : t.cancelReservation}
+                        </button>
+                      </div>
+                    )}
+                  </article>
+                ))}
               </div>
             )}
           </section>
-        )}
-
-        <section className={styles.card}>
-          <div className={styles.reservationsHeader}>
-            <h2>{t.reservations}</h2>
-
-            <Link
-              href={`/${locale}/reservations`}
-              className={styles.reservationButton}
-            >
-              {t.createReservation}
-            </Link>
-          </div>
-
-          {reservations.length === 0 ? (
-            <div className={styles.emptyState}>
-              <p>{t.noReservations}</p>
-            </div>
-          ) : (
-            <div className={styles.reservationsList}>
-              {reservations.map((reservation) => (
-                <article key={reservation.id} className={styles.reservation}>
-                  <div>
-                    <span>{t.date}</span>
-
-                    <strong>{reservation.reservation_date}</strong>
-                  </div>
-
-                  <div>
-                    <span>{t.time}</span>
-
-                    <strong>{reservation.reservation_time.slice(0, 5)}</strong>
-                  </div>
-
-                  <div>
-                    <span>{t.guests}</span>
-
-                    <strong>{reservation.guests}</strong>
-                  </div>
-
-                  <div>
-                    <span>{t.seating}</span>
-
-                    <strong>
-                      {getSeatingLabel(reservation.seating_preference)}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>{t.status}</span>
-
-                    <strong>{getStatusLabel(reservation.status)}</strong>
-                  </div>
-
-                  {canCancel(reservation.status) && (
-                    <div className={styles.reservationActions}>
-                      <button
-                        type="button"
-                        disabled={cancellingId === reservation.id}
-                        onClick={() => cancelReservation(reservation.id)}
-                      >
-                        {cancellingId === reservation.id
-                          ? t.cancelling
-                          : t.cancelReservation}
-                      </button>
-                    </div>
-                  )}
-                </article>
-              ))}
-            </div>
-          )}
         </section>
       </div>
     </main>
