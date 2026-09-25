@@ -1,21 +1,31 @@
 .eventsSection {
     overflow: hidden;
+
     background: #f3efe8;
+
     padding: 110px 24px 125px;
+
     color: #202420;
-    font-family: var(--font-body);
+
+    font-family:
+        var(--font-body);
 }
 
 .sectionContainer {
     width: min(1180px, 100%);
+
     margin: 0 auto;
 }
 
 .sectionHeading {
     display: flex;
+
     justify-content: space-between;
+
     align-items: flex-end;
+
     gap: 40px;
+
     margin-bottom: 50px;
 }
 
@@ -26,24 +36,31 @@
 .eyebrow {
     margin: 0 0 12px;
 
-    color: rgba(32, 36, 32, 0.48);
+    color:
+        var(--color-accent);
 
     font-size: 10px;
-    font-weight: 600;
+
+    font-weight: 700;
+
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
 }
 
 .sectionHeading h2 {
     margin: 0;
 
-    font-family: var(--font-body);
+    font-family:
+        var(--font-body);
 
-    font-size: clamp(34px,
+    font-size:
+        clamp(34px,
             5vw,
             56px);
 
     font-weight: 600;
+
     line-height: 1;
 
     letter-spacing: -0.04em;
@@ -51,13 +68,17 @@
 
 .sectionDescription {
     max-width: 390px;
+
     margin: 0;
 
-    color: rgba(32, 36, 32, 0.55);
+    color:
+        rgba(32, 36, 32, 0.55);
 
     font-size: 13px;
+
     line-height: 1.8;
 }
+
 
 /* EVENTS */
 
@@ -80,23 +101,26 @@
     display: flex;
 
     min-height: 470px;
+
     height: 100%;
 
     flex-direction: column;
+
     justify-content: space-between;
 
     overflow: hidden;
 
     border-radius: 22px;
 
-    background: #394238;
+    background:
+        var(--color-accent);
 
     color: #ffffff;
 
     isolation: isolate;
 
     box-shadow:
-        0 18px 44px rgba(26, 33, 26, 0.08);
+        0 18px 44px rgba(65, 88, 67, 0.1);
 
     transition:
         transform 0.55s cubic-bezier(0.22,
@@ -108,11 +132,15 @@
 
 .eventImage {
     position: absolute;
+
     inset: 0;
+
     z-index: -3;
 
     background-position: center;
+
     background-size: cover;
+
     background-repeat: no-repeat;
 
     transform: scale(1.001);
@@ -128,44 +156,46 @@
 .eventImageOne {
     background-image:
         radial-gradient(circle at 70% 20%,
-            rgba(195, 206, 178, 0.24),
+            rgba(151, 173, 154, 0.24),
             transparent 32%),
         linear-gradient(145deg,
-            #53614f 0%,
-            #2b352b 100%);
+            #5c705f 0%,
+            #2a3a2d 100%);
 }
 
 .eventImageTwo {
     background-image:
         radial-gradient(circle at 35% 15%,
-            rgba(206, 197, 174, 0.18),
+            rgba(177, 190, 175, 0.18),
             transparent 35%),
         linear-gradient(145deg,
-            #5e6257 0%,
-            #333a32 100%);
+            #657667 0%,
+            #334536 100%);
 }
 
 .eventImageThree {
     background-image:
         radial-gradient(circle at 75% 18%,
-            rgba(193, 204, 181, 0.18),
+            rgba(160, 180, 163, 0.18),
             transparent 32%),
         linear-gradient(145deg,
-            #424b40 0%,
-            #222a23 100%);
+            #4a604d 0%,
+            #253328 100%);
 }
 
 .eventOverlay {
     position: absolute;
+
     inset: 0;
+
     z-index: -2;
 
     background:
         linear-gradient(180deg,
-            rgba(15, 20, 15, 0.1) 0%,
-            rgba(15, 20, 15, 0.08) 35%,
-            rgba(15, 20, 15, 0.7) 75%,
-            rgba(15, 20, 15, 0.92) 100%);
+            rgba(18, 25, 19, 0.08) 0%,
+            rgba(18, 25, 19, 0.08) 35%,
+            rgba(18, 25, 19, 0.7) 75%,
+            rgba(18, 25, 19, 0.92) 100%);
 
     transition:
         background 0.55s ease;
@@ -175,14 +205,13 @@
     content: "";
 
     position: absolute;
+
     inset: 0;
+
     z-index: 1;
 
     border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.09);
+        1px solid rgba(255, 255, 255, 0.09);
 
     border-radius: inherit;
 
@@ -197,40 +226,37 @@
         translateY(-8px) scale(1.008);
 
     box-shadow:
-        0 30px 64px rgba(24,
-            31,
-            24,
-            0.16);
+        0 30px 64px rgba(65, 88, 67, 0.2);
 }
 
 .eventCard:hover::after {
     border-color:
-        rgba(255,
-            255,
-            255,
-            0.16);
+        rgba(255, 255, 255, 0.16);
 }
 
 .eventCard:hover .eventImage {
-    transform: scale(1.065);
+    transform:
+        scale(1.065);
 }
 
 .eventCard:hover .eventOverlay {
     background:
         linear-gradient(180deg,
-            rgba(15, 20, 15, 0.04) 0%,
-            rgba(15, 20, 15, 0.08) 30%,
-            rgba(15, 20, 15, 0.68) 70%,
-            rgba(15, 20, 15, 0.94) 100%);
+            rgba(18, 25, 19, 0.04) 0%,
+            rgba(18, 25, 19, 0.08) 30%,
+            rgba(18, 25, 19, 0.68) 70%,
+            rgba(18, 25, 19, 0.94) 100%);
 }
 
 .eventTop {
     position: relative;
+
     z-index: 2;
 
     display: flex;
 
     align-items: flex-start;
+
     justify-content: flex-start;
 
     padding: 26px;
@@ -242,33 +268,32 @@
     min-height: 34px;
 
     align-items: center;
+
     justify-content: center;
 
     border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.2);
+        1px solid rgba(255, 255, 255, 0.2);
 
     border-radius: 999px;
 
     background:
-        rgba(20,
-            26,
-            20,
-            0.25);
+        rgba(65, 88, 67, 0.42);
 
-    padding: 0 13px;
+    padding:
+        0 13px;
 
     color: #ffffff;
 
     font-size: 9px;
+
     font-weight: 600;
 
     letter-spacing: 0.1em;
+
     text-transform: uppercase;
 
-    backdrop-filter: blur(10px);
+    backdrop-filter:
+        blur(10px);
 
     -webkit-backdrop-filter:
         blur(10px);
@@ -283,28 +308,25 @@
 }
 
 .eventCard:hover .eventTag {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     border-color:
-        rgba(255,
-            255,
-            255,
-            0.32);
+        rgba(255, 255, 255, 0.32);
 
     background:
-        rgba(20,
-            26,
-            20,
-            0.38);
+        rgba(65, 88, 67, 0.62);
 }
 
 .eventContent {
     position: relative;
+
     z-index: 2;
 
     display: flex;
 
     align-items: flex-end;
+
     justify-content: space-between;
 
     gap: 22px;
@@ -328,14 +350,16 @@
 }
 
 .eventText h3 {
-    margin: 0 0 13px;
+    margin:
+        0 0 13px;
 
     color: #ffffff;
 
     font-family:
         var(--font-body);
 
-    font-size: clamp(28px,
+    font-size:
+        clamp(28px,
             2.4vw,
             38px);
 
@@ -357,12 +381,10 @@
     margin: 0;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.62);
+        rgba(255, 255, 255, 0.62);
 
     font-size: 12px;
+
     line-height: 1.75;
 
     transition:
@@ -371,36 +393,29 @@
 
 .eventCard:hover .eventText p {
     color:
-        rgba(255,
-            255,
-            255,
-            0.73);
+        rgba(255, 255, 255, 0.76);
 }
 
 .eventArrow {
     display: flex;
 
     width: 48px;
+
     height: 48px;
 
     flex-shrink: 0;
 
     align-items: center;
+
     justify-content: center;
 
     border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.18);
+        1px solid rgba(255, 255, 255, 0.18);
 
     border-radius: 50%;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.08);
+        rgba(255, 255, 255, 0.08);
 
     color: #ffffff;
 
@@ -424,35 +439,37 @@
         rotate(45deg) scale(1.05);
 
     border-color:
-        rgba(255,
-            255,
-            255,
-            0.72);
+        rgba(255, 255, 255, 0.72);
 
-    background: #f3efe8;
+    background:
+        var(--color-accent);
 
-    color: #263126;
+    color: #ffffff;
 }
+
 
 /* CONTACT */
 
 .contactSection {
     overflow: hidden;
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
     color: #202420;
 
     font-family:
         var(--font-body);
 
-    padding: 115px 24px;
+    padding:
+        115px 24px;
 }
 
 .contactGrid {
     display: grid;
 
-    width: min(1180px,
+    width:
+        min(1180px,
             100%);
 
     grid-template-columns:
@@ -472,7 +489,8 @@
     font-family:
         var(--font-body);
 
-    font-size: clamp(36px,
+    font-size:
+        clamp(36px,
             5vw,
             58px);
 
@@ -490,12 +508,10 @@
     margin: 0;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.55);
+        rgba(32, 36, 32, 0.55);
 
     font-size: 13px;
+
     line-height: 1.8;
 }
 
@@ -503,26 +519,20 @@
     display: grid;
 
     grid-template-columns:
-        repeat(2,
-            1fr);
+        repeat(2, 1fr);
 
     border-top:
-        1px solid rgba(32,
-            36,
-            32,
-            0.12);
+        1px solid rgba(65, 88, 67, 0.14);
 }
 
 .contactItem {
     position: relative;
 
-    padding: 26px 0;
+    padding:
+        26px 0;
 
     border-bottom:
-        1px solid rgba(32,
-            36,
-            32,
-            0.12);
+        1px solid rgba(65, 88, 67, 0.14);
 
     transition:
         background 0.35s ease,
@@ -537,33 +547,31 @@
 }
 
 .contactItem:nth-child(odd) {
-    padding-right: 28px;
+    padding-right:
+        28px;
 }
 
 .contactItem:nth-child(even) {
-    padding-left: 28px;
+    padding-left:
+        28px;
 
     border-left:
-        1px solid rgba(32,
-            36,
-            32,
-            0.12);
+        1px solid rgba(65, 88, 67, 0.14);
 }
 
 .contactItem:hover {
     background:
-        rgba(243,
-            239,
-            232,
-            0.4);
+        var(--color-accent-soft);
 }
 
 .contactItem:nth-child(odd):hover {
-    padding-left: 10px;
+    padding-left:
+        10px;
 }
 
 .contactItem:nth-child(even):hover {
-    padding-left: 38px;
+    padding-left:
+        38px;
 }
 
 .contactLabel {
@@ -572,13 +580,11 @@
     margin-bottom: 9px;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.4);
+        rgba(65, 88, 67, 0.58);
 
     font-size: 9px;
-    font-weight: 600;
+
+    font-weight: 700;
 
     text-transform:
         uppercase;
@@ -592,16 +598,14 @@
 
 .contactItem:hover .contactLabel {
     color:
-        rgba(32,
-            36,
-            32,
-            0.56);
+        var(--color-accent);
 }
 
 .contactValue {
     color: #202420;
 
     font-size: 13px;
+
     font-weight: 600;
 
     line-height: 1.6;
@@ -610,11 +614,15 @@
         none;
 
     transition:
+        color 0.3s ease,
         opacity 0.3s ease;
 }
 
 .contactValue:hover {
-    opacity: 0.58;
+    color:
+        var(--color-accent);
+
+    opacity: 1;
 }
 
 .contactActions {
@@ -634,13 +642,16 @@
     min-height: 45px;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 9px;
 
-    padding: 0 18px;
+    padding:
+        0 18px;
 
     font-size: 10px;
+
     font-weight: 600;
 
     text-decoration: none;
@@ -652,50 +663,65 @@
             1),
         background 0.35s ease,
         color 0.35s ease,
+        border-color 0.35s ease,
         box-shadow 0.35s ease;
 }
 
 .primaryContactButton {
-    background: #263126;
+    border:
+        1px solid var(--color-accent);
+
+    background:
+        var(--color-accent);
 
     color: #ffffff;
+
+    box-shadow:
+        0 10px 24px rgba(65, 88, 67, 0.16);
 }
 
 .primaryContactButton:hover {
     transform:
         translateY(-3px);
 
-    background: #1c251c;
+    border-color:
+        var(--color-accent-hover);
+
+    background:
+        var(--color-accent-hover);
 
     box-shadow:
-        0 12px 24px rgba(38,
-            49,
-            38,
-            0.14);
+        0 14px 30px rgba(65, 88, 67, 0.24);
 }
 
 .secondaryContactButton {
     border:
-        1px solid rgba(32,
-            36,
-            32,
-            0.14);
+        1px solid rgba(65, 88, 67, 0.2);
 
-    color: #202420;
+    background:
+        transparent;
+
+    color:
+        var(--color-accent);
 }
 
 .secondaryContactButton:hover {
     transform:
         translateY(-3px);
 
-    background: #f5f2ec;
+    border-color:
+        rgba(65, 88, 67, 0.28);
+
+    background:
+        var(--color-accent-soft);
+
+    color:
+        var(--color-accent-hover);
 
     box-shadow:
-        0 10px 20px rgba(38,
-            49,
-            38,
-            0.06);
+        0 10px 20px rgba(65, 88, 67, 0.08);
 }
+
 
 /* REVIEWS */
 
@@ -704,9 +730,11 @@
 
     overflow: hidden;
 
-    background: #f3efe8;
+    background:
+        #f3efe8;
 
-    color: #202420;
+    color:
+        #202420;
 
     padding:
         120px 24px 135px;
@@ -721,13 +749,11 @@
     position: absolute;
 
     top: -115px;
+
     right: 4%;
 
     color:
-        rgba(38,
-            49,
-            38,
-            0.035);
+        rgba(65, 88, 67, 0.05);
 
     font-family:
         Georgia,
@@ -742,11 +768,13 @@
 
 .reviewsHeader {
     position: relative;
+
     z-index: 1;
 
     display: grid;
 
-    width: min(1180px,
+    width:
+        min(1180px,
             100%);
 
     grid-template-columns:
@@ -772,7 +800,8 @@
     font-family:
         var(--font-body);
 
-    font-size: clamp(38px,
+    font-size:
+        clamp(38px,
             5vw,
             64px);
 
@@ -790,10 +819,7 @@
     margin: 0;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.55);
+        rgba(32, 36, 32, 0.55);
 
     font-size: 13px;
 
@@ -802,16 +828,17 @@
 
 .reviewsGrid {
     position: relative;
+
     z-index: 1;
 
     display: grid;
 
-    width: min(1180px,
+    width:
+        min(1180px,
             100%);
 
     grid-template-columns:
-        repeat(3,
-            1fr);
+        repeat(3, 1fr);
 
     gap: 14px;
 
@@ -828,27 +855,23 @@
     display: flex;
 
     min-height: 340px;
+
     height: 100%;
 
     flex-direction: column;
+
     justify-content:
         space-between;
 
     overflow: hidden;
 
     border:
-        1px solid rgba(32,
-            36,
-            32,
-            0.08);
+        1px solid rgba(65, 88, 67, 0.1);
 
     border-radius: 18px;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.68);
+        rgba(255, 255, 255, 0.68);
 
     padding: 30px;
 
@@ -871,19 +894,18 @@
     position: absolute;
 
     width: 180px;
+
     height: 180px;
 
     top: -110px;
+
     right: -90px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(circle,
-            rgba(89,
-                98,
-                78,
-                0.1),
+            rgba(65, 88, 67, 0.14),
             transparent 70%);
 
     opacity: 0;
@@ -901,18 +923,13 @@
         translateY(-7px);
 
     border-color:
-        rgba(32,
-            36,
-            32,
-            0.14);
+        rgba(65, 88, 67, 0.22);
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
     box-shadow:
-        0 24px 45px rgba(38,
-            49,
-            38,
-            0.08);
+        0 24px 45px rgba(65, 88, 67, 0.12);
 }
 
 .reviewCard:hover::before {
@@ -930,7 +947,8 @@
 }
 
 .stars {
-    color: #59624e;
+    color:
+        var(--color-accent);
 
     font-size: 11px;
 
@@ -950,9 +968,11 @@
     margin:
         45px 0;
 
-    color: #202420;
+    color:
+        #202420;
 
     font-size: 17px;
+
     font-weight: 500;
 
     line-height: 1.65;
@@ -971,42 +991,50 @@
     padding-top: 20px;
 
     border-top:
-        1px solid rgba(32,
-            36,
-            32,
-            0.08);
+        1px solid rgba(65, 88, 67, 0.1);
 }
 
 .reviewAvatar {
     display: flex;
 
     width: 38px;
+
     height: 38px;
 
     flex-shrink: 0;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 50%;
 
-    background: #263126;
+    background:
+        var(--color-accent);
 
     color: #ffffff;
 
     font-size: 9px;
+
     font-weight: 600;
+
+    box-shadow:
+        0 6px 16px rgba(65, 88, 67, 0.18);
 
     transition:
         transform 0.45s cubic-bezier(0.22,
             1,
             0.36,
-            1);
+            1),
+        background 0.3s ease;
 }
 
 .reviewCard:hover .reviewAvatar {
     transform:
         scale(1.06) rotate(-3deg);
+
+    background:
+        var(--color-accent-hover);
 }
 
 .reviewAuthorInfo {
@@ -1025,20 +1053,19 @@
 
 .reviewAuthorInfo span {
     color:
-        rgba(32,
-            36,
-            32,
-            0.4);
+        rgba(32, 36, 32, 0.4);
 
     font-size: 9px;
 }
+
 
 /* FOOTER */
 
 .footer {
     overflow: hidden;
 
-    background: #202720;
+    background:
+        var(--color-accent-deep);
 
     color: #ffffff;
 
@@ -1050,7 +1077,8 @@
 }
 
 .footerInner {
-    width: min(1180px,
+    width:
+        min(1180px,
             100%);
 
     margin: 0 auto;
@@ -1079,6 +1107,8 @@
 
     margin-bottom: 18px;
 
+    color: #ffffff;
+
     font-size: 16px;
 
     font-weight: 700;
@@ -1091,10 +1121,7 @@
     margin: 0;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.5);
+        rgba(255, 255, 255, 0.56);
 
     font-size: 11px;
 
@@ -1119,12 +1146,10 @@
     margin-bottom: 5px;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.35);
+        rgba(255, 255, 255, 0.4);
 
     font-size: 9px;
+
     font-weight: 600;
 
     text-transform:
@@ -1145,7 +1170,7 @@
 
     text-decoration: none;
 
-    opacity: 0.7;
+    opacity: 0.72;
 
     transition:
         opacity 0.3s ease,
@@ -1161,16 +1186,15 @@
     position: absolute;
 
     left: 0;
+
     bottom: -4px;
 
     width: 100%;
+
     height: 1px;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.55);
+        rgba(255, 255, 255, 0.7);
 
     transform:
         scaleX(0);
@@ -1204,24 +1228,19 @@
     display: flex;
 
     align-items: center;
+
     justify-content:
         space-between;
 
     gap: 30px;
 
     border-top:
-        1px solid rgba(255,
-            255,
-            255,
-            0.1);
+        1px solid rgba(255, 255, 255, 0.1);
 
     padding-top: 24px;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.35);
+        rgba(255, 255, 255, 0.4);
 
     font-size: 9px;
 }
@@ -1248,7 +1267,7 @@
 }
 
 .footerLanguages a:hover {
-    opacity: 0.75;
+    opacity: 0.78;
 
     transform:
         translateY(-1px);
@@ -1257,6 +1276,7 @@
 .footerLanguages .activeLanguage {
     opacity: 1;
 }
+
 
 /* TABLET */
 
@@ -1275,11 +1295,13 @@
     }
 
     .eventCard {
-        min-height: 420px;
+        min-height:
+            420px;
     }
 
     .eventText {
-        max-width: 520px;
+        max-width:
+            520px;
     }
 
     .contactGrid {
@@ -1302,7 +1324,8 @@
     }
 
     .reviewCard {
-        min-height: 280px;
+        min-height:
+            280px;
     }
 
     .footerTop {
@@ -1311,6 +1334,7 @@
     }
 }
 
+
 /* MOBILE */
 
 @media (max-width: 600px) {
@@ -1318,19 +1342,25 @@
     .eventsSection,
     .contactSection,
     .reviewsSection {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left:
+            16px;
+
+        padding-right:
+            16px;
     }
 
     .eventsSection,
     .contactSection {
-        padding-top: 78px;
+        padding-top:
+            78px;
 
-        padding-bottom: 78px;
+        padding-bottom:
+            78px;
     }
 
     .sectionHeading {
-        margin-bottom: 34px;
+        margin-bottom:
+            34px;
     }
 
     .eventsGrid {
@@ -1338,32 +1368,41 @@
     }
 
     .eventCard {
-        min-height: 390px;
+        min-height:
+            390px;
 
-        border-radius: 18px;
+        border-radius:
+            18px;
     }
 
     .eventTop {
-        padding: 22px;
+        padding:
+            22px;
     }
 
     .eventContent {
-        padding: 22px;
+        padding:
+            22px;
 
         gap: 16px;
     }
 
     .eventText h3 {
-        font-size: 29px;
+        font-size:
+            29px;
     }
 
     .eventText p {
-        font-size: 11px;
+        font-size:
+            11px;
     }
 
     .eventArrow {
-        width: 43px;
-        height: 43px;
+        width:
+            43px;
+
+        height:
+            43px;
     }
 
     .contactDetails {
@@ -1373,20 +1412,24 @@
 
     .contactItem:nth-child(odd),
     .contactItem:nth-child(even) {
-        padding: 22px 0;
+        padding:
+            22px 0;
 
         border-left: 0;
     }
 
     .contactItem:nth-child(odd):hover,
     .contactItem:nth-child(even):hover {
-        padding-left: 8px;
+        padding-left:
+            8px;
     }
 
     .reviewsSection {
-        padding-top: 82px;
+        padding-top:
+            82px;
 
-        padding-bottom: 82px;
+        padding-bottom:
+            82px;
     }
 
     .reviewsSection::before {
@@ -1394,29 +1437,37 @@
     }
 
     .reviewsHeader {
-        margin-bottom: 30px;
+        margin-bottom:
+            30px;
     }
 
     .reviewsHeading h2 {
-        font-size: 36px;
+        font-size:
+            36px;
     }
 
     .reviewCard {
-        min-height: auto;
+        min-height:
+            auto;
 
-        padding: 24px;
+        padding:
+            24px;
     }
 
     .reviewText {
         margin:
             35px 0;
 
-        font-size: 15px;
+        font-size:
+            15px;
     }
 
     .footer {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left:
+            16px;
+
+        padding-right:
+            16px;
     }
 
     .footerLinks {
@@ -1437,6 +1488,7 @@
     }
 }
 
+
 /* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1449,6 +1501,7 @@
     .eventArrow,
     .contactItem,
     .contactLabel,
+    .contactValue,
     .primaryContactButton,
     .secondaryContactButton,
     .reviewCard,

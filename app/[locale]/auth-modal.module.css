@@ -33,20 +33,14 @@
     overflow-y: auto;
 
     border:
-        1px solid rgba(38,
-            49,
-            38,
-            0.08);
+        1px solid rgba(65, 88, 67, 0.08);
 
     border-radius: 24px;
 
     background: #f8f5ef;
 
     box-shadow:
-        0 30px 100px rgba(12,
-            16,
-            12,
-            0.28);
+        0 30px 100px rgba(12, 16, 12, 0.28);
 
     padding:
         42px 46px 38px;
@@ -72,18 +66,12 @@
     justify-content: center;
 
     border:
-        1px solid rgba(38,
-            49,
-            38,
-            0.1);
+        1px solid rgba(65, 88, 67, 0.1);
 
     border-radius: 50%;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.55);
+        rgba(255, 255, 255, 0.55);
 
     cursor: pointer;
 
@@ -101,10 +89,7 @@
         rotate(90deg);
 
     border-color:
-        rgba(38,
-            49,
-            38,
-            0.2);
+        rgba(65, 88, 67, 0.22);
 
     background: #ffffff;
 }
@@ -117,7 +102,8 @@
 
     border-radius: 10px;
 
-    background: #263126;
+    background:
+        var(--color-accent);
 }
 
 .closeButton span:first-child {
@@ -144,10 +130,7 @@
         0 0 10px;
 
     color:
-        rgba(38,
-            49,
-            38,
-            0.48);
+        rgba(65, 88, 67, 0.58);
 
     font-size: 9px;
     font-weight: 600;
@@ -187,10 +170,7 @@
     margin: 0 auto;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.52);
+        rgba(32, 36, 32, 0.52);
 
     font-size: 12px;
 
@@ -211,18 +191,12 @@
     margin-bottom: 28px;
 
     border:
-        1px solid rgba(38,
-            49,
-            38,
-            0.1);
+        1px solid rgba(65, 88, 67, 0.1);
 
     border-radius: 12px;
 
     background:
-        rgba(38,
-            49,
-            38,
-            0.045);
+        rgba(65, 88, 67, 0.05);
 }
 
 .modeSwitch button {
@@ -236,10 +210,7 @@
     background: transparent;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.5);
+        rgba(32, 36, 32, 0.5);
 
     cursor: pointer;
 
@@ -272,13 +243,11 @@
 
     border-radius: 9px;
 
-    background: #263126;
+    background:
+        var(--color-accent);
 
     box-shadow:
-        0 8px 20px rgba(38,
-            49,
-            38,
-            0.14);
+        0 8px 20px rgba(65, 88, 67, 0.2);
 }
 
 .form {
@@ -310,10 +279,7 @@
 
 .field>span {
     color:
-        rgba(32,
-            36,
-            32,
-            0.68);
+        rgba(32, 36, 32, 0.68);
 
     font-size: 10px;
     font-weight: 600;
@@ -327,20 +293,14 @@
     height: 52px;
 
     border:
-        1px solid rgba(38,
-            49,
-            38,
-            0.12);
+        1px solid rgba(65, 88, 67, 0.14);
 
     border-radius: 11px;
 
     outline: none;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.78);
+        rgba(255, 255, 255, 0.78);
 
     padding:
         0 15px;
@@ -364,36 +324,26 @@
 
 .field input::placeholder {
     color:
-        rgba(32,
-            36,
-            32,
-            0.28);
+        rgba(32, 36, 32, 0.28);
 }
 
 .field input:hover {
     border-color:
-        rgba(38,
-            49,
-            38,
-            0.2);
+        rgba(65, 88, 67, 0.25);
 
-    background: #ffffff;
+    background:
+        #ffffff;
 }
 
 .field input:focus {
     border-color:
-        rgba(38,
-            49,
-            38,
-            0.38);
+        var(--color-accent);
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
     box-shadow:
-        0 0 0 4px rgba(38,
-            49,
-            38,
-            0.055);
+        0 0 0 4px var(--color-accent-soft);
 }
 
 .formMeta {
@@ -406,29 +356,38 @@
     min-height: 18px;
 }
 
-.formMeta a {
+.formMeta a,
+.formMeta button {
+    border: 0;
+
+    padding: 0;
+
+    background: transparent;
+
     color:
-        rgba(38,
-            49,
-            38,
-            0.62);
+        rgba(65, 88, 67, 0.78);
 
     font-size: 10px;
     font-weight: 600;
 
     text-decoration: none;
 
+    cursor: pointer;
+
     transition:
         color 0.25s ease;
 }
 
-.formMeta a:hover {
-    color: #263126;
+.formMeta a:hover,
+.formMeta button:hover {
+    color:
+        var(--color-accent);
 }
 
 .error,
 .success {
-    margin: -2px 0 0;
+    margin:
+        -2px 0 0;
 
     border-radius: 9px;
 
@@ -442,34 +401,24 @@
 
 .error {
     border:
-        1px solid rgba(149,
-            57,
-            57,
-            0.13);
+        1px solid rgba(149, 57, 57, 0.13);
 
     background:
-        rgba(149,
-            57,
-            57,
-            0.06);
+        rgba(149, 57, 57, 0.06);
 
-    color: #8e3d3d;
+    color:
+        #8e3d3d;
 }
 
 .success {
     border:
-        1px solid rgba(46,
-            99,
-            63,
-            0.13);
+        1px solid rgba(65, 88, 67, 0.18);
 
     background:
-        rgba(46,
-            99,
-            63,
-            0.06);
+        rgba(65, 88, 67, 0.08);
 
-    color: #346a45;
+    color:
+        var(--color-accent);
 }
 
 .submitButton {
@@ -488,7 +437,8 @@
 
     border-radius: 11px;
 
-    background: #263126;
+    background:
+        var(--color-accent);
 
     padding:
         0 17px 0 20px;
@@ -515,17 +465,15 @@
         box-shadow 0.35s ease;
 }
 
-.submitButton:hover:not( :disabled) {
+.submitButton:hover:not(:disabled) {
     transform:
         translateY(-2px);
 
-    background: #1d271e;
+    background:
+        var(--color-accent-hover);
 
     box-shadow:
-        0 14px 28px rgba(38,
-            49,
-            38,
-            0.18);
+        0 14px 28px rgba(65, 88, 67, 0.24);
 }
 
 .submitButton:disabled {
@@ -546,10 +494,7 @@
     border-radius: 50%;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.1);
+        rgba(255, 255, 255, 0.1);
 
     transition:
         transform 0.4s cubic-bezier(0.22,
@@ -564,10 +509,7 @@
         rotate(45deg);
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.16);
+        rgba(255, 255, 255, 0.16);
 }
 
 .bottomText {
@@ -575,10 +517,7 @@
         2px 0 0;
 
     color:
-        rgba(32,
-            36,
-            32,
-            0.48);
+        rgba(32, 36, 32, 0.48);
 
     font-size: 10px;
 
@@ -592,7 +531,8 @@
 
     padding: 0;
 
-    color: #263126;
+    color:
+        var(--color-accent);
 
     cursor: pointer;
 
@@ -607,6 +547,14 @@
 
     text-underline-offset:
         3px;
+
+    transition:
+        color 0.25s ease;
+}
+
+.bottomText button:hover {
+    color:
+        var(--color-accent-hover);
 }
 
 @media (max-width: 600px) {
@@ -678,8 +626,10 @@
     .closeButton,
     .field input,
     .formMeta a,
+    .formMeta button,
     .submitButton,
-    .submitArrow {
+    .submitArrow,
+    .bottomText button {
         transition: none;
     }
 

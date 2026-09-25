@@ -112,10 +112,7 @@
     height: 1px;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.8);
+        var(--color-accent);
 
     transform:
         scaleX(0);
@@ -181,14 +178,18 @@
     opacity: 0.42;
 
     transition:
-        opacity 0.25s ease;
+        opacity 0.25s ease,
+        color 0.25s ease;
 }
 
 .languages a:hover {
-    opacity: 0.75;
+    opacity: 0.8;
 }
 
 .languages .activeLanguage {
+    color:
+        #ffffff;
+
     opacity: 1;
 }
 
@@ -255,15 +256,12 @@
         1px solid rgba(255,
             255,
             255,
-            0.22);
+            0.12);
 
     border-radius: 999px;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.07);
+        var(--color-accent);
 
     padding:
         0 9px 0 18px;
@@ -278,6 +276,12 @@
 
     text-decoration: none;
 
+    box-shadow:
+        0 10px 30px rgba(65,
+            88,
+            67,
+            0.24);
+
     backdrop-filter:
         blur(12px);
 
@@ -290,7 +294,8 @@
             0.36,
             1),
         background 0.3s ease,
-        border-color 0.3s ease;
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .reserveButton:hover {
@@ -301,13 +306,16 @@
         rgba(255,
             255,
             255,
-            0.38);
+            0.18);
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.13);
+        var(--color-accent-hover);
+
+    box-shadow:
+        0 14px 34px rgba(65,
+            88,
+            67,
+            0.32);
 }
 
 .reserveArrow {
@@ -325,7 +333,7 @@
         rgba(255,
             255,
             255,
-            0.11);
+            0.14);
 
     font-size: 11px;
 
@@ -345,7 +353,7 @@
         rgba(255,
             255,
             255,
-            0.18);
+            0.2);
 }
 
 .mobileToggle {
@@ -367,12 +375,36 @@
     border-radius: 50%;
 
     background:
+        rgba(65,
+            88,
+            67,
+            0.32);
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.mobileToggle:hover {
+    background:
+        rgba(65,
+            88,
+            67,
+            0.5);
+
+    border-color:
         rgba(255,
             255,
             255,
-            0.06);
-
-    cursor: pointer;
+            0.24);
 }
 
 .mobileToggle span {
@@ -399,6 +431,11 @@
 
 .mobileToggle span:last-child {
     top: 23px;
+}
+
+.mobileToggleOpen {
+    background:
+        var(--color-accent);
 }
 
 .mobileToggleOpen span:first-child {
@@ -502,10 +539,10 @@
         border-radius: 18px;
 
         background:
-            rgba(27,
-                34,
-                27,
-                0.91);
+            rgba(38,
+                54,
+                42,
+                0.94);
 
         padding:
             10px 18px;
@@ -514,7 +551,7 @@
             0 18px 50px rgba(0,
                 0,
                 0,
-                0.18);
+                0.22);
 
         backdrop-filter:
             blur(20px);
@@ -557,6 +594,21 @@
         text-align: left;
 
         text-decoration: none;
+
+        transition:
+            color 0.25s ease,
+            padding-left 0.3s ease;
+    }
+
+    .mobileMenu a:hover,
+    .mobileMenu button:hover {
+        color:
+            rgba(255,
+                255,
+                255,
+                0.76);
+
+        padding-left: 5px;
     }
 
     .mobileMenu> :last-child {
@@ -596,11 +648,15 @@
     .logo,
     .navigation a,
     .navigation a::after,
+    .languages a,
     .loginButton,
     .accountButton,
     .reserveButton,
     .reserveArrow,
-    .mobileToggle span {
+    .mobileToggle,
+    .mobileToggle span,
+    .mobileMenu a,
+    .mobileMenu button {
         transition: none;
     }
 
@@ -609,5 +665,10 @@
     .accountButton:hover,
     .reserveButton:hover {
         transform: none;
+    }
+
+    .mobileMenu a:hover,
+    .mobileMenu button:hover {
+        padding-left: 0;
     }
 }
