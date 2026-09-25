@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+
 import MenuClient from "./MenuClient";
 
 type Locale = "bg" | "en";
