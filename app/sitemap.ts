@@ -1,26 +1,49 @@
 import type { MetadataRoute } from "next";
 
+const siteUrl = "https://restaurant-website-mu-mauve.vercel.app";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = "https://restaurant-website-mu-mauve.vercel.app";
+  return [
+    {
+      url: `${siteUrl}/bg`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
 
-  const routes = [
-    "/bg",
-    "/en",
+    {
+      url: `${siteUrl}/en`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
 
-    "/bg/menu",
-    "/en/menu",
+    {
+      url: `${siteUrl}/bg/menu`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
 
-    "/bg/reservations",
-    "/en/reservations",
+    {
+      url: `${siteUrl}/en/menu`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${siteUrl}/bg/reservations`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${siteUrl}/en/reservations`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
-
-  return routes.map((route) => ({
-    url: `${siteUrl}${route}`,
-
-    lastModified: new Date(),
-
-    changeFrequency: route === "/bg" || route === "/en" ? "weekly" : "monthly",
-
-    priority: route === "/bg" || route === "/en" ? 1 : 0.8,
-  }));
 }
