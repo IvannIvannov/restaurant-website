@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import AccountModal from "./AccountModal";
 import AuthModal from "./AuthModal";
 import MenuModal from "./MenuModal";
+import ReservationModal from "./ReservationModal";
 
 type Locale = "bg" | "en";
 
@@ -29,11 +30,15 @@ type AuthModalContextValue = {
 
   openMenu: () => void;
 
+  openReservation: () => void;
+
   closeAuth: () => void;
 
   closeAccount: () => void;
 
   closeMenu: () => void;
+
+  closeReservation: () => void;
 };
 
 type AuthState = {
@@ -63,9 +68,7 @@ export default function AuthModalProvider({
 
   const [authState, setAuthState] = useState<AuthState>({
     isOpen: false,
-
     mode: "login",
-
     returnTo: null,
   });
 
@@ -73,68 +76,66 @@ export default function AuthModalProvider({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [isReservationOpen, setIsReservationOpen] = useState(false);
+
+  const closeEverything = useCallback(() => {
+    setIsAccountOpen(false);
+    setIsMenuOpen(false);
+    setIsReservationOpen(false);
+
+    setAuthState((current) => ({
+      ...current,
+      isOpen: false,
+      returnTo: null,
+    }));
+  }, []);
+
   const openLogin = useCallback((returnTo?: string) => {
     setIsAccountOpen(false);
-
     setIsMenuOpen(false);
+    setIsReservationOpen(false);
 
     setAuthState({
       isOpen: true,
-
       mode: "login",
-
       returnTo: returnTo ?? null,
     });
   }, []);
 
   const openRegister = useCallback((returnTo?: string) => {
     setIsAccountOpen(false);
-
     setIsMenuOpen(false);
+    setIsReservationOpen(false);
 
     setAuthState({
       isOpen: true,
-
       mode: "register",
-
       returnTo: returnTo ?? null,
     });
   }, []);
 
   const openAccount = useCallback(() => {
-    setIsMenuOpen(false);
-
-    setAuthState((current) => ({
-      ...current,
-
-      isOpen: false,
-
-      returnTo: null,
-    }));
+    closeEverything();
 
     setIsAccountOpen(true);
-  }, []);
+  }, [closeEverything]);
 
   const openMenu = useCallback(() => {
-    setAuthState((current) => ({
-      ...current,
-
-      isOpen: false,
-
-      returnTo: null,
-    }));
-
-    setIsAccountOpen(false);
+    closeEverything();
 
     setIsMenuOpen(true);
-  }, []);
+  }, [closeEverything]);
+
+  const openReservation = useCallback(() => {
+    closeEverything();
+
+    setIsReservationOpen(true);
+  }, [closeEverything]);
 
   const closeAuth = useCallback(() => {
     setAuthState((current) => ({
       ...current,
-
       isOpen: false,
-
       returnTo: null,
     }));
   }, []);
@@ -147,21 +148,33 @@ export default function AuthModalProvider({
     setIsMenuOpen(false);
   }, []);
 
+  const closeReservation = useCallback(() => {
+    setIsReservationOpen(false);
+  }, []);
+
   const handleAuthenticated = useCallback(() => {
     const destination = authState.returnTo;
 
     const accountPath = `/${locale}/account`;
 
+    const reservationPath = `/${locale}/reservations`;
+
     setAuthState((current) => ({
       ...current,
-
       isOpen: false,
-
       returnTo: null,
     }));
 
     if (destination && destination.replace(/\/+$/, "") === accountPath) {
       setIsAccountOpen(true);
+
+      router.refresh();
+
+      return;
+    }
+
+    if (destination && destination.replace(/\/+$/, "") === reservationPath) {
+      setIsReservationOpen(true);
 
       router.refresh();
 
@@ -249,20 +262,10 @@ export default function AuthModalProvider({
 
       const accountPath = `/${locale}/account`;
 
-      const protectedPaths = [`/${locale}/reservations`, `/${locale}/admin`];
+      const reservationPath = `/${locale}/reservations`;
 
-      /*
-       * Menu links stay as normal
-       * Next <Link> elements throughout
-       * the site, but while the user is
-       * already browsing we display the
-       * flipbook as a modal instead.
-       *
-       * We intentionally do NOT stop
-       * propagation here so existing
-       * onClick handlers such as closing
-       * the mobile navigation still run.
-       */
+      const adminPath = `/${locale}/admin`;
+
       if (normalizedPath === menuPath) {
         event.preventDefault();
 
@@ -305,12 +308,26 @@ export default function AuthModalProvider({
         return;
       }
 
-      const isProtectedPath = protectedPaths.some(
-        (path) =>
-          normalizedPath === path || normalizedPath.startsWith(`${path}/`),
-      );
+      if (
+        normalizedPath === reservationPath ||
+        normalizedPath.startsWith(`${reservationPath}/`)
+      ) {
+        event.preventDefault();
 
-      if (!isLoggedIn && isProtectedPath) {
+        if (isLoggedIn) {
+          openReservation();
+        } else {
+          openLogin(`${url.pathname}${url.search}${url.hash}`);
+        }
+
+        return;
+      }
+
+      if (
+        !isLoggedIn &&
+        (normalizedPath === adminPath ||
+          normalizedPath.startsWith(`${adminPath}/`))
+      ) {
         event.preventDefault();
 
         event.stopImmediatePropagation();
@@ -324,32 +341,38 @@ export default function AuthModalProvider({
     return () => {
       window.removeEventListener("click", handleClick, true);
     };
-  }, [isLoggedIn, locale, openAccount, openLogin, openMenu, openRegister]);
+  }, [
+    isLoggedIn,
+    locale,
+    openAccount,
+    openLogin,
+    openMenu,
+    openRegister,
+    openReservation,
+  ]);
 
   const value = useMemo(
     () => ({
       openLogin,
-
       openRegister,
-
       openAccount,
-
       openMenu,
-
+      openReservation,
       closeAuth,
-
       closeAccount,
-
       closeMenu,
+      closeReservation,
     }),
     [
       openLogin,
       openRegister,
       openAccount,
       openMenu,
+      openReservation,
       closeAuth,
       closeAccount,
       closeMenu,
+      closeReservation,
     ],
   );
 
@@ -374,6 +397,12 @@ export default function AuthModalProvider({
       />
 
       <MenuModal locale={locale} isOpen={isMenuOpen} onClose={closeMenu} />
+
+      <ReservationModal
+        locale={locale}
+        isOpen={isReservationOpen}
+        onClose={closeReservation}
+      />
     </AuthModalContext.Provider>
   );
 }

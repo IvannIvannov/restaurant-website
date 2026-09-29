@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
+
 import { FormEvent, useEffect, useMemo, useState } from "react";
+
 import { useParams, useRouter } from "next/navigation";
+
 import { DayPicker } from "react-day-picker";
+
 import { bg, enUS } from "date-fns/locale";
+
 import { format } from "date-fns";
 
 import { createClient } from "../../../lib/supabase/client";
@@ -14,6 +19,10 @@ import styles from "./reservation.module.css";
 type Locale = "bg" | "en";
 
 type Seating = "inside" | "outside" | "none";
+
+type ReservationClientProps = {
+  embedded?: boolean;
+};
 
 const times = [
   "11:00",
@@ -46,17 +55,24 @@ const translations = {
   bg: {
     home: "Начало",
 
+    eyebrow: "Резервация",
+
     title: "Запази маса",
 
-    subtitle: "Попълни формата и избери най-удобните за теб дата и час.",
+    subtitle: "Избери дата, час и предпочитана зона.",
 
     date: "Дата",
+
     guests: "Брой гости",
+
     time: "Час",
+
     seating: "Предпочитана зона",
 
     inside: "Вътре",
+
     outside: "Вън",
+
     noPreference: "Без предпочитание",
 
     seatingNote: "Зоната е предпочитание и зависи от наличността.",
@@ -64,15 +80,21 @@ const translations = {
     details: "Контактни данни",
 
     name: "Име",
+
     phone: "Телефон",
+
     email: "Имейл",
+
     note: "Бележка",
 
     notePlaceholder: "Например повод, детско столче или друго изискване",
 
     continue: "Продължи",
+
     back: "Назад",
+
     review: "Преглед",
+
     confirm: "Потвърди",
 
     confirming: "Запазване...",
@@ -80,6 +102,7 @@ const translations = {
     selectedDate: "Избрана дата",
 
     guest: "гост",
+
     guestsPlural: "гости",
 
     summary: "Преглед на резервацията",
@@ -102,18 +125,24 @@ const translations = {
   en: {
     home: "Home",
 
+    eyebrow: "Reservation",
+
     title: "Reserve a table",
 
-    subtitle:
-      "Complete the form and choose the date and time that suit you best.",
+    subtitle: "Choose your date, time and preferred seating.",
 
     date: "Date",
+
     guests: "Number of guests",
+
     time: "Time",
+
     seating: "Preferred seating",
 
     inside: "Inside",
+
     outside: "Outside",
+
     noPreference: "No preference",
 
     seatingNote:
@@ -122,15 +151,21 @@ const translations = {
     details: "Contact details",
 
     name: "Name",
+
     phone: "Phone",
+
     email: "Email",
+
     note: "Note",
 
     notePlaceholder: "For example occasion, high chair or another request",
 
     continue: "Continue",
+
     back: "Back",
+
     review: "Review",
+
     confirm: "Confirm",
 
     confirming: "Saving...",
@@ -138,6 +173,7 @@ const translations = {
     selectedDate: "Selected date",
 
     guest: "guest",
+
     guestsPlural: "guests",
 
     summary: "Reservation summary",
@@ -158,8 +194,11 @@ const translations = {
   },
 };
 
-export default function ReservationClient() {
+export default function ReservationClient({
+  embedded = false,
+}: ReservationClientProps) {
   const params = useParams();
+
   const router = useRouter();
 
   const locale: Locale = params.locale === "en" ? "en" : "bg";
@@ -212,7 +251,9 @@ export default function ReservationClient() {
       } = await supabase.auth.getUser();
 
       if (userError || !user) {
-        router.replace(`/${locale}/login`);
+        if (!embedded) {
+          router.replace(`/${locale}/login`);
+        }
 
         return;
       }
@@ -248,8 +289,8 @@ export default function ReservationClient() {
       setCheckingAuth(false);
     };
 
-    loadUser();
-  }, [locale, router]);
+    void loadUser();
+  }, [embedded, locale, router]);
 
   const formattedDate = selectedDate
     ? format(selectedDate, locale === "bg" ? "d MMMM yyyy" : "MMMM d, yyyy", {
@@ -272,6 +313,7 @@ export default function ReservationClient() {
 
     if (!value) {
       setGuests(1);
+
       return;
     }
 
@@ -295,10 +337,12 @@ export default function ReservationClient() {
   const goToDetails = () => {
     if (!selectedDate || !time) {
       setError(t.required);
+
       return;
     }
 
     setError("");
+
     setStep(2);
   };
 
@@ -307,10 +351,12 @@ export default function ReservationClient() {
 
     if (!name.trim() || !phone.trim() || !email.trim()) {
       setError(t.required);
+
       return;
     }
 
     setError("");
+
     setStep(3);
   };
 
@@ -322,6 +368,7 @@ export default function ReservationClient() {
     }
 
     setSubmitting(true);
+
     setError("");
 
     try {
@@ -382,82 +429,36 @@ export default function ReservationClient() {
     }
   };
 
-  if (checkingAuth) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.successCard}>
-          <p>{t.authLoading}</p>
-        </div>
-      </main>
-    );
-  }
+  const content = (
+    <div
+      className={`${styles.container} ${
+        embedded ? styles.containerEmbedded : ""
+      }`}
+    >
+      <div className={styles.heading}>
+        <span className={styles.eyebrow}>{t.eyebrow}</span>
 
-  if (confirmed) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.successCard}>
-          <div className={styles.successIcon}>✓</div>
+        <h1>{t.title}</h1>
 
-          <h1>{t.confirmed}</h1>
+        <p>{t.subtitle}</p>
+      </div>
 
-          <p>{t.confirmedText}</p>
+      <div className={styles.steps}>
+        <span className={step >= 1 ? styles.stepActive : ""}>1</span>
 
-          <Link href={`/${locale}/account`} className={styles.backHome}>
-            {t.account}
-          </Link>
-        </div>
-      </main>
-    );
-  }
+        <div />
 
-  return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <Link href={`/${locale}`} className={styles.homeLink}>
-          ← {t.home}
-        </Link>
+        <span className={step >= 2 ? styles.stepActive : ""}>2</span>
 
-        <div className={styles.languageSwitcher}>
-          <Link
-            href="/bg/reservations"
-            className={locale === "bg" ? styles.activeLanguage : ""}
-          >
-            BG
-          </Link>
+        <div />
 
-          <span>/</span>
+        <span className={step >= 3 ? styles.stepActive : ""}>3</span>
+      </div>
 
-          <Link
-            href="/en/reservations"
-            className={locale === "en" ? styles.activeLanguage : ""}
-          >
-            EN
-          </Link>
-        </div>
-      </header>
-
-      <div className={styles.container}>
-        <div className={styles.heading}>
-          <h1>{t.title}</h1>
-
-          <p>{t.subtitle}</p>
-        </div>
-
-        <div className={styles.steps}>
-          <span className={step >= 1 ? styles.stepActive : ""}>1</span>
-
-          <div />
-
-          <span className={step >= 2 ? styles.stepActive : ""}>2</span>
-
-          <div />
-
-          <span className={step >= 3 ? styles.stepActive : ""}>3</span>
-        </div>
-
-        <section className={styles.formCard}>
-          {step === 1 && (
-            <div className={styles.formContent}>
+      <section className={styles.formCard}>
+        {step === 1 && (
+          <div className={`${styles.formContent} ${styles.firstStep}`}>
+            <div className={styles.calendarColumn}>
               <div className={styles.field}>
                 <label>{t.date}</label>
 
@@ -519,7 +520,9 @@ export default function ReservationClient() {
                   </p>
                 )}
               </div>
+            </div>
 
+            <div className={styles.optionsColumn}>
               <div className={styles.field}>
                 <label>{t.guests}</label>
 
@@ -613,14 +616,21 @@ export default function ReservationClient() {
                 onClick={goToDetails}
               >
                 {t.continue}
+
+                <span>→</span>
               </button>
             </div>
-          )}
+          </div>
+        )}
 
-          {step === 2 && (
-            <form className={styles.formContent} onSubmit={goToReview}>
-              <h2>{t.details}</h2>
+        {step === 2 && (
+          <form
+            className={`${styles.formContent} ${styles.detailsStep}`}
+            onSubmit={goToReview}
+          >
+            <h2>{t.details}</h2>
 
+            <div className={styles.detailsGrid}>
               <div className={styles.inputGroup}>
                 <label htmlFor="name">{t.name} *</label>
 
@@ -645,7 +655,7 @@ export default function ReservationClient() {
                 />
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
                 <label htmlFor="email">{t.email} *</label>
 
                 <input
@@ -657,7 +667,7 @@ export default function ReservationClient() {
                 />
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
                 <label htmlFor="note">{t.note}</label>
 
                 <textarea
@@ -668,107 +678,177 @@ export default function ReservationClient() {
                   onChange={(event) => setNote(event.target.value)}
                 />
               </div>
-
-              {error && <p className={styles.error}>{error}</p>}
-
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  className={styles.secondaryButton}
-                  onClick={() => setStep(1)}
-                >
-                  ← {t.back}
-                </button>
-
-                <button type="submit" className={styles.primaryButton}>
-                  {t.review}
-                </button>
-              </div>
-            </form>
-          )}
-
-          {step === 3 && (
-            <div className={styles.formContent}>
-              <h2>{t.summary}</h2>
-
-              <div className={styles.summary}>
-                <div>
-                  <span>{t.date}</span>
-
-                  <strong>{formattedDate}</strong>
-                </div>
-
-                <div>
-                  <span>{t.time}</span>
-
-                  <strong>{time}</strong>
-                </div>
-
-                <div>
-                  <span>{t.guests}</span>
-
-                  <strong>
-                    {guests} {guests === 1 ? t.guest : t.guestsPlural}
-                  </strong>
-                </div>
-
-                <div>
-                  <span>{t.seating}</span>
-
-                  <strong>{getSeatingLabel()}</strong>
-                </div>
-
-                <div>
-                  <span>{t.name}</span>
-
-                  <strong>{name}</strong>
-                </div>
-
-                <div>
-                  <span>{t.phone}</span>
-
-                  <strong>{phone}</strong>
-                </div>
-
-                <div>
-                  <span>{t.email}</span>
-
-                  <strong>{email}</strong>
-                </div>
-
-                {note && (
-                  <div>
-                    <span>{t.note}</span>
-
-                    <strong>{note}</strong>
-                  </div>
-                )}
-              </div>
-
-              {error && <p className={styles.error}>{error}</p>}
-
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  className={styles.secondaryButton}
-                  onClick={() => setStep(2)}
-                >
-                  ← {t.back}
-                </button>
-
-                <button
-                  type="button"
-                  disabled={submitting}
-                  className={styles.primaryButton}
-                  onClick={confirmReservation}
-                >
-                  {submitting ? t.confirming : t.confirm}
-                </button>
-              </div>
             </div>
-          )}
-        </section>
+
+            {error && <p className={styles.error}>{error}</p>}
+
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.secondaryButton}
+                onClick={() => setStep(1)}
+              >
+                ← {t.back}
+              </button>
+
+              <button type="submit" className={styles.primaryButton}>
+                {t.review}
+
+                <span>→</span>
+              </button>
+            </div>
+          </form>
+        )}
+
+        {step === 3 && (
+          <div className={`${styles.formContent} ${styles.reviewStep}`}>
+            <h2>{t.summary}</h2>
+
+            <div className={styles.summary}>
+              <div>
+                <span>{t.date}</span>
+
+                <strong>{formattedDate}</strong>
+              </div>
+
+              <div>
+                <span>{t.time}</span>
+
+                <strong>{time}</strong>
+              </div>
+
+              <div>
+                <span>{t.guests}</span>
+
+                <strong>
+                  {guests} {guests === 1 ? t.guest : t.guestsPlural}
+                </strong>
+              </div>
+
+              <div>
+                <span>{t.seating}</span>
+
+                <strong>{getSeatingLabel()}</strong>
+              </div>
+
+              <div>
+                <span>{t.name}</span>
+
+                <strong>{name}</strong>
+              </div>
+
+              <div>
+                <span>{t.phone}</span>
+
+                <strong>{phone}</strong>
+              </div>
+
+              <div>
+                <span>{t.email}</span>
+
+                <strong>{email}</strong>
+              </div>
+
+              {note && (
+                <div>
+                  <span>{t.note}</span>
+
+                  <strong>{note}</strong>
+                </div>
+              )}
+            </div>
+
+            {error && <p className={styles.error}>{error}</p>}
+
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.secondaryButton}
+                onClick={() => setStep(2)}
+              >
+                ← {t.back}
+              </button>
+
+              <button
+                type="button"
+                disabled={submitting}
+                className={styles.primaryButton}
+                onClick={confirmReservation}
+              >
+                {submitting ? t.confirming : t.confirm}
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+
+  if (checkingAuth) {
+    return (
+      <div className={embedded ? styles.embeddedState : styles.main}>
+        <div className={styles.loadingState}>
+          <span className={styles.loadingDot} />
+
+          <p>{t.authLoading}</p>
+        </div>
       </div>
+    );
+  }
+
+  if (confirmed) {
+    return (
+      <div className={embedded ? styles.embeddedState : styles.main}>
+        <div className={styles.successCard}>
+          <div className={styles.successIcon}>✓</div>
+
+          <span className={styles.eyebrow}>{t.eyebrow}</span>
+
+          <h1>{t.confirmed}</h1>
+
+          <p>{t.confirmedText}</p>
+
+          <Link href={`/${locale}/account`} className={styles.backHome}>
+            {t.account}
+
+            <span>→</span>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (embedded) {
+    return <div className={styles.embedded}>{content}</div>;
+  }
+
+  return (
+    <main className={styles.main}>
+      <header className={styles.header}>
+        <Link href={`/${locale}`} className={styles.homeLink}>
+          ← {t.home}
+        </Link>
+
+        <div className={styles.languageSwitcher}>
+          <Link
+            href="/bg/reservations"
+            className={locale === "bg" ? styles.activeLanguage : ""}
+          >
+            BG
+          </Link>
+
+          <span>/</span>
+
+          <Link
+            href="/en/reservations"
+            className={locale === "en" ? styles.activeLanguage : ""}
+          >
+            EN
+          </Link>
+        </div>
+      </header>
+
+      {content}
     </main>
   );
 }
