@@ -44,7 +44,7 @@
 .sectionDescription {
     max-width: 390px;
     margin: 0;
-    color: rgba(32, 36, 32, 0.55);
+    color: rgba(32, 36, 32, 0.68);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -235,7 +235,7 @@
 .contactIntro p {
     max-width: 450px;
     margin: 0;
-    color: rgba(32, 36, 32, 0.55);
+    color: rgba(32, 36, 32, 0.68);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -279,7 +279,7 @@
 .contactLabel {
     display: block;
     margin-bottom: 9px;
-    color: rgba(65, 88, 67, 0.58);
+    color: rgba(65, 88, 67, 0.8);
     font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
@@ -412,7 +412,7 @@
 .reviewsDescription {
     max-width: 390px;
     margin: 0;
-    color: rgba(32, 36, 32, 0.55);
+    color: rgba(32, 36, 32, 0.68);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -549,7 +549,7 @@
 }
 
 .reviewAuthorInfo span {
-    color: rgba(32, 36, 32, 0.4);
+    color: rgba(32, 36, 32, 0.65);
     font-size: 9px;
 }
 
@@ -609,7 +609,7 @@
 
 .footerColumnTitle {
     margin-bottom: 5px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.62);
     font-size: 9px;
     font-weight: 600;
     text-transform: uppercase;
@@ -659,7 +659,7 @@
     gap: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 24px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.62);
     font-size: 9px;
 }
 
@@ -671,7 +671,7 @@
 .footerLanguages a {
     color: #ffffff;
     text-decoration: none;
-    opacity: 0.4;
+    opacity: 0.62;
     transition:
         opacity 0.3s ease,
         transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
