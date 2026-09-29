@@ -123,7 +123,7 @@ export default function RegisterClient() {
     try {
       const supabase = createClient();
 
-      const { data, error: signUpError } = await supabase.auth.signUp({
+      const { error: signUpError } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
@@ -132,8 +132,6 @@ export default function RegisterClient() {
           },
         },
       });
-
-      console.log("Supabase signup data:", data);
 
       if (signUpError) {
         console.error("Supabase signup error:", signUpError);
