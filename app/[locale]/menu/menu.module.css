@@ -178,8 +178,7 @@
 .intro h1 {
     margin: 0;
 
-    color:
-        #202520;
+    color: #202520;
 
     font-family:
         var(--font-display);
@@ -222,7 +221,7 @@
     width: 100%;
 
     padding:
-        18px 24px 110px;
+        10px 18px 24px;
 }
 
 .bookStage {
@@ -231,13 +230,12 @@
     display: flex;
 
     width:
-        min(1280px,
+        min(1120px,
             100%);
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     margin:
         0 auto;
@@ -249,36 +247,18 @@
     display: flex;
 
     width:
-        min(930px,
-            calc(100vw - 190px));
+        min(840px,
+            calc(100vw - 210px));
 
-    min-height: 650px;
+    min-height:
+        580px;
 
     align-items: center;
 
-    justify-content:
-        center;
-
-    contain:
-        layout paint;
+    justify-content: center;
 
     isolation: isolate;
 }
-
-
-/*
-  FlipBook винаги работи с ширината
-  на цялата отворена книга.
-
-  При корицата реално се вижда само
-  дясната половина, затова местим
-  целия engine наляво с 25% от
-  неговата ширина.
-
-  Когато книгата се отвори,
-  positioner-ът плавно се връща
-  на translateX(0).
-*/
 
 .bookPositioner {
     position: relative;
@@ -289,8 +269,7 @@
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     transform:
         translateX(0);
@@ -305,34 +284,6 @@
 .bookPositionerCover {
     transform:
         translateX(-25%);
-}
-
-
-.bookFrame::before {
-    content: "";
-
-    position: absolute;
-
-    right: 10%;
-
-    bottom: -17px;
-
-    left: 10%;
-
-    height: 26px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(33,
-            40,
-            32,
-            0.14);
-
-    filter:
-        blur(18px);
-
-    pointer-events: none;
 }
 
 .flipBook {
@@ -351,7 +302,7 @@
     overflow: hidden;
 
     background:
-        #e8dfce;
+        #eee7d9;
 
     backface-visibility:
         hidden;
@@ -363,14 +314,18 @@
 .menuPage {
     position: relative;
 
-    width: 100%;
+    display: flex;
 
+    width: 100%;
     height: 100%;
+
+    align-items: center;
+    justify-content: center;
 
     overflow: hidden;
 
     background:
-        #e8dfce;
+        #eee7d9;
 
     backface-visibility:
         hidden;
@@ -380,14 +335,19 @@
     display: block;
 
     width: 100%;
-
     height: 100%;
 
-    object-fit: cover;
+    object-fit:
+        contain;
 
-    user-select: none;
+    object-position:
+        center;
 
-    pointer-events: none;
+    user-select:
+        none;
+
+    pointer-events:
+        none;
 
     backface-visibility:
         hidden;
@@ -397,7 +357,6 @@
     position: absolute;
 
     top: 15px;
-
     right: 15px;
 
     z-index: 20;
@@ -405,13 +364,10 @@
     display: flex;
 
     width: 36px;
-
     height: 36px;
 
     align-items: center;
-
-    justify-content:
-        center;
+    justify-content: center;
 
     border:
         1px solid rgba(255,
@@ -461,13 +417,10 @@
     display: flex;
 
     width: 52px;
-
     height: 52px;
 
     align-items: center;
-
-    justify-content:
-        center;
+    justify-content: center;
 
     border:
         1px solid rgba(65,
@@ -481,7 +434,7 @@
         rgba(255,
             255,
             255,
-            0.78);
+            0.8);
 
     color:
         var(--color-accent);
@@ -519,11 +472,11 @@
 }
 
 .previousButton {
-    left: 8px;
+    left: 14px;
 }
 
 .nextButton {
-    right: 8px;
+    right: 14px;
 }
 
 
@@ -533,7 +486,7 @@
     display: grid;
 
     width:
-        min(720px,
+        min(650px,
             100%);
 
     grid-template-columns:
@@ -541,10 +494,10 @@
 
     align-items: center;
 
-    gap: 32px;
+    gap: 28px;
 
     margin:
-        38px auto 0;
+        20px auto 0;
 }
 
 .textControl {
@@ -609,7 +562,7 @@
 .pageIndicator {
     display: flex;
 
-    min-width: 180px;
+    min-width: 170px;
 
     align-items: center;
 
@@ -664,7 +617,7 @@
 
 .zoomHint {
     margin:
-        22px 0 0;
+        14px 0 0;
 
     color:
         rgba(32,
@@ -819,8 +772,7 @@
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     background:
         rgba(12,
@@ -844,8 +796,7 @@
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 }
 
 .zoomImageWrapper img {
@@ -859,7 +810,8 @@
 
     max-height: 100%;
 
-    object-fit: contain;
+    object-fit:
+        contain;
 }
 
 .zoomClose {
@@ -920,8 +872,7 @@
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     gap: 24px;
 
@@ -948,8 +899,7 @@
 
     align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     border:
         1px solid rgba(255,
@@ -970,6 +920,20 @@
 
 .zoomNavigation button:disabled {
     opacity: 0.2;
+}
+
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+    .bookFrame {
+        width:
+            min(760px,
+                calc(100vw - 130px));
+
+        min-height:
+            520px;
+    }
 }
 
 
@@ -995,15 +959,16 @@
 
     .bookSection {
         padding:
-            8px 12px 80px;
+            8px 10px 24px;
     }
 
     .bookFrame {
         width:
-            min(520px,
-                calc(100vw - 24px));
+            min(500px,
+                calc(100vw - 20px));
 
-        min-height: 0;
+        min-height:
+            0;
     }
 
     .bookPositioner,
@@ -1018,13 +983,13 @@
 
     .controls {
         width:
-            min(520px,
+            min(500px,
                 100%);
 
         gap: 14px;
 
         margin-top:
-            28px;
+            18px;
     }
 
     .zoomButton {
@@ -1072,7 +1037,8 @@
     }
 
     .description {
-        font-size: 11px;
+        font-size:
+            11px;
     }
 
     .controls {

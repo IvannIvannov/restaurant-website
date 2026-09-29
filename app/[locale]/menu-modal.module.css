@@ -1,0 +1,269 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        rgba(12,
+            15,
+            12,
+            0.58);
+
+    padding: 20px;
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    animation:
+        overlayIn 0.28s ease both;
+}
+
+.modal {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width:
+        min(1120px,
+            calc(100vw - 40px));
+
+    height:
+        min(820px,
+            calc(100dvh - 40px));
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,
+            255,
+            255,
+            0.12);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(238,
+            233,
+            223,
+            0.97);
+
+    box-shadow:
+        0 35px 90px rgba(0,
+            0,
+            0,
+            0.36);
+
+    animation:
+        modalIn 0.42s cubic-bezier(0.22,
+            1,
+            0.36,
+            1) both;
+}
+
+.closeButton {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 100;
+
+    display: flex;
+
+    width: 42px;
+    height: 42px;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(65,
+            88,
+            67,
+            0.14);
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.72);
+
+    color:
+        #202520;
+
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 1;
+
+    box-shadow:
+        0 8px 22px rgba(65,
+            88,
+            67,
+            0.06);
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.closeButton:hover {
+    background:
+        var(--color-accent);
+
+    color:
+        #ffffff;
+
+    transform:
+        scale(1.04);
+}
+
+.content {
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    padding:
+        24px 64px 18px;
+}
+
+/*
+  Embedded MenuClient
+  няма нужда от външни vertical margins.
+*/
+
+.content>section {
+    width: 100%;
+
+    padding:
+        0 !important;
+
+    margin: 0 !important;
+}
+
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(14px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+    .overlay {
+        padding: 12px;
+    }
+
+    .modal {
+        width:
+            calc(100vw - 24px);
+
+        height:
+            calc(100dvh - 24px);
+
+        border-radius:
+            18px;
+    }
+
+    .content {
+        padding:
+            22px 18px 14px;
+    }
+
+    .closeButton {
+        top: 14px;
+        right: 14px;
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+    .overlay {
+        padding: 0;
+    }
+
+    .modal {
+        width: 100vw;
+        height: 100dvh;
+
+        border: 0;
+        border-radius: 0;
+    }
+
+    .content {
+        padding:
+            58px 8px 12px;
+    }
+
+    .closeButton {
+        top: 12px;
+        right: 12px;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 23px;
+    }
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .overlay,
+    .modal {
+        animation: none;
+    }
+
+    .closeButton {
+        transition: none;
+    }
+}

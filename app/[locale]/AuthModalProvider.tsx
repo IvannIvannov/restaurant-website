@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 
 import AccountModal from "./AccountModal";
 import AuthModal from "./AuthModal";
+import MenuModal from "./MenuModal";
 
 type Locale = "bg" | "en";
 
@@ -26,14 +27,20 @@ type AuthModalContextValue = {
 
   openAccount: () => void;
 
+  openMenu: () => void;
+
   closeAuth: () => void;
 
   closeAccount: () => void;
+
+  closeMenu: () => void;
 };
 
 type AuthState = {
   isOpen: boolean;
+
   mode: AuthMode;
+
   returnTo: string | null;
 };
 
@@ -41,7 +48,9 @@ const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 
 type AuthModalProviderProps = {
   children: ReactNode;
+
   locale: Locale;
+
   isLoggedIn: boolean;
 };
 
@@ -54,18 +63,26 @@ export default function AuthModalProvider({
 
   const [authState, setAuthState] = useState<AuthState>({
     isOpen: false,
+
     mode: "login",
+
     returnTo: null,
   });
 
   const [isAccountOpen, setIsAccountOpen] = useState(false);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const openLogin = useCallback((returnTo?: string) => {
     setIsAccountOpen(false);
 
+    setIsMenuOpen(false);
+
     setAuthState({
       isOpen: true,
+
       mode: "login",
+
       returnTo: returnTo ?? null,
     });
   }, []);
@@ -73,33 +90,61 @@ export default function AuthModalProvider({
   const openRegister = useCallback((returnTo?: string) => {
     setIsAccountOpen(false);
 
+    setIsMenuOpen(false);
+
     setAuthState({
       isOpen: true,
+
       mode: "register",
+
       returnTo: returnTo ?? null,
     });
   }, []);
 
   const openAccount = useCallback(() => {
+    setIsMenuOpen(false);
+
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
     }));
 
     setIsAccountOpen(true);
   }, []);
 
+  const openMenu = useCallback(() => {
+    setAuthState((current) => ({
+      ...current,
+
+      isOpen: false,
+
+      returnTo: null,
+    }));
+
+    setIsAccountOpen(false);
+
+    setIsMenuOpen(true);
+  }, []);
+
   const closeAuth = useCallback(() => {
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
     }));
   }, []);
 
   const closeAccount = useCallback(() => {
     setIsAccountOpen(false);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
   }, []);
 
   const handleAuthenticated = useCallback(() => {
@@ -109,7 +154,9 @@ export default function AuthModalProvider({
 
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
     }));
 
@@ -194,6 +241,8 @@ export default function AuthModalProvider({
 
       const normalizedPath = url.pathname.replace(/\/+$/, "");
 
+      const menuPath = `/${locale}/menu`;
+
       const loginPath = `/${locale}/login`;
 
       const registerPath = `/${locale}/register`;
@@ -201,6 +250,26 @@ export default function AuthModalProvider({
       const accountPath = `/${locale}/account`;
 
       const protectedPaths = [`/${locale}/reservations`, `/${locale}/admin`];
+
+      /*
+       * Menu links stay as normal
+       * Next <Link> elements throughout
+       * the site, but while the user is
+       * already browsing we display the
+       * flipbook as a modal instead.
+       *
+       * We intentionally do NOT stop
+       * propagation here so existing
+       * onClick handlers such as closing
+       * the mobile navigation still run.
+       */
+      if (normalizedPath === menuPath) {
+        event.preventDefault();
+
+        openMenu();
+
+        return;
+      }
 
       if (normalizedPath === loginPath) {
         event.preventDefault();
@@ -255,17 +324,33 @@ export default function AuthModalProvider({
     return () => {
       window.removeEventListener("click", handleClick, true);
     };
-  }, [isLoggedIn, locale, openAccount, openLogin, openRegister]);
+  }, [isLoggedIn, locale, openAccount, openLogin, openMenu, openRegister]);
 
   const value = useMemo(
     () => ({
       openLogin,
+
+      openRegister,
+
+      openAccount,
+
+      openMenu,
+
+      closeAuth,
+
+      closeAccount,
+
+      closeMenu,
+    }),
+    [
+      openLogin,
       openRegister,
       openAccount,
+      openMenu,
       closeAuth,
       closeAccount,
-    }),
-    [openLogin, openRegister, openAccount, closeAuth, closeAccount],
+      closeMenu,
+    ],
   );
 
   return (
@@ -287,6 +372,8 @@ export default function AuthModalProvider({
         onClose={closeAccount}
         onLoggedOut={handleLoggedOut}
       />
+
+      <MenuModal locale={locale} isOpen={isMenuOpen} onClose={closeMenu} />
     </AuthModalContext.Provider>
   );
 }

@@ -13,6 +13,7 @@ type Locale = "bg" | "en";
 
 type MenuClientProps = {
   locale: Locale;
+  embedded?: boolean;
 };
 
 type FlipEvent = {
@@ -90,7 +91,10 @@ const translations = {
   },
 };
 
-export default function MenuClient({ locale }: MenuClientProps) {
+export default function MenuClient({
+  locale,
+  embedded = false,
+}: MenuClientProps) {
   const t = translations[locale];
 
   const bookRef = useRef<Book>(null);
@@ -138,7 +142,7 @@ export default function MenuClient({ locale }: MenuClientProps) {
         try {
           await image.decode();
         } catch {
-          // Изображението пак остава заявено и кеширано.
+          // Image remains requested and cached.
         }
 
         await new Promise<void>((resolve) => {
@@ -187,7 +191,9 @@ export default function MenuClient({ locale }: MenuClientProps) {
   useEffect(() => {
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setZoomedPage(null);
+        if (zoomedPage !== null) {
+          setZoomedPage(null);
+        }
 
         return;
       }
@@ -217,6 +223,221 @@ export default function MenuClient({ locale }: MenuClientProps) {
   const canGoNext = currentPage < menuPages.length - 1;
 
   const isCover = currentPage === 0;
+
+  const bookContent = (
+    <section className={styles.bookSection}>
+      <div className={styles.bookStage}>
+        <button
+          type="button"
+          className={`${styles.navigationButton} ${styles.previousButton}`}
+          onClick={handlePrevious}
+          disabled={!canGoPrevious}
+          aria-label={t.previous}
+        >
+          ←
+        </button>
+
+        <div className={styles.bookFrame}>
+          <div
+            className={`${styles.bookPositioner} ${
+              isCover ? styles.bookPositionerCover : ""
+            }`}
+          >
+            <FlipBook
+              ref={bookRef}
+              className={styles.flipBook}
+              width={410}
+              height={580}
+              size="stretch"
+              cover
+              onFlip={handleFlip}
+            >
+              {menuPages.map((page, index) => {
+                const content = (
+                  <div className={styles.menuPage}>
+                    <Image
+                      loader={cloudinaryLoader}
+                      unoptimized
+                      src={page.preview}
+                      alt={`${t.page} ${index + 1}`}
+                      width={1000}
+                      height={1416}
+                      priority={index <= 5}
+                      draggable={false}
+                      sizes="(min-width: 900px) 410px, 92vw"
+                    />
+
+                    <button
+                      type="button"
+                      className={styles.zoomButton}
+                      onClick={(event) => {
+                        event.stopPropagation();
+
+                        setZoomedPage(index);
+                      }}
+                      aria-label={`${t.page} ${index + 1}`}
+                    >
+                      ⤢
+                    </button>
+                  </div>
+                );
+
+                if (index === 0 || index === menuPages.length - 1) {
+                  return (
+                    <Page
+                      key={index}
+                      density="hard"
+                      className={styles.flipPage}
+                    >
+                      {content}
+                    </Page>
+                  );
+                }
+
+                return (
+                  <Page key={index} className={styles.flipPage}>
+                    {content}
+                  </Page>
+                );
+              })}
+            </FlipBook>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className={`${styles.navigationButton} ${styles.nextButton}`}
+          onClick={handleNext}
+          disabled={!canGoNext}
+          aria-label={t.next}
+        >
+          →
+        </button>
+      </div>
+
+      <div className={styles.controls}>
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={!canGoPrevious}
+          className={styles.textControl}
+        >
+          <span>←</span>
+
+          {t.previous}
+        </button>
+
+        <div className={styles.pageIndicator}>
+          <span>
+            {t.page} {currentPage + 1} {t.of} {menuPages.length}
+          </span>
+
+          <div className={styles.progress}>
+            <span
+              style={{
+                width: `${((currentPage + 1) / menuPages.length) * 100}%`,
+              }}
+            />
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={!canGoNext}
+          className={styles.textControl}
+        >
+          {t.next}
+
+          <span>→</span>
+        </button>
+      </div>
+
+      <p className={styles.zoomHint}>{t.zoomHint}</p>
+    </section>
+  );
+
+  const zoomContent =
+    zoomedPage !== null ? (
+      <div
+        className={styles.zoomOverlay}
+        role="dialog"
+        aria-modal="true"
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) {
+            setZoomedPage(null);
+          }
+        }}
+      >
+        <button
+          type="button"
+          className={styles.zoomClose}
+          onClick={() => setZoomedPage(null)}
+        >
+          <span>×</span>
+
+          {t.close}
+        </button>
+
+        <div className={styles.zoomImageWrapper}>
+          <Image
+            loader={cloudinaryLoader}
+            unoptimized
+            src={menuPages[zoomedPage].zoom}
+            alt={`${t.page} ${zoomedPage + 1}`}
+            width={2200}
+            height={3116}
+            priority
+            draggable={false}
+            sizes="95vw"
+          />
+        </div>
+
+        <div className={styles.zoomNavigation}>
+          <button
+            type="button"
+            disabled={zoomedPage === 0}
+            onClick={() =>
+              setZoomedPage((current) =>
+                current === null ? null : Math.max(0, current - 1),
+              )
+            }
+          >
+            ←
+          </button>
+
+          <span>
+            {zoomedPage + 1}
+            {" / "}
+            {menuPages.length}
+          </span>
+
+          <button
+            type="button"
+            disabled={zoomedPage === menuPages.length - 1}
+            onClick={() =>
+              setZoomedPage((current) =>
+                current === null
+                  ? null
+                  : Math.min(menuPages.length - 1, current + 1),
+              )
+            }
+          >
+            →
+          </button>
+        </div>
+      </div>
+    ) : null;
+
+  if (embedded) {
+    return (
+      <>
+        {bookContent}
+
+        {zoomContent}
+      </>
+    );
+  }
 
   return (
     <main className={styles.main}>
@@ -256,136 +477,7 @@ export default function MenuClient({ locale }: MenuClientProps) {
         <p className={styles.description}>{t.description}</p>
       </section>
 
-      <section className={styles.bookSection}>
-        <div className={styles.bookStage}>
-          <button
-            type="button"
-            className={`${styles.navigationButton} ${styles.previousButton}`}
-            onClick={handlePrevious}
-            disabled={!canGoPrevious}
-            aria-label={t.previous}
-          >
-            ←
-          </button>
-
-          <div className={styles.bookFrame}>
-            <div
-              className={`${styles.bookPositioner} ${
-                isCover ? styles.bookPositionerCover : ""
-              }`}
-            >
-              <FlipBook
-                ref={bookRef}
-                className={styles.flipBook}
-                width={460}
-                height={650}
-                size="stretch"
-                cover
-                onFlip={handleFlip}
-              >
-                {menuPages.map((page, index) => {
-                  const content = (
-                    <div className={styles.menuPage}>
-                      <Image
-                        loader={cloudinaryLoader}
-                        unoptimized
-                        src={page.preview}
-                        alt={`${t.page} ${index + 1}`}
-                        width={1000}
-                        height={1416}
-                        priority={index <= 5}
-                        draggable={false}
-                        sizes="(min-width: 900px) 460px, 92vw"
-                      />
-
-                      <button
-                        type="button"
-                        className={styles.zoomButton}
-                        onClick={(event) => {
-                          event.stopPropagation();
-
-                          setZoomedPage(index);
-                        }}
-                        aria-label={`${t.page} ${index + 1}`}
-                      >
-                        ⤢
-                      </button>
-                    </div>
-                  );
-
-                  if (index === 0 || index === menuPages.length - 1) {
-                    return (
-                      <Page
-                        key={index}
-                        density="hard"
-                        className={styles.flipPage}
-                      >
-                        {content}
-                      </Page>
-                    );
-                  }
-
-                  return (
-                    <Page key={index} className={styles.flipPage}>
-                      {content}
-                    </Page>
-                  );
-                })}
-              </FlipBook>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className={`${styles.navigationButton} ${styles.nextButton}`}
-            onClick={handleNext}
-            disabled={!canGoNext}
-            aria-label={t.next}
-          >
-            →
-          </button>
-        </div>
-
-        <div className={styles.controls}>
-          <button
-            type="button"
-            onClick={handlePrevious}
-            disabled={!canGoPrevious}
-            className={styles.textControl}
-          >
-            <span>←</span>
-
-            {t.previous}
-          </button>
-
-          <div className={styles.pageIndicator}>
-            <span>
-              {t.page} {currentPage + 1} {t.of} {menuPages.length}
-            </span>
-
-            <div className={styles.progress}>
-              <span
-                style={{
-                  width: `${((currentPage + 1) / menuPages.length) * 100}%`,
-                }}
-              />
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={!canGoNext}
-            className={styles.textControl}
-          >
-            {t.next}
-
-            <span>→</span>
-          </button>
-        </div>
-
-        <p className={styles.zoomHint}>{t.zoomHint}</p>
-      </section>
+      {bookContent}
 
       <section className={styles.reservationSection}>
         <div>
@@ -405,76 +497,7 @@ export default function MenuClient({ locale }: MenuClientProps) {
         </Link>
       </section>
 
-      {zoomedPage !== null && (
-        <div
-          className={styles.zoomOverlay}
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setZoomedPage(null);
-            }
-          }}
-        >
-          <button
-            type="button"
-            className={styles.zoomClose}
-            onClick={() => setZoomedPage(null)}
-          >
-            <span>×</span>
-
-            {t.close}
-          </button>
-
-          <div className={styles.zoomImageWrapper}>
-            <Image
-              loader={cloudinaryLoader}
-              unoptimized
-              src={menuPages[zoomedPage].zoom}
-              alt={`${t.page} ${zoomedPage + 1}`}
-              width={2200}
-              height={3116}
-              priority
-              draggable={false}
-              sizes="95vw"
-            />
-          </div>
-
-          <div className={styles.zoomNavigation}>
-            <button
-              type="button"
-              disabled={zoomedPage === 0}
-              onClick={() =>
-                setZoomedPage((current) =>
-                  current === null ? null : Math.max(0, current - 1),
-                )
-              }
-            >
-              ←
-            </button>
-
-            <span>
-              {zoomedPage + 1}
-              {" / "}
-              {menuPages.length}
-            </span>
-
-            <button
-              type="button"
-              disabled={zoomedPage === menuPages.length - 1}
-              onClick={() =>
-                setZoomedPage((current) =>
-                  current === null
-                    ? null
-                    : Math.min(menuPages.length - 1, current + 1),
-                )
-              }
-            >
-              →
-            </button>
-          </div>
-        </div>
-      )}
+      {zoomContent}
     </main>
   );
 }
