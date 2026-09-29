@@ -19,18 +19,20 @@
 
     -webkit-backdrop-filter:
         blur(10px);
+
+    overscroll-behavior: contain;
 }
 
 .modal {
     position: relative;
 
-    width: min(620px,
-            100%);
+    width: min(620px, 100%);
 
     max-height:
-        calc(100vh - 56px);
+        calc(100dvh - 56px);
 
     overflow-y: auto;
+    overscroll-behavior: contain;
 
     border:
         1px solid rgba(65, 88, 67, 0.08);
@@ -49,6 +51,25 @@
 
     font-family:
         var(--font-body);
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(65, 88, 67, 0.2) transparent;
+}
+
+.modal::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+
+    background:
+        rgba(65, 88, 67, 0.2);
 }
 
 .closeButton {
@@ -56,6 +77,8 @@
 
     top: 20px;
     right: 20px;
+
+    z-index: 5;
 
     display: flex;
 
@@ -152,9 +175,7 @@
         var(--font-body);
 
     font-size:
-        clamp(34px,
-            5vw,
-            44px);
+        clamp(34px, 5vw, 44px);
 
     font-weight: 600;
 
@@ -183,8 +204,7 @@
     display: grid;
 
     grid-template-columns:
-        repeat(2,
-            1fr);
+        repeat(2, 1fr);
 
     overflow: hidden;
 
@@ -262,9 +282,7 @@
     display: grid;
 
     grid-template-columns:
-        repeat(2,
-            minmax(0,
-                1fr));
+        repeat(2, minmax(0, 1fr));
 
     gap: 14px;
 }
@@ -557,69 +575,289 @@
         var(--color-accent-hover);
 }
 
-@media (max-width: 600px) {
-    .backdrop {
-        align-items:
-            flex-end;
+/* TABLET */
 
+@media (max-width: 700px) {
+    .backdrop {
         padding:
-            16px 10px;
+            18px 12px;
+
+        align-items: center;
     }
 
     .modal {
         width: 100%;
 
         max-height:
-            calc(100vh - 20px);
-
-        border-radius:
-            22px 22px 18px 18px;
+            calc(100dvh - 36px);
 
         padding:
-            38px 20px 25px;
+            50px 26px 30px;
     }
 
     .closeButton {
         top: 14px;
         right: 14px;
 
-        width: 36px;
-        height: 36px;
+        width: 37px;
+        height: 37px;
     }
 
     .header {
-        margin-bottom: 24px;
+        margin-bottom: 25px;
     }
 
     .header h2 {
-        font-size: 34px;
+        font-size: 35px;
     }
 
     .description {
-        max-width: 330px;
+        max-width: 360px;
 
         font-size: 11px;
     }
 
     .modeSwitch {
-        margin-bottom: 23px;
+        margin-bottom: 24px;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+    .backdrop {
+        align-items:
+            flex-end;
+
+        overflow: hidden;
+
+        padding:
+            8px;
+
+        padding-top:
+            max(8px,
+                env(safe-area-inset-top));
+
+        padding-bottom:
+            max(8px,
+                env(safe-area-inset-bottom));
+    }
+
+    .modal {
+        width: 100%;
+
+        max-height:
+            calc(100dvh - max(16px,
+                    env(safe-area-inset-top)) - max(16px,
+                    env(safe-area-inset-bottom)));
+
+        border-radius:
+            20px;
+
+        padding:
+            51px 18px 24px;
+
+        box-shadow:
+            0 24px 70px rgba(12,
+                16,
+                12,
+                0.32);
+    }
+
+    .closeButton {
+        top: 12px;
+        right: 12px;
+
+        width: 36px;
+        height: 36px;
+
+        background:
+            rgba(255,
+                255,
+                255,
+                0.72);
+    }
+
+    .header {
+        max-width: 340px;
+
+        margin:
+            0 auto 22px;
+
+        padding:
+            0 8px;
+    }
+
+    .eyebrow {
+        margin-bottom:
+            8px;
+
+        font-size: 8px;
+    }
+
+    .header h2 {
+        margin-bottom:
+            10px;
+
+        font-size:
+            clamp(30px,
+                9vw,
+                34px);
+
+        line-height: 1.02;
+    }
+
+    .description {
+        max-width: 310px;
+
+        font-size: 10.5px;
+
+        line-height: 1.6;
+    }
+
+    .modeSwitch {
+        margin-bottom:
+            21px;
+
+        border-radius:
+            10px;
+    }
+
+    .modeSwitch button {
+        min-height: 43px;
+
+        font-size: 9px;
+    }
+
+    .modeIndicator {
+        border-radius:
+            7px;
+    }
+
+    .form {
+        gap: 15px;
     }
 
     .twoColumns {
         grid-template-columns:
             1fr;
 
-        gap: 18px;
+        gap: 15px;
+    }
+
+    .field {
+        gap: 6px;
+    }
+
+    .field>span {
+        font-size: 9px;
     }
 
     .field input {
-        height: 50px;
+        height: 48px;
+
+        border-radius:
+            10px;
+
+        padding:
+            0 13px;
+
+        font-size: 12px;
+    }
+
+    .formMeta {
+        min-height:
+            16px;
+    }
+
+    .formMeta a,
+    .formMeta button {
+        font-size: 9px;
+    }
+
+    .error,
+    .success {
+        padding:
+            9px 11px;
+
+        font-size: 9px;
     }
 
     .submitButton {
-        min-height: 52px;
+        min-height: 50px;
+
+        border-radius:
+            10px;
+
+        padding:
+            0 14px 0 17px;
+
+        font-size: 10px;
+    }
+
+    .submitArrow {
+        width: 28px;
+        height: 28px;
+    }
+
+    .bottomText {
+        font-size: 9px;
+
+        line-height: 1.6;
     }
 }
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+    .backdrop {
+        padding:
+            5px;
+    }
+
+    .modal {
+        max-height:
+            calc(100dvh - 10px);
+
+        border-radius:
+            17px;
+
+        padding:
+            48px 15px 20px;
+    }
+
+    .header {
+        margin-bottom:
+            19px;
+    }
+
+    .header h2 {
+        font-size: 29px;
+    }
+
+    .modeSwitch {
+        margin-bottom:
+            18px;
+    }
+
+    .form {
+        gap: 13px;
+    }
+
+    .twoColumns {
+        gap: 13px;
+    }
+
+    .field input {
+        height: 46px;
+    }
+
+    .submitButton {
+        min-height: 48px;
+    }
+}
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 

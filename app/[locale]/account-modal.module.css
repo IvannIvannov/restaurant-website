@@ -874,62 +874,143 @@
 }
 
 @media (max-width: 650px) {
+
     .backdrop {
-        align-items:
-            flex-end;
+        align-items: center;
+
+        overflow: hidden;
 
         padding:
-            16px 10px;
+            12px;
+
+        padding-top:
+            max(12px,
+                env(safe-area-inset-top));
+
+        padding-bottom:
+            max(12px,
+                env(safe-area-inset-bottom));
     }
 
     .modal {
         width: 100%;
 
         max-height:
-            calc(100vh - 20px);
+            calc(100dvh - max(24px,
+                    env(safe-area-inset-top)) - max(24px,
+                    env(safe-area-inset-bottom)));
 
-        border-radius:
-            22px 22px 18px 18px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        border-radius: 20px;
 
         padding:
-            38px 20px 25px;
+            50px 20px 24px;
+
+        scrollbar-width: thin;
+        scrollbar-color:
+            rgba(65, 88, 67, 0.18) transparent;
+    }
+
+    .modal::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .modal::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+
+        background:
+            rgba(65, 88, 67, 0.18);
     }
 
     .closeButton {
-        top: 14px;
-        right: 14px;
+        top: 13px;
+        right: 13px;
+
+        z-index: 10;
 
         width: 36px;
         height: 36px;
+
+        background:
+            rgba(255, 255, 255, 0.72);
     }
 
     .header {
-        margin-bottom:
-            27px;
+        max-width: 360px;
+
+        margin:
+            0 auto 24px;
+
+        padding:
+            0 8px;
+    }
+
+    .eyebrow {
+        margin-bottom: 8px;
+
+        font-size: 8px;
     }
 
     .header h2 {
+        margin-bottom: 10px;
+
         font-size:
-            34px;
+            clamp(30px,
+                9vw,
+                34px);
+
+        line-height: 1.02;
     }
 
     .description {
-        max-width:
-            330px;
+        max-width: 320px;
 
-        font-size:
-            11px;
+        font-size: 10.5px;
+
+        line-height: 1.6;
     }
 
     .section {
         padding:
-            24px 0;
+            22px 0;
+    }
+
+    .sectionHeader {
+        align-items: center;
+
+        gap: 14px;
+
+        margin-bottom: 16px;
+    }
+
+    .sectionHeader h3 {
+        font-size: 13px;
+    }
+
+    .textButton {
+        flex-shrink: 0;
+
+        font-size: 9px;
     }
 
     .twoColumns,
     .infoGrid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .infoGrid {
+        border-radius: 11px;
+    }
+
+    .infoGrid>div {
+        padding:
+            15px 16px;
     }
 
     .infoGrid>div:nth-child(odd) {
@@ -941,50 +1022,205 @@
             1px solid rgba(65, 88, 67, 0.1);
     }
 
-    .sectionHeader {
-        align-items:
-            flex-start;
+    .infoGrid span {
+        margin-bottom: 6px;
+
+        font-size: 7.5px;
+    }
+
+    .infoGrid strong {
+        font-size: 10.5px;
+    }
+
+    .profileForm {
+        gap: 15px;
+    }
+
+    .twoColumns {
+        gap: 15px;
+    }
+
+    .field {
+        gap: 6px;
+    }
+
+    .field>span {
+        font-size: 9px;
+    }
+
+    .field input {
+        height: 47px;
+
+        padding:
+            0 13px;
+
+        font-size: 11px;
+    }
+
+    .profileActions {
+        gap: 8px;
+    }
+
+    .primaryButton,
+    .secondaryButton {
+        min-height: 43px;
+
+        padding:
+            0 14px;
+
+        font-size: 9px;
+    }
+
+    .reserveButton {
+        min-height: 40px;
+
+        font-size: 8.5px;
+    }
+
+    .emptyState {
+        min-height: 90px;
+
+        padding: 17px;
+    }
+
+    .emptyState p {
+        font-size: 9px;
+    }
+
+    .reservations {
+        gap: 8px;
     }
 
     .reservation {
-        align-items:
-            flex-start;
+        align-items: stretch;
 
-        flex-direction:
-            column;
+        flex-direction: column;
+
+        gap: 13px;
+
+        padding:
+            14px;
     }
 
     .reservationMain {
         width: 100%;
 
-        justify-content:
-            space-between;
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 16px;
+    }
+
+    .reservationDate {
+        min-width: 78px;
+    }
+
+    .reservationDate strong {
+        font-size: 10.5px;
+    }
+
+    .reservationMeta {
+        gap: 5px 10px;
+
+        font-size: 8.5px;
     }
 
     .reservationSide {
         width: 100%;
 
-        justify-content:
-            space-between;
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+    .status {
+        padding:
+            5px 8px;
+
+        font-size: 7.5px;
+    }
+
+    .cancelReservation {
+        font-size: 7.5px;
+    }
+
+    .footer {
+        padding-top: 19px;
+    }
+
+    .logoutButton {
+        font-size: 8.5px;
+    }
+
+    .error,
+    .success {
+        margin-bottom: 15px;
+
+        padding:
+            9px 11px;
+
+        font-size: 9px;
+    }
+
+    .loading {
+        min-height: 170px;
+
+        font-size: 9px;
     }
 }
 
 @media (max-width: 420px) {
+
+    .backdrop {
+        padding:
+            6px;
+    }
+
+    .modal {
+        max-height:
+            calc(100dvh - 12px);
+
+        border-radius: 17px;
+
+        padding:
+            48px 15px 20px;
+    }
+
+    .closeButton {
+        top: 11px;
+        right: 11px;
+    }
+
+    .header {
+        margin-bottom: 21px;
+    }
+
+    .header h2 {
+        font-size: 29px;
+    }
+
+    .section {
+        padding:
+            20px 0;
+    }
+
     .sectionHeader {
-        flex-direction:
-            column;
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 10px;
     }
 
     .reserveButton {
         width: 100%;
 
-        justify-content:
-            space-between;
+        justify-content: space-between;
     }
 
     .profileActions {
-        flex-direction:
-            column-reverse;
+        flex-direction: column-reverse;
     }
 
     .primaryButton,
@@ -993,13 +1229,17 @@
     }
 
     .reservationMain {
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
+        flex-direction: column;
 
         gap: 10px;
+    }
+
+    .reservationDate {
+        min-width: 0;
+    }
+
+    .reservationSide {
+        align-items: center;
     }
 }
 
