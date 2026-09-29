@@ -1,705 +1,332 @@
 .eventsSection {
     overflow: hidden;
-
-    background:
-        #f3efe8;
-
-    padding:
-        110px 24px 125px;
-
-    color:
-        #202420;
-
-    font-family:
-        var(--font-body);
+    background: #f3efe8;
+    padding: 110px 24px 125px;
+    color: #202420;
+    font-family: var(--font-body);
 }
 
 .sectionContainer {
-    width:
-        min(1180px,
-            100%);
-
-    margin:
-        0 auto;
+    width: min(1180px, 100%);
+    margin: 0 auto;
 }
 
 .sectionHeading {
     display: flex;
-
-    align-items:
-        flex-end;
-
-    justify-content:
-        space-between;
-
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 40px;
-
-    margin-bottom:
-        50px;
+    margin-bottom: 50px;
 }
 
 .sectionHeadingText {
-    max-width:
-        650px;
+    max-width: 650px;
 }
 
 .eyebrow {
-    margin:
-        0 0 12px;
-
-    color:
-        var(--color-accent);
-
-    font-size:
-        10px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.18em;
-
-    text-transform:
-        uppercase;
+    margin: 0 0 12px;
+    color: var(--color-accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
 }
 
 .sectionHeading h2 {
     margin: 0;
-
-    font-family:
-        var(--font-body);
-
-    font-size:
-        clamp(34px,
-            5vw,
-            56px);
-
-    font-weight:
-        600;
-
-    line-height:
-        1;
-
-    letter-spacing:
-        -0.04em;
+    font-family: var(--font-body);
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
 }
 
 .sectionDescription {
-    max-width:
-        390px;
-
+    max-width: 390px;
     margin: 0;
-
-    color:
-        rgba(32,
-            36,
-            32,
-            0.55);
-
-    font-size:
-        13px;
-
-    line-height:
-        1.8;
+    color: rgba(32, 36, 32, 0.55);
+    font-size: 13px;
+    line-height: 1.8;
 }
-
 
 /* EVENTS */
 
 .eventsGrid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3,
-            minmax(0,
-                1fr));
-
-    gap:
-        16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
 }
 
 .eventCard {
     position: relative;
-
-    min-height:
-        470px;
-
+    min-height: 470px;
     overflow: hidden;
-
-    border:
-        1px solid rgba(65,
-            88,
-            67,
-            0.08);
-
-    border-radius:
-        22px;
-
-    background:
-        var(--color-accent);
-
-    color:
-        #ffffff;
-
-    box-shadow:
-        0 18px 44px rgba(65,
-            88,
-            67,
-            0.1);
-
+    border: 1px solid rgba(65, 88, 67, 0.08);
+    border-radius: 22px;
+    background: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 18px 44px rgba(65, 88, 67, 0.1);
     transition:
-        transform 0.55s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.55s ease,
         background 0.45s ease;
 }
 
 .eventCard:nth-child(2) {
-    background:
-        #485f4a;
+    background: #485f4a;
 }
 
 .eventCard:nth-child(3) {
-    background:
-        #354a38;
+    background: #354a38;
 }
 
 .eventCard::before {
     content: "";
-
     position: absolute;
-
-    top:
-        -100px;
-
-    right:
-        -100px;
-
-    width:
-        280px;
-
-    height:
-        280px;
-
-    border-radius:
-        50%;
-
+    top: -100px;
+    right: -100px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
     background:
         radial-gradient(circle,
-            rgba(255,
-                255,
-                255,
-                0.09),
+            rgba(255, 255, 255, 0.09),
             transparent 68%);
-
-    pointer-events:
-        none;
-
+    pointer-events: none;
     transition:
-        transform 0.8s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
         opacity 0.5s ease;
 }
 
 .eventCard::after {
     content: "";
-
     position: absolute;
-
     inset: 0;
-
-    border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.08);
-
-    border-radius:
-        inherit;
-
-    pointer-events:
-        none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 .eventCard:hover {
-    transform:
-        translateY(-8px);
-
-    box-shadow:
-        0 30px 62px rgba(65,
-            88,
-            67,
-            0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 30px 62px rgba(65, 88, 67, 0.2);
 }
 
 .eventCard:hover::before {
-    transform:
-        translate(-20px,
-            20px) scale(1.15);
+    transform: translate(-20px, 20px) scale(1.15);
 }
 
 .eventCardInner {
     position: relative;
-
     z-index: 1;
-
     display: flex;
-
-    min-height:
-        470px;
-
+    min-height: 470px;
     height: 100%;
-
-    flex-direction:
-        column;
-
-    justify-content:
-        space-between;
-
-    padding:
-        28px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
 }
 
 .eventTop {
     display: flex;
-
     align-items: center;
-
-    justify-content:
-        flex-start;
-
-    gap:
-        10px;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .eventNumber {
-    display:
-        inline-flex;
-
+    display: inline-flex;
     align-items: center;
-
     justify-content: center;
-
-    color:
-        rgba(255,
-            255,
-            255,
-            0.88);
-
-    font-size:
-        13px;
-
-    font-weight:
-        500;
-
-    line-height:
-        1;
-
-    letter-spacing:
-        -0.02em;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
 }
 
 .eventTag {
-    display:
-        inline-flex;
-
-    min-height:
-        34px;
-
+    display: inline-flex;
+    min-height: 34px;
     align-items: center;
-
     justify-content: center;
-
-    border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.2);
-
-    border-radius:
-        999px;
-
-    background:
-        rgba(255,
-            255,
-            255,
-            0.05);
-
-    padding:
-        0 14px;
-
-    color:
-        #ffffff;
-
-    font-size:
-        8px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.1em;
-
-    text-transform:
-        uppercase;
-
-    backdrop-filter:
-        blur(10px);
-
-    -webkit-backdrop-filter:
-        blur(10px);
-
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0 14px;
+    color: #ffffff;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition:
         background 0.35s ease,
-        transform 0.4s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
         border-color 0.35s ease;
 }
 
 .eventCard:hover .eventTag {
-    transform:
-        translateY(-2px);
-
-    border-color:
-        rgba(255,
-            255,
-            255,
-            0.34);
-
-    background:
-        rgba(255,
-            255,
-            255,
-            0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .eventContent {
     display: flex;
-
-    max-width:
-        320px;
-
-    flex-direction:
-        column;
-
-    align-items:
-        flex-start;
-
-    gap:
-        16px;
-
+    max-width: 320px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     transition:
-        transform 0.5s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .eventCard:hover .eventContent {
-    transform:
-        translateY(-5px);
+    transform: translateY(-5px);
 }
 
 .eventContent h3 {
     margin: 0;
-
-    color:
-        #ffffff;
-
-    font-family:
-        var(--font-body);
-
-    font-size:
-        clamp(28px,
-            2.4vw,
-            38px);
-
-    font-weight:
-        500;
-
-    line-height:
-        1.04;
-
-    letter-spacing:
-        -0.04em;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: clamp(28px, 2.4vw, 38px);
+    font-weight: 500;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
 }
 
 .eventContent p {
     margin: 0;
-
-    color:
-        rgba(255,
-            255,
-            255,
-            0.68);
-
-    font-size:
-        12px;
-
-    line-height:
-        1.75;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 12px;
+    line-height: 1.75;
 }
-
 
 /* CONTACT */
 
 .contactSection {
     overflow: hidden;
-
-    background:
-        #ffffff;
-
-    color:
-        #202420;
-
-    font-family:
-        var(--font-body);
-
-    padding:
-        115px 24px;
+    background: #ffffff;
+    color: #202420;
+    font-family: var(--font-body);
+    padding: 115px 24px;
 }
 
 .contactGrid {
     display: grid;
-
-    width:
-        min(1180px,
-            100%);
-
-    grid-template-columns:
-        1fr 1.1fr;
-
-    gap:
-        80px;
-
-    align-items:
-        start;
-
-    margin:
-        0 auto;
+    width: min(1180px, 100%);
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: start;
+    margin: 0 auto;
 }
 
 .contactIntro h2 {
-    margin:
-        0 0 20px;
-
-    font-family:
-        var(--font-body);
-
-    font-size:
-        clamp(36px,
-            5vw,
-            58px);
-
-    line-height:
-        1;
-
-    font-weight:
-        600;
-
-    letter-spacing:
-        -0.04em;
+    margin: 0 0 20px;
+    font-family: var(--font-body);
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.04em;
 }
 
 .contactIntro p {
-    max-width:
-        450px;
-
+    max-width: 450px;
     margin: 0;
-
-    color:
-        rgba(32,
-            36,
-            32,
-            0.55);
-
-    font-size:
-        13px;
-
-    line-height:
-        1.8;
+    color: rgba(32, 36, 32, 0.55);
+    font-size: 13px;
+    line-height: 1.8;
 }
 
 .contactDetails {
     display: grid;
-
-    grid-template-columns:
-        repeat(2,
-            1fr);
-
-    border-top:
-        1px solid rgba(65,
-            88,
-            67,
-            0.14);
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid rgba(65, 88, 67, 0.14);
 }
 
 .contactItem {
     position: relative;
-
-    padding:
-        26px 0;
-
-    border-bottom:
-        1px solid rgba(65,
-            88,
-            67,
-            0.14);
-
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(65, 88, 67, 0.14);
     transition:
         background 0.35s ease,
-        padding-left 0.45s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        padding-left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contactItem:nth-child(odd) {
-    padding-right:
-        28px;
+    padding-right: 28px;
 }
 
 .contactItem:nth-child(even) {
-    padding-left:
-        28px;
-
-    border-left:
-        1px solid rgba(65,
-            88,
-            67,
-            0.14);
+    padding-left: 28px;
+    border-left: 1px solid rgba(65, 88, 67, 0.14);
 }
 
 .contactItem:hover {
-    background:
-        var(--color-accent-soft);
+    background: var(--color-accent-soft);
 }
 
 .contactItem:nth-child(odd):hover {
-    padding-left:
-        10px;
+    padding-left: 10px;
 }
 
 .contactItem:nth-child(even):hover {
-    padding-left:
-        38px;
+    padding-left: 38px;
 }
 
 .contactLabel {
     display: block;
-
-    margin-bottom:
-        9px;
-
-    color:
-        rgba(65,
-            88,
-            67,
-            0.58);
-
-    font-size:
-        9px;
-
-    font-weight:
-        700;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        0.12em;
-
-    transition:
-        color 0.3s ease;
+    margin-bottom: 9px;
+    color: rgba(65, 88, 67, 0.58);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: color 0.3s ease;
 }
 
 .contactItem:hover .contactLabel {
-    color:
-        var(--color-accent);
+    color: var(--color-accent);
 }
 
 .contactValue {
-    color:
-        #202420;
-
-    font-size:
-        13px;
-
-    font-weight:
-        600;
-
-    line-height:
-        1.6;
-
-    text-decoration:
-        none;
-
+    color: #202420;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-decoration: none;
     transition:
         color 0.3s ease,
         opacity 0.3s ease;
 }
 
 .contactValue:hover {
-    color:
-        var(--color-accent);
-
-    opacity:
-        1;
+    color: var(--color-accent);
+    opacity: 1;
 }
 
 .contactActions {
     display: flex;
-
-    flex-wrap:
-        wrap;
-
-    gap:
-        10px;
-
-    margin-top:
-        30px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
 }
 
 .primaryContactButton,
 .secondaryContactButton {
-    display:
-        inline-flex;
-
-    min-height:
-        45px;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        9px;
-
-    padding:
-        0 18px;
-
-    font-size:
-        10px;
-
-    font-weight:
-        600;
-
-    text-decoration:
-        none;
-
+    display: inline-flex;
+    min-height: 45px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    padding: 0 18px;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
     transition:
-        transform 0.4s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.35s ease,
         color 0.35s ease,
         border-color 0.35s ease,
@@ -707,272 +334,118 @@
 }
 
 .primaryContactButton {
-    border:
-        1px solid var(--color-accent);
-
-    background:
-        var(--color-accent);
-
-    color:
-        #ffffff;
-
-    box-shadow:
-        0 10px 24px rgba(65,
-            88,
-            67,
-            0.16);
+    border: 1px solid var(--color-accent);
+    background: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 10px 24px rgba(65, 88, 67, 0.16);
 }
 
 .primaryContactButton:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        var(--color-accent-hover);
-
-    background:
-        var(--color-accent-hover);
-
-    box-shadow:
-        0 14px 30px rgba(65,
-            88,
-            67,
-            0.24);
+    transform: translateY(-3px);
+    border-color: var(--color-accent-hover);
+    background: var(--color-accent-hover);
+    box-shadow: 0 14px 30px rgba(65, 88, 67, 0.24);
 }
 
 .secondaryContactButton {
-    border:
-        1px solid rgba(65,
-            88,
-            67,
-            0.2);
-
-    background:
-        transparent;
-
-    color:
-        var(--color-accent);
+    border: 1px solid rgba(65, 88, 67, 0.2);
+    background: transparent;
+    color: var(--color-accent);
 }
 
 .secondaryContactButton:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(65,
-            88,
-            67,
-            0.3);
-
-    background:
-        var(--color-accent-soft);
-
-    color:
-        var(--color-accent-hover);
-
-    box-shadow:
-        0 10px 20px rgba(65,
-            88,
-            67,
-            0.08);
+    transform: translateY(-3px);
+    border-color: rgba(65, 88, 67, 0.3);
+    background: var(--color-accent-soft);
+    color: var(--color-accent-hover);
+    box-shadow: 0 10px 20px rgba(65, 88, 67, 0.08);
 }
-
 
 /* REVIEWS */
 
 .reviewsSection {
     position: relative;
-
     overflow: hidden;
-
-    background:
-        #f3efe8;
-
-    color:
-        #202420;
-
-    padding:
-        120px 24px 135px;
-
-    font-family:
-        var(--font-body);
+    background: #f3efe8;
+    color: #202420;
+    padding: 120px 24px 135px;
+    font-family: var(--font-body);
 }
 
 .reviewsSection::before {
     content: "“";
-
     position: absolute;
-
-    top:
-        -115px;
-
-    right:
-        4%;
-
-    color:
-        rgba(65,
-            88,
-            67,
-            0.05);
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size:
-        420px;
-
-    line-height:
-        1;
-
-    pointer-events:
-        none;
+    top: -115px;
+    right: 4%;
+    color: rgba(65, 88, 67, 0.05);
+    font-family: Georgia, serif;
+    font-size: 420px;
+    line-height: 1;
+    pointer-events: none;
 }
 
 .reviewsHeader {
     position: relative;
-
     z-index: 1;
-
     display: grid;
-
-    width:
-        min(1180px,
-            100%);
-
-    grid-template-columns:
-        1.3fr 0.7fr;
-
-    gap:
-        70px;
-
-    align-items:
-        end;
-
-    margin:
-        0 auto 55px;
+    width: min(1180px, 100%);
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 70px;
+    align-items: end;
+    margin: 0 auto 55px;
 }
 
 .reviewsHeading {
-    max-width:
-        720px;
+    max-width: 720px;
 }
 
 .reviewsHeading h2 {
-    max-width:
-        700px;
-
+    max-width: 700px;
     margin: 0;
-
-    font-family:
-        var(--font-body);
-
-    font-size:
-        clamp(38px,
-            5vw,
-            64px);
-
-    font-weight:
-        600;
-
-    line-height:
-        0.98;
-
-    letter-spacing:
-        -0.045em;
+    font-family: var(--font-body);
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
 }
 
 .reviewsDescription {
-    max-width:
-        390px;
-
+    max-width: 390px;
     margin: 0;
-
-    color:
-        rgba(32,
-            36,
-            32,
-            0.55);
-
-    font-size:
-        13px;
-
-    line-height:
-        1.8;
+    color: rgba(32, 36, 32, 0.55);
+    font-size: 13px;
+    line-height: 1.8;
 }
 
 .reviewsGrid {
     position: relative;
-
     z-index: 1;
-
     display: grid;
-
-    width:
-        min(1180px,
-            100%);
-
-    grid-template-columns:
-        repeat(3,
-            1fr);
-
-    gap:
-        14px;
-
-    margin:
-        0 auto;
+    width: min(1180px, 100%);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0 auto;
 }
 
 .reviewsGrid>div {
-    height:
-        100%;
+    height: 100%;
 }
 
 .reviewCard {
     position: relative;
-
     display: flex;
-
-    min-height:
-        340px;
-
-    height:
-        100%;
-
-    flex-direction:
-        column;
-
-    justify-content:
-        space-between;
-
+    min-height: 340px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
-
-    border:
-        1px solid rgba(65,
-            88,
-            67,
-            0.1);
-
-    border-radius:
-        18px;
-
-    background:
-        rgba(255,
-            255,
-            255,
-            0.68);
-
-    padding:
-        30px;
-
-    backdrop-filter:
-        blur(10px);
-
+    border: 1px solid rgba(65, 88, 67, 0.1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.68);
+    padding: 30px;
+    backdrop-filter: blur(10px);
     transition:
-        transform 0.5s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.4s ease,
         border-color 0.4s ease,
         box-shadow 0.5s ease;
@@ -980,551 +453,282 @@
 
 .reviewCard::before {
     content: "";
-
     position: absolute;
-
-    width:
-        180px;
-
-    height:
-        180px;
-
-    top:
-        -110px;
-
-    right:
-        -90px;
-
-    border-radius:
-        50%;
-
+    width: 180px;
+    height: 180px;
+    top: -110px;
+    right: -90px;
+    border-radius: 50%;
     background:
         radial-gradient(circle,
-            rgba(65,
-                88,
-                67,
-                0.14),
+            rgba(65, 88, 67, 0.14),
             transparent 70%);
-
-    opacity:
-        0;
-
+    opacity: 0;
     transition:
         opacity 0.4s ease,
-        transform 0.7s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reviewCard:hover {
-    transform:
-        translateY(-7px);
-
-    border-color:
-        rgba(65,
-            88,
-            67,
-            0.22);
-
-    background:
-        #ffffff;
-
-    box-shadow:
-        0 24px 45px rgba(65,
-            88,
-            67,
-            0.12);
+    transform: translateY(-7px);
+    border-color: rgba(65, 88, 67, 0.22);
+    background: #ffffff;
+    box-shadow: 0 24px 45px rgba(65, 88, 67, 0.12);
 }
 
 .reviewCard:hover::before {
-    opacity:
-        1;
-
-    transform:
-        translate(-20px,
-            20px) scale(1.15);
+    opacity: 1;
+    transform: translate(-20px, 20px) scale(1.15);
 }
 
 .reviewTop {
     display: flex;
-
-    align-items:
-        center;
+    align-items: center;
 }
 
 .stars {
-    color:
-        var(--color-accent);
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        0.12em;
-
-    transition:
-        letter-spacing 0.4s ease;
+    color: var(--color-accent);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    transition: letter-spacing 0.4s ease;
 }
 
 .reviewCard:hover .stars {
-    letter-spacing:
-        0.18em;
+    letter-spacing: 0.18em;
 }
 
 .reviewText {
-    margin:
-        45px 0;
-
-    color:
-        #202420;
-
-    font-size:
-        17px;
-
-    font-weight:
-        500;
-
-    line-height:
-        1.65;
-
-    letter-spacing:
-        -0.015em;
+    margin: 45px 0;
+    color: #202420;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.65;
+    letter-spacing: -0.015em;
 }
 
 .reviewAuthor {
     display: flex;
-
-    align-items:
-        center;
-
-    gap:
-        12px;
-
-    padding-top:
-        20px;
-
-    border-top:
-        1px solid rgba(65,
-            88,
-            67,
-            0.1);
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(65, 88, 67, 0.1);
 }
 
 .reviewAvatar {
     display: flex;
-
-    width:
-        38px;
-
-    height:
-        38px;
-
-    flex-shrink:
-        0;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--color-accent);
-
-    color:
-        #ffffff;
-
-    font-size:
-        9px;
-
-    font-weight:
-        600;
-
-    box-shadow:
-        0 6px 16px rgba(65,
-            88,
-            67,
-            0.18);
-
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(65, 88, 67, 0.18);
     transition:
-        transform 0.45s cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease;
 }
 
 .reviewCard:hover .reviewAvatar {
-    transform:
-        scale(1.06) rotate(-3deg);
-
-    background:
-        var(--color-accent-hover);
+    transform: scale(1.06) rotate(-3deg);
+    background: var(--color-accent-hover);
 }
 
 .reviewAuthorInfo {
     display: flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        3px;
+    flex-direction: column;
+    gap: 3px;
 }
 
 .reviewAuthorInfo strong {
-    font-size:
-        11px;
-
-    font-weight:
-        600;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 .reviewAuthorInfo span {
-    color:
-        rgba(32,
-            36,
-            32,
-            0.4);
-
-    font-size:
-        9px;
+    color: rgba(32, 36, 32, 0.4);
+    font-size: 9px;
 }
-
 
 /* FOOTER */
 
 .footer {
     overflow: hidden;
-
-    background:
-        var(--color-accent-deep);
-
-    color:
-        #ffffff;
-
-    font-family:
-        var(--font-body);
-
-    padding:
-        55px 24px 26px;
+    background: var(--color-accent-deep);
+    color: #ffffff;
+    font-family: var(--font-body);
+    padding: 55px 24px 26px;
 }
 
 .footerInner {
-    width:
-        min(1180px,
-            100%);
-
-    margin:
-        0 auto;
+    width: min(1180px, 100%);
+    margin: 0 auto;
 }
 
 .footerTop {
     display: flex;
-
-    align-items:
-        flex-start;
-
-    justify-content:
-        space-between;
-
-    gap:
-        50px;
-
-    padding-bottom:
-        55px;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+    padding-bottom: 55px;
 }
 
 .footerBrand {
-    max-width:
-        380px;
+    max-width: 380px;
 }
 
 .footerLogo {
     display: block;
-
-    margin-bottom:
-        18px;
-
-    color:
-        #ffffff;
-
-    font-size:
-        16px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.18em;
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
 }
 
 .footerBrand p {
     margin: 0;
-
-    color:
-        rgba(255,
-            255,
-            255,
-            0.56);
-
-    font-size:
-        11px;
-
-    line-height:
-        1.8;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 11px;
+    line-height: 1.8;
 }
 
 .footerLinks {
     display: flex;
-
-    gap:
-        50px;
+    gap: 50px;
 }
 
 .footerColumn {
     display: flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        12px;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .footerColumnTitle {
-    margin-bottom:
-        5px;
-
-    color:
-        rgba(255,
-            255,
-            255,
-            0.4);
-
-    font-size:
-        9px;
-
-    font-weight:
-        600;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        0.12em;
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
 }
 
 .footerColumn a {
     position: relative;
-
-    width:
-        fit-content;
-
-    color:
-        #ffffff;
-
-    font-size:
-        11px;
-
-    text-decoration:
-        none;
-
-    opacity:
-        0.72;
-
+    width: fit-content;
+    color: #ffffff;
+    font-size: 11px;
+    text-decoration: none;
+    opacity: 0.72;
     transition:
         opacity 0.3s ease,
-        transform 0.4s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .footerColumn a::after {
     content: "";
-
     position: absolute;
-
     left: 0;
-
-    bottom:
-        -4px;
-
-    width:
-        100%;
-
-    height:
-        1px;
-
-    background:
-        rgba(255,
-            255,
-            255,
-            0.7);
-
-    transform:
-        scaleX(0);
-
-    transform-origin:
-        right center;
-
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: scaleX(0);
+    transform-origin: right center;
     transition:
-        transform 0.4s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .footerColumn a:hover {
-    transform:
-        translateX(3px);
-
-    opacity:
-        1;
+    transform: translateX(3px);
+    opacity: 1;
 }
 
 .footerColumn a:hover::after {
-    transform:
-        scaleX(1);
-
-    transform-origin:
-        left center;
+    transform: scaleX(1);
+    transform-origin: left center;
 }
 
 .footerBottom {
     display: flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        30px;
-
-    border-top:
-        1px solid rgba(255,
-            255,
-            255,
-            0.1);
-
-    padding-top:
-        24px;
-
-    color:
-        rgba(255,
-            255,
-            255,
-            0.4);
-
-    font-size:
-        9px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 9px;
 }
 
 .footerLanguages {
     display: flex;
-
-    gap:
-        8px;
+    gap: 8px;
 }
 
 .footerLanguages a {
-    color:
-        #ffffff;
-
-    text-decoration:
-        none;
-
-    opacity:
-        0.4;
-
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.4;
     transition:
         opacity 0.3s ease,
-        transform 0.35s cubic-bezier(0.22,
-            1,
-            0.36,
-            1);
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .footerLanguages a:hover {
-    opacity:
-        0.78;
-
-    transform:
-        translateY(-1px);
+    opacity: 0.78;
+    transform: translateY(-1px);
 }
 
 .footerLanguages .activeLanguage {
-    opacity:
-        1;
+    opacity: 1;
 }
-
 
 /* TABLET */
 
 @media (max-width: 850px) {
     .sectionHeading {
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     .eventsGrid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
     .eventCard,
     .eventCardInner {
-        min-height:
-            420px;
+        min-height: 420px;
     }
 
     .eventContent {
-        max-width:
-            520px;
+        max-width: 520px;
     }
 
     .contactGrid {
-        grid-template-columns:
-            1fr;
-
-        gap:
-            50px;
+        grid-template-columns: 1fr;
+        gap: 50px;
     }
 
     .reviewsHeader {
-        grid-template-columns:
-            1fr;
-
-        gap:
-            25px;
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
 
     .reviewsGrid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
     .reviewCard {
-        min-height:
-            280px;
+        min-height: 280px;
     }
 
     .footerTop {
-        flex-direction:
-            column;
+        flex-direction: column;
     }
 }
-
 
 /* MOBILE */
 
@@ -1533,153 +737,269 @@
     .eventsSection,
     .contactSection,
     .reviewsSection {
-        padding-left:
-            16px;
-
-        padding-right:
-            16px;
+        padding-left: 18px;
+        padding-right: 18px;
     }
 
-    .eventsSection,
-    .contactSection {
-        padding-top:
-            78px;
+    .eventsSection {
+        padding-top: 72px;
+        padding-bottom: 76px;
+    }
 
-        padding-bottom:
-            78px;
+    .contactSection {
+        padding-top: 76px;
+        padding-bottom: 78px;
+    }
+
+    .reviewsSection {
+        padding-top: 76px;
+        padding-bottom: 80px;
     }
 
     .sectionHeading {
-        margin-bottom:
-            34px;
+        gap: 18px;
+        margin-bottom: 32px;
+    }
+
+    .eyebrow {
+        margin-bottom: 10px;
+        font-size: 9px;
+        letter-spacing: 0.16em;
+    }
+
+    .sectionHeading h2,
+    .contactIntro h2,
+    .reviewsHeading h2 {
+        font-size: clamp(32px, 9.4vw, 40px);
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+    }
+
+    .sectionDescription,
+    .contactIntro p,
+    .reviewsDescription {
+        max-width: 100%;
+        font-size: 12px;
+        line-height: 1.7;
     }
 
     .eventsGrid {
-        gap:
-            12px;
+        gap: 12px;
     }
 
     .eventCard,
     .eventCardInner {
-        min-height:
-            390px;
+        min-height: 360px;
     }
 
     .eventCard {
-        border-radius:
-            18px;
+        border-radius: 18px;
     }
 
     .eventCardInner {
-        padding:
-            22px;
+        padding: 21px;
+    }
+
+    .eventTag {
+        min-height: 30px;
+        padding: 0 12px;
+        font-size: 7px;
+    }
+
+    .eventNumber {
+        font-size: 12px;
     }
 
     .eventContent {
-        max-width:
-            100%;
-
-        gap:
-            13px;
+        max-width: 100%;
+        gap: 12px;
     }
 
     .eventContent h3 {
-        font-size:
-            29px;
+        font-size: 28px;
+        line-height: 1.05;
     }
 
     .eventContent p {
-        font-size:
-            11px;
+        max-width: 320px;
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .contactGrid {
+        gap: 38px;
+    }
+
+    .contactIntro h2 {
+        margin-bottom: 16px;
+    }
+
+    .contactActions {
+        gap: 8px;
+        margin-top: 24px;
+    }
+
+    .primaryContactButton,
+    .secondaryContactButton {
+        min-height: 46px;
+        padding: 0 17px;
+        font-size: 9px;
     }
 
     .contactDetails {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
     .contactItem:nth-child(odd),
     .contactItem:nth-child(even) {
-        padding:
-            22px 0;
-
-        border-left:
-            0;
+        padding: 20px 0;
+        border-left: 0;
     }
 
     .contactItem:nth-child(odd):hover,
     .contactItem:nth-child(even):hover {
-        padding-left:
-            8px;
+        padding-left: 0;
     }
 
-    .reviewsSection {
-        padding-top:
-            82px;
+    .contactLabel {
+        margin-bottom: 7px;
+        font-size: 8px;
+    }
 
-        padding-bottom:
-            82px;
+    .contactValue {
+        font-size: 12px;
     }
 
     .reviewsSection::before {
-        display:
-            none;
+        display: none;
     }
 
     .reviewsHeader {
-        margin-bottom:
-            30px;
+        gap: 18px;
+        margin-bottom: 28px;
     }
 
-    .reviewsHeading h2 {
-        font-size:
-            36px;
+    .reviewsGrid {
+        gap: 11px;
     }
 
     .reviewCard {
-        min-height:
-            auto;
+        min-height: auto;
+        border-radius: 16px;
+        padding: 22px;
+    }
 
-        padding:
-            24px;
+    .stars {
+        font-size: 10px;
     }
 
     .reviewText {
-        margin:
-            35px 0;
+        margin: 31px 0;
+        font-size: 14px;
+        line-height: 1.6;
+    }
 
-        font-size:
-            15px;
+    .reviewAuthor {
+        gap: 10px;
+        padding-top: 17px;
+    }
+
+    .reviewAvatar {
+        width: 35px;
+        height: 35px;
     }
 
     .footer {
-        padding-left:
-            16px;
+        padding: 44px 18px 23px;
+    }
 
-        padding-right:
-            16px;
+    .footerTop {
+        gap: 36px;
+        padding-bottom: 40px;
+    }
+
+    .footerBrand {
+        max-width: 100%;
+    }
+
+    .footerLogo {
+        margin-bottom: 14px;
+        font-size: 14px;
+    }
+
+    .footerBrand p {
+        max-width: 330px;
+        font-size: 10px;
+        line-height: 1.7;
     }
 
     .footerLinks {
-        width:
-            100%;
+        width: 100%;
+        justify-content: flex-start;
+        gap: clamp(42px, 18vw, 78px);
+    }
 
-        justify-content:
-            space-between;
+    .footerColumn {
+        gap: 11px;
+    }
 
-        gap:
-            25px;
+    .footerColumnTitle {
+        font-size: 8px;
+    }
+
+    .footerColumn a {
+        font-size: 10px;
     }
 
     .footerBottom {
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding-top: 20px;
+        font-size: 8px;
     }
 }
 
+@media (max-width: 400px) {
+
+    .eventsSection,
+    .contactSection,
+    .reviewsSection {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .eventCard,
+    .eventCardInner {
+        min-height: 340px;
+    }
+
+    .eventCardInner {
+        padding: 19px;
+    }
+
+    .contactActions {
+        flex-direction: column;
+    }
+
+    .primaryContactButton,
+    .secondaryContactButton {
+        width: 100%;
+    }
+
+    .reviewCard {
+        padding: 20px;
+    }
+
+    .footer {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .footerLinks {
+        gap: 38px;
+    }
+}
 
 /* REDUCED MOTION */
 
@@ -1701,21 +1021,18 @@
     .footerColumn a,
     .footerColumn a::after,
     .footerLanguages a {
-        transition:
-            none;
+        transition: none;
     }
 
     .eventCard:hover,
     .reviewCard:hover,
     .primaryContactButton:hover,
     .secondaryContactButton:hover {
-        transform:
-            none;
+        transform: none;
     }
 
     .eventCard:hover .eventContent,
     .eventCard:hover .eventTag {
-        transform:
-            none;
+        transform: none;
     }
 }
