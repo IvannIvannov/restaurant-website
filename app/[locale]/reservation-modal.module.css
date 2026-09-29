@@ -99,8 +99,7 @@
             255,
             0.75);
 
-    color:
-        #202520;
+    color: #202520;
 
     font-size: 25px;
     font-weight: 300;
@@ -124,8 +123,7 @@
     background:
         var(--color-accent);
 
-    color:
-        #ffffff;
+    color: #ffffff;
 
     transform:
         scale(1.04);
@@ -171,41 +169,10 @@
         height:
             calc(100dvh - 20px);
 
-        overflow-y: auto;
-
-        overscroll-behavior:
-            contain;
+        overflow: hidden;
 
         border-radius:
             18px;
-
-        scrollbar-width: thin;
-
-        scrollbar-color:
-            rgba(65,
-                88,
-                67,
-                0.18) transparent;
-    }
-
-    .modal::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .modal::-webkit-scrollbar-track {
-        background:
-            transparent;
-    }
-
-    .modal::-webkit-scrollbar-thumb {
-        border-radius:
-            999px;
-
-        background:
-            rgba(65,
-                88,
-                67,
-                0.18);
     }
 
     .closeButton {
@@ -223,6 +190,8 @@
     .overlay {
         align-items: stretch;
 
+        overflow: hidden;
+
         padding: 0;
 
         background:
@@ -238,8 +207,7 @@
         height: 100dvh;
         max-height: 100dvh;
 
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow: hidden;
 
         border: 0;
         border-radius: 0;
@@ -248,15 +216,46 @@
             #f0ebe2;
 
         box-shadow: none;
+    }
 
-        padding-top:
-            env(safe-area-inset-top);
+    /*
+     * ReservationClient е последният child в modal-а.
+     * Той става единствената scroll зона на телефона.
+     */
+    .modal>*:last-child {
+        width: 100%;
 
-        padding-bottom:
-            env(safe-area-inset-bottom);
+        height: 100%;
+        min-height: 0;
+
+        overflow-x: hidden;
+        overflow-y: auto !important;
+
+        overscroll-behavior-y:
+            contain;
 
         -webkit-overflow-scrolling:
             touch;
+
+        scrollbar-width:
+            none;
+    }
+
+    .modal>*:last-child::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*
+     * Премахваме вътрешния nested scroll.
+     * Така цялата reservation форма се движи като една страница.
+     */
+    .modal>*:last-child>* {
+        height: auto !important;
+
+        min-height: 100%;
+
+        overflow:
+            visible !important;
     }
 
     .closeButton {
@@ -267,6 +266,8 @@
                 env(safe-area-inset-top));
 
         right: 10px;
+
+        z-index: 200;
 
         width: 38px;
         height: 38px;
@@ -281,7 +282,7 @@
             rgba(255,
                 255,
                 255,
-                0.86);
+                0.9);
 
         font-size: 22px;
 
@@ -289,7 +290,7 @@
             0 6px 18px rgba(65,
                 88,
                 67,
-                0.08);
+                0.1);
 
         backdrop-filter:
             blur(10px);
