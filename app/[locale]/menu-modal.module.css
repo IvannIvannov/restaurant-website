@@ -10,19 +10,19 @@
 
     overflow: hidden;
 
-    background:
-        rgba(12,
-            15,
-            12,
-            0.58);
-
     padding: 20px;
+
+    background:
+        rgba(12, 15, 12, 0.58);
 
     backdrop-filter:
         blur(18px);
 
     -webkit-backdrop-filter:
         blur(18px);
+
+    overscroll-behavior:
+        contain;
 
     animation:
         overlayIn 0.28s ease both;
@@ -95,8 +95,7 @@
             67,
             0.14);
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         rgba(255,
@@ -110,6 +109,8 @@
     font-size: 25px;
     font-weight: 300;
     line-height: 1;
+
+    cursor: pointer;
 
     box-shadow:
         0 8px 22px rgba(65,
@@ -152,9 +153,9 @@
 }
 
 /*
-  Embedded MenuClient
-  няма нужда от външни vertical margins.
-*/
+ * Embedded MenuClient
+ * няма нужда от външни vertical margins.
+ */
 
 .content>section {
     width: 100%;
@@ -162,7 +163,8 @@
     padding:
         0 !important;
 
-    margin: 0 !important;
+    margin:
+        0 !important;
 }
 
 @keyframes overlayIn {
@@ -191,7 +193,6 @@
     }
 }
 
-
 /* TABLET */
 
 @media (max-width: 900px) {
@@ -212,47 +213,113 @@
 
     .content {
         padding:
-            22px 18px 14px;
+            52px 16px 16px;
     }
 
     .closeButton {
         top: 14px;
         right: 14px;
+
+        width: 39px;
+        height: 39px;
     }
 }
-
 
 /* MOBILE */
 
 @media (max-width: 520px) {
     .overlay {
-        padding: 0;
+        align-items: stretch;
+
+        padding:
+            max(6px,
+                env(safe-area-inset-top)) 0 max(6px,
+                env(safe-area-inset-bottom));
+
+        background:
+            rgba(12,
+                15,
+                12,
+                0.66);
     }
 
     .modal {
         width: 100vw;
-        height: 100dvh;
+
+        height:
+            calc(100dvh - max(6px,
+                    env(safe-area-inset-top)) - max(6px,
+                    env(safe-area-inset-bottom)));
 
         border: 0;
+
         border-radius: 0;
+
+        background:
+            #eee9df;
+
+        box-shadow: none;
     }
 
     .content {
+        width: 100%;
+        height: 100%;
+
+        align-items: center;
+
+        overflow: hidden;
+
         padding:
-            58px 8px 12px;
+            58px 6px 10px;
     }
 
     .closeButton {
-        top: 12px;
-        right: 12px;
+        top:
+            max(10px,
+                env(safe-area-inset-top));
 
-        width: 40px;
-        height: 40px;
+        right: 10px;
 
-        font-size: 23px;
+        width: 38px;
+        height: 38px;
+
+        border-color:
+            rgba(65,
+                88,
+                67,
+                0.12);
+
+        background:
+            rgba(255,
+                255,
+                255,
+                0.82);
+
+        font-size: 22px;
+
+        box-shadow:
+            0 6px 18px rgba(65,
+                88,
+                67,
+                0.08);
     }
 }
 
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+    .content {
+        padding:
+            54px 4px 8px;
+    }
+
+    .closeButton {
+        width: 36px;
+        height: 36px;
+
+        font-size: 21px;
+    }
+}
 
 /* REDUCED MOTION */
 

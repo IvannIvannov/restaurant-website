@@ -12,32 +12,55 @@
 
     padding: 22px;
 
-    background: rgba(12, 15, 12, 0.6);
+    background:
+        rgba(12,
+            15,
+            12,
+            0.6);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 
-    animation: overlayIn 0.25s ease both;
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    overscroll-behavior:
+        contain;
+
+    animation:
+        overlayIn 0.25s ease both;
 }
 
 .modal {
     position: relative;
 
-    width: min(1180px,
+    width:
+        min(1180px,
             calc(100vw - 44px));
 
-    height: min(860px,
+    height:
+        min(860px,
             calc(100dvh - 44px));
 
     overflow: hidden;
 
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 22px;
+    border:
+        1px solid rgba(255,
+            255,
+            255,
+            0.14);
 
-    background: #f0ebe2;
+    border-radius:
+        22px;
+
+    background:
+        #f0ebe2;
 
     box-shadow:
-        0 36px 100px rgba(0, 0, 0, 0.38);
+        0 36px 100px rgba(0,
+            0,
+            0,
+            0.38);
 
     animation:
         modalIn 0.4s cubic-bezier(0.22,
@@ -63,21 +86,33 @@
     justify-content: center;
 
     border:
-        1px solid rgba(65, 88, 67, 0.14);
+        1px solid rgba(65,
+            88,
+            67,
+            0.14);
 
     border-radius: 50%;
 
     background:
-        rgba(255, 255, 255, 0.75);
+        rgba(255,
+            255,
+            255,
+            0.75);
 
-    color: #202520;
+    color:
+        #202520;
 
     font-size: 25px;
     font-weight: 300;
     line-height: 1;
 
+    cursor: pointer;
+
     box-shadow:
-        0 8px 22px rgba(65, 88, 67, 0.06);
+        0 8px 22px rgba(65,
+            88,
+            67,
+            0.06);
 
     transition:
         background 0.25s ease,
@@ -89,7 +124,8 @@
     background:
         var(--color-accent);
 
-    color: #ffffff;
+    color:
+        #ffffff;
 
     transform:
         scale(1.04);
@@ -121,6 +157,8 @@
     }
 }
 
+/* TABLET */
+
 @media (max-width: 800px) {
     .overlay {
         padding: 10px;
@@ -135,28 +173,144 @@
 
         overflow-y: auto;
 
-        border-radius: 18px;
+        overscroll-behavior:
+            contain;
+
+        border-radius:
+            18px;
+
+        scrollbar-width: thin;
+
+        scrollbar-color:
+            rgba(65,
+                88,
+                67,
+                0.18) transparent;
+    }
+
+    .modal::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .modal::-webkit-scrollbar-track {
+        background:
+            transparent;
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+        border-radius:
+            999px;
+
+        background:
+            rgba(65,
+                88,
+                67,
+                0.18);
     }
 
     .closeButton {
         top: 13px;
         right: 13px;
+
+        width: 39px;
+        height: 39px;
     }
 }
 
+/* MOBILE */
+
 @media (max-width: 520px) {
     .overlay {
+        align-items: stretch;
+
         padding: 0;
+
+        background:
+            rgba(12,
+                15,
+                12,
+                0.66);
     }
 
     .modal {
         width: 100vw;
+
         height: 100dvh;
+        max-height: 100dvh;
+
+        overflow-y: auto;
+        overflow-x: hidden;
 
         border: 0;
         border-radius: 0;
+
+        background:
+            #f0ebe2;
+
+        box-shadow: none;
+
+        padding-top:
+            env(safe-area-inset-top);
+
+        padding-bottom:
+            env(safe-area-inset-bottom);
+
+        -webkit-overflow-scrolling:
+            touch;
+    }
+
+    .closeButton {
+        position: fixed;
+
+        top:
+            max(10px,
+                env(safe-area-inset-top));
+
+        right: 10px;
+
+        width: 38px;
+        height: 38px;
+
+        border-color:
+            rgba(65,
+                88,
+                67,
+                0.12);
+
+        background:
+            rgba(255,
+                255,
+                255,
+                0.86);
+
+        font-size: 22px;
+
+        box-shadow:
+            0 6px 18px rgba(65,
+                88,
+                67,
+                0.08);
+
+        backdrop-filter:
+            blur(10px);
+
+        -webkit-backdrop-filter:
+            blur(10px);
     }
 }
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+    .closeButton {
+        width: 36px;
+        height: 36px;
+
+        font-size: 21px;
+    }
+}
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 

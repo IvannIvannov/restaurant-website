@@ -10,7 +10,6 @@
         var(--font-body);
 }
 
-
 /* HEADER */
 
 .header {
@@ -41,10 +40,7 @@
     gap: 10px;
 
     color:
-        rgba(32,
-            37,
-            32,
-            0.62);
+        rgba(32, 37, 32, 0.62);
 
     font-size: 9px;
 
@@ -134,7 +130,6 @@
     opacity: 0.18;
 }
 
-
 /* INTRO */
 
 .intro {
@@ -204,16 +199,12 @@
         34px 0 0;
 
     color:
-        rgba(32,
-            37,
-            32,
-            0.56);
+        rgba(32, 37, 32, 0.56);
 
     font-size: 12px;
 
     line-height: 1.9;
 }
-
 
 /* FLIPBOOK */
 
@@ -370,18 +361,12 @@
     justify-content: center;
 
     border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.36);
+        1px solid rgba(255, 255, 255, 0.36);
 
     border-radius: 50%;
 
     background:
-        rgba(24,
-            31,
-            24,
-            0.5);
+        rgba(24, 31, 24, 0.5);
 
     color: #ffffff;
 
@@ -406,7 +391,6 @@
         scale(1.06);
 }
 
-
 /* NAVIGATION */
 
 .navigationButton {
@@ -423,18 +407,12 @@
     justify-content: center;
 
     border:
-        1px solid rgba(65,
-            88,
-            67,
-            0.16);
+        1px solid rgba(65, 88, 67, 0.16);
 
     border-radius: 50%;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.8);
+        rgba(255, 255, 255, 0.8);
 
     color:
         var(--color-accent);
@@ -442,10 +420,7 @@
     font-size: 18px;
 
     box-shadow:
-        0 8px 18px rgba(65,
-            88,
-            67,
-            0.06);
+        0 8px 18px rgba(65, 88, 67, 0.06);
 
     transition:
         transform 0.25s ease,
@@ -454,7 +429,7 @@
         opacity 0.25s ease;
 }
 
-.navigationButton:hover:not( :disabled) {
+.navigationButton:hover:not(:disabled) {
     transform:
         scale(1.06);
 
@@ -478,7 +453,6 @@
 .nextButton {
     right: 14px;
 }
-
 
 /* CONTROLS */
 
@@ -517,10 +491,7 @@
     padding: 0;
 
     color:
-        rgba(32,
-            37,
-            32,
-            0.56);
+        rgba(32, 37, 32, 0.56);
 
     font-size: 9px;
 
@@ -546,7 +517,7 @@
     justify-self: end;
 }
 
-.textControl:hover:not( :disabled) {
+.textControl:hover:not(:disabled) {
     gap: 15px;
 
     color:
@@ -573,10 +544,7 @@
 
 .pageIndicator>span {
     color:
-        rgba(32,
-            37,
-            32,
-            0.5);
+        rgba(32, 37, 32, 0.5);
 
     font-size: 9px;
 
@@ -597,10 +565,7 @@
     overflow: hidden;
 
     background:
-        rgba(65,
-            88,
-            67,
-            0.16);
+        rgba(65, 88, 67, 0.16);
 }
 
 .progress span {
@@ -620,10 +585,7 @@
         14px 0 0;
 
     color:
-        rgba(32,
-            37,
-            32,
-            0.35);
+        rgba(32, 37, 32, 0.35);
 
     font-size: 8px;
 
@@ -637,7 +599,6 @@
     text-transform:
         uppercase;
 }
-
 
 /* RESERVATION */
 
@@ -660,10 +621,7 @@
         0 auto;
 
     border-top:
-        1px solid rgba(65,
-            88,
-            67,
-            0.14);
+        1px solid rgba(65, 88, 67, 0.14);
 
     padding:
         72px 0 90px;
@@ -758,7 +716,6 @@
         var(--color-accent-hover);
 }
 
-
 /* ZOOM */
 
 .zoomOverlay {
@@ -771,14 +728,10 @@
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     background:
-        rgba(12,
-            15,
-            12,
-            0.93);
+        rgba(12, 15, 12, 0.93);
 
     padding:
         70px 80px;
@@ -791,11 +744,9 @@
     display: flex;
 
     width: 100%;
-
     height: 100%;
 
     align-items: center;
-
     justify-content: center;
 }
 
@@ -818,7 +769,6 @@
     position: absolute;
 
     top: 24px;
-
     right: 28px;
 
     z-index: 10;
@@ -837,10 +787,7 @@
     padding: 8px;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.72);
+        rgba(255, 255, 255, 0.72);
 
     font-size: 8px;
 
@@ -863,9 +810,7 @@
     position: absolute;
 
     right: 0;
-
     bottom: 22px;
-
     left: 0;
 
     display: flex;
@@ -877,10 +822,7 @@
     gap: 24px;
 
     color:
-        rgba(255,
-            255,
-            255,
-            0.65);
+        rgba(255, 255, 255, 0.65);
 
     font-size: 9px;
 
@@ -894,26 +836,18 @@
     display: flex;
 
     width: 34px;
-
     height: 34px;
 
     align-items: center;
-
     justify-content: center;
 
     border:
-        1px solid rgba(255,
-            255,
-            255,
-            0.18);
+        1px solid rgba(255, 255, 255, 0.18);
 
     border-radius: 50%;
 
     background:
-        rgba(255,
-            255,
-            255,
-            0.06);
+        rgba(255, 255, 255, 0.06);
 
     color: #ffffff;
 }
@@ -921,7 +855,6 @@
 .zoomNavigation button:disabled {
     opacity: 0.2;
 }
-
 
 /* TABLET */
 
@@ -935,7 +868,6 @@
             520px;
     }
 }
-
 
 /* MOBILE */
 
@@ -958,23 +890,44 @@
     }
 
     .bookSection {
+        overflow: hidden;
+
         padding:
-            8px 10px 24px;
+            4px 0 20px;
+    }
+
+    .bookStage {
+        width: 100%;
+
+        overflow: visible;
     }
 
     .bookFrame {
         width:
-            min(500px,
-                calc(100vw - 20px));
+            min(540px,
+                calc(100vw + 18px));
 
-        min-height:
-            0;
+        min-height: 0;
+
+        overflow: visible;
     }
 
     .bookPositioner,
     .bookPositionerCover {
+        width: 100%;
+
+        justify-content: center;
+
         transform:
             translateX(0);
+    }
+
+    .flipBook {
+        transform:
+            scale(1.055);
+
+        transform-origin:
+            center center;
     }
 
     .navigationButton {
@@ -984,12 +937,12 @@
     .controls {
         width:
             min(500px,
-                100%);
+                calc(100% - 24px));
 
         gap: 14px;
 
         margin-top:
-            18px;
+            12px;
     }
 
     .zoomButton {
@@ -1012,7 +965,6 @@
             62px 12px 70px;
     }
 }
-
 
 /* SMALL MOBILE */
 
@@ -1041,43 +993,154 @@
             11px;
     }
 
+    .bookSection {
+        padding:
+            2px 0 18px;
+    }
+
+    .bookFrame {
+        width:
+            calc(100vw + 24px);
+    }
+
+    .bookPositionerCover {
+        transform:
+            translateX(-25%);
+    }
+
+    .flipBook {
+        transform:
+            scale(1.075);
+    }
+
     .controls {
         grid-template-columns:
-            auto 1fr auto;
+            42px minmax(0, 1fr) 42px;
 
-        gap: 8px;
+        width:
+            calc(100% - 26px);
+
+        gap: 9px;
+
+        margin-top:
+            10px;
     }
 
     .textControl {
-        width: 34px;
+        position: relative;
 
-        height: 34px;
+        display: flex;
 
-        justify-content:
-            center;
+        width: 40px;
+        height: 40px;
 
-        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+
+        overflow: visible;
 
         border:
-            1px solid rgba(65,
-                88,
-                67,
-                0.16);
+            1px solid rgba(65, 88, 67, 0.16);
 
         border-radius:
             50%;
 
+        background:
+            rgba(255, 255, 255, 0.32);
+
+        padding: 0;
+
+        font-size: 0;
+
+        letter-spacing: 0;
+
+        line-height: 1;
+    }
+
+    /*
+     * Скриваме стария текстов символ за стрелка.
+     * Така не зависим от това как iOS/Android го render-ва.
+     */
+    .textControl span {
+        position: absolute;
+
+        width: 9px;
+        height: 9px;
+
         font-size: 0;
     }
 
-    .textControl span {
-        font-size: 14px;
+    .textControl:first-child span {
+        border-bottom:
+            1.5px solid currentColor;
+
+        border-left:
+            1.5px solid currentColor;
+
+        transform:
+            rotate(45deg);
+
+        margin-left: 3px;
+    }
+
+    .textControl:last-child span {
+        border-top:
+            1.5px solid currentColor;
+
+        border-right:
+            1.5px solid currentColor;
+
+        transform:
+            rotate(45deg);
+
+        margin-right: 3px;
+    }
+
+    .textControl:hover:not(:disabled) {
+        gap: 0;
     }
 
     .pageIndicator {
         width: 100%;
 
         min-width: 0;
+
+        gap: 9px;
+    }
+
+    .pageIndicator>span {
+        font-size: 8px;
+
+        letter-spacing:
+            0.09em;
+
+        white-space: nowrap;
+    }
+
+    .progress {
+        width: 100%;
+    }
+
+    .zoomHint {
+        margin-top:
+            11px;
+
+        padding:
+            0 24px;
+
+        font-size: 7px;
+
+        line-height: 1.5;
+    }
+
+    .zoomButton {
+        top: 10px;
+        right: 10px;
+
+        width: 33px;
+        height: 33px;
+
+        font-size: 13px;
     }
 
     .reservationSection {
@@ -1101,8 +1164,64 @@
 
         right: 12px;
     }
+
+    .zoomNavigation button {
+        position: relative;
+
+        font-size: 0;
+    }
+
+    .zoomNavigation button::before {
+        content: "";
+
+        width: 8px;
+        height: 8px;
+
+        border-top:
+            1.5px solid currentColor;
+
+        border-right:
+            1.5px solid currentColor;
+
+        transform:
+            rotate(45deg);
+    }
+
+    .zoomNavigation button:first-child::before {
+        transform:
+            rotate(-135deg);
+    }
 }
 
+@media (max-width: 390px) {
+    .bookFrame {
+        width:
+            calc(100vw + 18px);
+    }
+
+    .flipBook {
+        transform:
+            scale(1.06);
+    }
+
+    .controls {
+        width:
+            calc(100% - 20px);
+
+        grid-template-columns:
+            40px minmax(0, 1fr) 40px;
+    }
+
+    .textControl {
+        width: 38px;
+        height: 38px;
+    }
+
+    .zoomHint {
+        padding:
+            0 18px;
+    }
+}
 
 /* REDUCED MOTION */
 
