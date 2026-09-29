@@ -2,13 +2,10 @@
 
 import Image, { type ImageLoaderProps } from "next/image";
 import Link from "next/link";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+import "@openpageflip/core/styles.css";
+import { type Book, FlipBook, Page } from "@openpageflip/react";
 
 import styles from "./menu.module.css";
 
@@ -18,7 +15,9 @@ type MenuClientProps = {
   locale: Locale;
 };
 
-type FlipDirection = "next" | "previous" | null;
+type FlipEvent = {
+  readonly page: number;
+};
 
 const rawMenuPages = [
   "https://res.cloudinary.com/mxjelcos/image/upload/v1790334359/1.png",
@@ -44,7 +43,7 @@ const rawMenuPages = [
 const getPreviewUrl = (url: string) => {
   return url.replace(
     "/image/upload/",
-    "/image/upload/f_auto,q_auto:good,w_1100/",
+    "/image/upload/f_auto,q_auto:good,w_1000/",
   );
 };
 
@@ -59,21 +58,6 @@ const cloudinaryLoader = ({ src }: ImageLoaderProps) => {
   return src;
 };
 
-const subscribeDesktop = (callback: () => void) => {
-  const query = window.matchMedia("(min-width: 900px)");
-
-  query.addEventListener("change", callback);
-
-  return () => {
-    query.removeEventListener("change", callback);
-  };
-};
-
-const getDesktopSnapshot = () =>
-  window.matchMedia("(min-width: 900px)").matches;
-
-const getDesktopServerSnapshot = () => false;
-
 const translations = {
   bg: {
     back: "Начало",
@@ -84,7 +68,6 @@ const translations = {
     previous: "Предишна",
     next: "Следваща",
     page: "Страница",
-    pages: "Страници",
     of: "от",
     zoomHint: "Натиснете върху страницата, за да я увеличите",
     close: "Затвори",
@@ -100,7 +83,6 @@ const translations = {
     previous: "Previous",
     next: "Next",
     page: "Page",
-    pages: "Pages",
     of: "of",
     zoomHint: "Click a page to enlarge it",
     close: "Close",
@@ -111,11 +93,11 @@ const translations = {
 export default function MenuClient({ locale }: MenuClientProps) {
   const t = translations[locale];
 
-  const isDesktop = useSyncExternalStore(
-    subscribeDesktop,
-    getDesktopSnapshot,
-    getDesktopServerSnapshot,
-  );
+  const bookRef = useRef<Book>(null);
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const [zoomedPage, setZoomedPage] = useState<number | null>(null);
 
   const menuPages = useMemo(
     () =>
@@ -126,117 +108,85 @@ export default function MenuClient({ locale }: MenuClientProps) {
     [],
   );
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const [flipDirection, setFlipDirection] = useState<FlipDirection>(null);
-
-  const [zoomedPage, setZoomedPage] = useState<number | null>(null);
-
-  const displayIndex =
-    isDesktop && currentIndex > 0 && currentIndex % 2 === 0
-      ? currentIndex - 1
-      : currentIndex;
-
-  const isCover = isDesktop && displayIndex === 0;
-
-  const leftPageIndex = isCover ? null : displayIndex;
-
-  const rightPageIndex = isDesktop ? (isCover ? 0 : displayIndex + 1) : null;
-
-  const canGoPrevious = displayIndex > 0;
-
-  const canGoNext = isDesktop
-    ? isCover
-      ? menuPages.length > 1
-      : displayIndex + 1 < menuPages.length - 1
-    : displayIndex < menuPages.length - 1;
-
   useEffect(() => {
-    const preloadImages = () => {
-      menuPages.forEach((page) => {
+    const firstPages = menuPages.slice(0, 8);
+
+    firstPages.forEach((page) => {
+      const image = new window.Image();
+
+      image.decoding = "async";
+
+      image.src = page.preview;
+    });
+
+    let cancelled = false;
+
+    const remaining = menuPages.slice(8);
+
+    const preloadRemaining = async () => {
+      for (const page of remaining) {
+        if (cancelled) {
+          return;
+        }
+
         const image = new window.Image();
 
         image.decoding = "async";
 
         image.src = page.preview;
-      });
+
+        try {
+          await image.decode();
+        } catch {
+          // Изображението пак остава заявено и кеширано.
+        }
+
+        await new Promise<void>((resolve) => {
+          window.setTimeout(resolve, 60);
+        });
+      }
     };
 
-    const timeoutId = window.setTimeout(preloadImages, 250);
+    const timeoutId = window.setTimeout(() => {
+      void preloadRemaining();
+    }, 900);
 
     return () => {
+      cancelled = true;
+
       window.clearTimeout(timeoutId);
     };
   }, [menuPages]);
 
-  const animateFlip = useCallback(
-    (direction: Exclude<FlipDirection, null>, action: () => void) => {
-      if (flipDirection !== null) {
-        return;
-      }
-
-      setFlipDirection(direction);
-
-      window.setTimeout(() => {
-        action();
-      }, 360);
-
-      window.setTimeout(() => {
-        setFlipDirection(null);
-      }, 760);
-    },
-    [flipDirection],
-  );
-
-  const goNext = useCallback(() => {
-    if (!canGoNext) {
+  useEffect(() => {
+    if (zoomedPage === null) {
       return;
     }
 
-    animateFlip("next", () => {
-      setCurrentIndex((current) => {
-        if (!isDesktop) {
-          return Math.min(current + 1, menuPages.length - 1);
-        }
+    const oldOverflow = document.body.style.overflow;
 
-        const normalized =
-          current > 0 && current % 2 === 0 ? current - 1 : current;
+    document.body.style.overflow = "hidden";
 
-        if (normalized === 0) {
-          return 1;
-        }
+    return () => {
+      document.body.style.overflow = oldOverflow;
+    };
+  }, [zoomedPage]);
 
-        return Math.min(normalized + 2, menuPages.length - 1);
-      });
-    });
-  }, [animateFlip, canGoNext, isDesktop, menuPages.length]);
+  const handleNext = useCallback(() => {
+    bookRef.current?.flipNext();
+  }, []);
 
-  const goPrevious = useCallback(() => {
-    if (!canGoPrevious) {
-      return;
-    }
+  const handlePrevious = useCallback(() => {
+    bookRef.current?.flipPrev();
+  }, []);
 
-    animateFlip("previous", () => {
-      setCurrentIndex((current) => {
-        if (!isDesktop) {
-          return Math.max(current - 1, 0);
-        }
-
-        const normalized =
-          current > 0 && current % 2 === 0 ? current - 1 : current;
-
-        if (normalized <= 1) {
-          return 0;
-        }
-
-        return Math.max(normalized - 2, 1);
-      });
-    });
-  }, [animateFlip, canGoPrevious, isDesktop]);
+  const handleFlip = useCallback((event: FlipEvent) => {
+    setCurrentPage(event.page);
+  }, []);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && zoomedPage !== null) {
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setZoomedPage(null);
 
         return;
@@ -247,88 +197,26 @@ export default function MenuClient({ locale }: MenuClientProps) {
       }
 
       if (event.key === "ArrowRight") {
-        goNext();
+        handleNext();
       }
 
       if (event.key === "ArrowLeft") {
-        goPrevious();
+        handlePrevious();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyboard);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyboard);
     };
-  }, [goNext, goPrevious, zoomedPage]);
+  }, [handleNext, handlePrevious, zoomedPage]);
 
-  useEffect(() => {
-    if (zoomedPage === null) {
-      return;
-    }
+  const canGoPrevious = currentPage > 0;
 
-    const previousOverflow = document.body.style.overflow;
+  const canGoNext = currentPage < menuPages.length - 1;
 
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [zoomedPage]);
-
-  const getPageLabel = () => {
-    if (!isDesktop) {
-      return `${t.page} ${displayIndex + 1} ${t.of} ${menuPages.length}`;
-    }
-
-    if (isCover) {
-      return `${t.page} 1 ${t.of} ${menuPages.length}`;
-    }
-
-    const first = displayIndex + 1;
-
-    const second = Math.min(displayIndex + 2, menuPages.length);
-
-    return `${t.pages} ${first}–${second} ${t.of} ${menuPages.length}`;
-  };
-
-  const renderPage = (index: number, side: "left" | "right" | "single") => {
-    const page = menuPages[index];
-
-    if (!page) {
-      return <div className={`${styles.page} ${styles.emptyPage}`} />;
-    }
-
-    return (
-      <button
-        type="button"
-        className={[
-          styles.page,
-          side === "left" ? styles.leftPage : "",
-          side === "right" ? styles.rightPage : "",
-          side === "single" ? styles.singlePage : "",
-        ].join(" ")}
-        onClick={() => setZoomedPage(index)}
-        aria-label={`${t.page} ${index + 1}`}
-      >
-        <Image
-          loader={cloudinaryLoader}
-          unoptimized
-          src={page.preview}
-          alt={`${t.page} ${index + 1}`}
-          width={1100}
-          height={1558}
-          priority={index <= 3}
-          loading={index <= 3 ? "eager" : "lazy"}
-          fetchPriority={index <= 3 ? "high" : "auto"}
-          draggable={false}
-          sizes={isDesktop ? "(min-width: 900px) 460px, 90vw" : "92vw"}
-        />
-
-        <span className={styles.zoomIcon}>⤢</span>
-      </button>
-    );
-  };
+  const isCover = currentPage === 0;
 
   return (
     <main className={styles.main}>
@@ -373,75 +261,84 @@ export default function MenuClient({ locale }: MenuClientProps) {
           <button
             type="button"
             className={`${styles.navigationButton} ${styles.previousButton}`}
-            onClick={goPrevious}
+            onClick={handlePrevious}
             disabled={!canGoPrevious}
             aria-label={t.previous}
           >
             ←
           </button>
 
-          <div className={styles.bookShell}>
-            <div className={styles.pageStackBack} />
-
-            <div className={styles.pageStackMiddle} />
-
+          <div className={styles.bookFrame}>
             <div
-              className={[styles.book, isCover ? styles.coverMode : ""].join(
-                " ",
-              )}
+              className={`${styles.bookPositioner} ${
+                isCover ? styles.bookPositionerCover : ""
+              }`}
             >
-              {isDesktop ? (
-                isCover ? (
-                  <div className={styles.coverWrapper}>
-                    {renderPage(0, "single")}
-                  </div>
-                ) : (
-                  <>
-                    {leftPageIndex !== null &&
-                      renderPage(leftPageIndex, "left")}
+              <FlipBook
+                ref={bookRef}
+                className={styles.flipBook}
+                width={460}
+                height={650}
+                size="stretch"
+                cover
+                onFlip={handleFlip}
+              >
+                {menuPages.map((page, index) => {
+                  const content = (
+                    <div className={styles.menuPage}>
+                      <Image
+                        loader={cloudinaryLoader}
+                        unoptimized
+                        src={page.preview}
+                        alt={`${t.page} ${index + 1}`}
+                        width={1000}
+                        height={1416}
+                        priority={index <= 5}
+                        draggable={false}
+                        sizes="(min-width: 900px) 460px, 92vw"
+                      />
 
-                    {rightPageIndex !== null &&
-                    rightPageIndex < menuPages.length ? (
-                      renderPage(rightPageIndex, "right")
-                    ) : (
-                      <div className={`${styles.page} ${styles.emptyPage}`} />
-                    )}
+                      <button
+                        type="button"
+                        className={styles.zoomButton}
+                        onClick={(event) => {
+                          event.stopPropagation();
 
-                    <div className={styles.bookSpine} />
-                  </>
-                )
-              ) : (
-                renderPage(displayIndex, "single")
-              )}
+                          setZoomedPage(index);
+                        }}
+                        aria-label={`${t.page} ${index + 1}`}
+                      >
+                        ⤢
+                      </button>
+                    </div>
+                  );
 
-              {flipDirection === "next" && (
-                <div className={`${styles.flipSheet} ${styles.flipSheetNext}`}>
-                  <div className={styles.flipFront} />
+                  if (index === 0 || index === menuPages.length - 1) {
+                    return (
+                      <Page
+                        key={index}
+                        density="hard"
+                        className={styles.flipPage}
+                      >
+                        {content}
+                      </Page>
+                    );
+                  }
 
-                  <div className={styles.flipBack} />
-
-                  <span className={styles.pageCurl} />
-                </div>
-              )}
-
-              {flipDirection === "previous" && (
-                <div
-                  className={`${styles.flipSheet} ${styles.flipSheetPrevious}`}
-                >
-                  <div className={styles.flipFront} />
-
-                  <div className={styles.flipBack} />
-
-                  <span className={styles.pageCurl} />
-                </div>
-              )}
+                  return (
+                    <Page key={index} className={styles.flipPage}>
+                      {content}
+                    </Page>
+                  );
+                })}
+              </FlipBook>
             </div>
           </div>
 
           <button
             type="button"
             className={`${styles.navigationButton} ${styles.nextButton}`}
-            onClick={goNext}
+            onClick={handleNext}
             disabled={!canGoNext}
             aria-label={t.next}
           >
@@ -452,7 +349,7 @@ export default function MenuClient({ locale }: MenuClientProps) {
         <div className={styles.controls}>
           <button
             type="button"
-            onClick={goPrevious}
+            onClick={handlePrevious}
             disabled={!canGoPrevious}
             className={styles.textControl}
           >
@@ -462,12 +359,14 @@ export default function MenuClient({ locale }: MenuClientProps) {
           </button>
 
           <div className={styles.pageIndicator}>
-            <span>{getPageLabel()}</span>
+            <span>
+              {t.page} {currentPage + 1} {t.of} {menuPages.length}
+            </span>
 
             <div className={styles.progress}>
               <span
                 style={{
-                  width: `${((displayIndex + 1) / menuPages.length) * 100}%`,
+                  width: `${((currentPage + 1) / menuPages.length) * 100}%`,
                 }}
               />
             </div>
@@ -475,7 +374,7 @@ export default function MenuClient({ locale }: MenuClientProps) {
 
           <button
             type="button"
-            onClick={goNext}
+            onClick={handleNext}
             disabled={!canGoNext}
             className={styles.textControl}
           >
