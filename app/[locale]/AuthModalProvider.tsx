@@ -10,12 +10,28 @@ import {
   useState,
 } from "react";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
-import AccountModal from "./AccountModal";
-import AuthModal from "./AuthModal";
-import MenuModal from "./MenuModal";
-import ReservationModal from "./ReservationModal";
+const AuthModal = dynamic(() => import("./AuthModal"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const AccountModal = dynamic(() => import("./AccountModal"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const MenuModal = dynamic(() => import("./MenuModal"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const ReservationModal = dynamic(() => import("./ReservationModal"), {
+  ssr: false,
+  loading: () => null,
+});
 
 type Locale = "bg" | "en";
 
@@ -23,29 +39,19 @@ type AuthMode = "login" | "register";
 
 type AuthModalContextValue = {
   openLogin: (returnTo?: string) => void;
-
   openRegister: (returnTo?: string) => void;
-
   openAccount: () => void;
-
   openMenu: () => void;
-
   openReservation: () => void;
-
   closeAuth: () => void;
-
   closeAccount: () => void;
-
   closeMenu: () => void;
-
   closeReservation: () => void;
 };
 
 type AuthState = {
   isOpen: boolean;
-
   mode: AuthMode;
-
   returnTo: string | null;
 };
 
@@ -53,9 +59,7 @@ const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 
 type AuthModalProviderProps = {
   children: ReactNode;
-
   locale: Locale;
-
   isLoggedIn: boolean;
 };
 
@@ -73,10 +77,14 @@ export default function AuthModalProvider({
   });
 
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isReservationOpen, setIsReservationOpen] = useState(false);
+
+  const [hasLoadedAuthModal, setHasLoadedAuthModal] = useState(false);
+  const [hasLoadedAccountModal, setHasLoadedAccountModal] = useState(false);
+  const [hasLoadedMenuModal, setHasLoadedMenuModal] = useState(false);
+  const [hasLoadedReservationModal, setHasLoadedReservationModal] =
+    useState(false);
 
   const closeEverything = useCallback(() => {
     setIsAccountOpen(false);
@@ -91,6 +99,8 @@ export default function AuthModalProvider({
   }, []);
 
   const openLogin = useCallback((returnTo?: string) => {
+    setHasLoadedAuthModal(true);
+
     setIsAccountOpen(false);
     setIsMenuOpen(false);
     setIsReservationOpen(false);
@@ -103,6 +113,8 @@ export default function AuthModalProvider({
   }, []);
 
   const openRegister = useCallback((returnTo?: string) => {
+    setHasLoadedAuthModal(true);
+
     setIsAccountOpen(false);
     setIsMenuOpen(false);
     setIsReservationOpen(false);
@@ -117,18 +129,21 @@ export default function AuthModalProvider({
   const openAccount = useCallback(() => {
     closeEverything();
 
+    setHasLoadedAccountModal(true);
     setIsAccountOpen(true);
   }, [closeEverything]);
 
   const openMenu = useCallback(() => {
     closeEverything();
 
+    setHasLoadedMenuModal(true);
     setIsMenuOpen(true);
   }, [closeEverything]);
 
   const openReservation = useCallback(() => {
     closeEverything();
 
+    setHasLoadedReservationModal(true);
     setIsReservationOpen(true);
   }, [closeEverything]);
 
@@ -156,7 +171,6 @@ export default function AuthModalProvider({
     const destination = authState.returnTo;
 
     const accountPath = `/${locale}/account`;
-
     const reservationPath = `/${locale}/reservations`;
 
     setAuthState((current) => ({
@@ -166,18 +180,18 @@ export default function AuthModalProvider({
     }));
 
     if (destination && destination.replace(/\/+$/, "") === accountPath) {
+      setHasLoadedAccountModal(true);
       setIsAccountOpen(true);
 
       router.refresh();
-
       return;
     }
 
     if (destination && destination.replace(/\/+$/, "") === reservationPath) {
+      setHasLoadedReservationModal(true);
       setIsReservationOpen(true);
 
       router.refresh();
-
       return;
     }
 
@@ -190,7 +204,6 @@ export default function AuthModalProvider({
 
   const handleLoggedOut = useCallback(() => {
     setIsAccountOpen(false);
-
     router.refresh();
   }, [router]);
 
@@ -255,48 +268,37 @@ export default function AuthModalProvider({
       const normalizedPath = url.pathname.replace(/\/+$/, "");
 
       const menuPath = `/${locale}/menu`;
-
       const loginPath = `/${locale}/login`;
-
       const registerPath = `/${locale}/register`;
-
       const accountPath = `/${locale}/account`;
-
       const reservationPath = `/${locale}/reservations`;
-
       const adminPath = `/${locale}/admin`;
 
       if (normalizedPath === menuPath) {
         event.preventDefault();
 
         openMenu();
-
         return;
       }
 
       if (normalizedPath === loginPath) {
         event.preventDefault();
-
         event.stopImmediatePropagation();
 
         openLogin();
-
         return;
       }
 
       if (normalizedPath === registerPath) {
         event.preventDefault();
-
         event.stopImmediatePropagation();
 
         openRegister();
-
         return;
       }
 
       if (normalizedPath === accountPath) {
         event.preventDefault();
-
         event.stopImmediatePropagation();
 
         if (isLoggedIn) {
@@ -329,7 +331,6 @@ export default function AuthModalProvider({
           normalizedPath.startsWith(`${adminPath}/`))
       ) {
         event.preventDefault();
-
         event.stopImmediatePropagation();
 
         openLogin(`${url.pathname}${url.search}${url.hash}`);
@@ -380,29 +381,37 @@ export default function AuthModalProvider({
     <AuthModalContext.Provider value={value}>
       {children}
 
-      <AuthModal
-        key={`${locale}-${authState.mode}`}
-        locale={locale}
-        isOpen={authState.isOpen}
-        initialMode={authState.mode}
-        onClose={closeAuth}
-        onAuthenticated={handleAuthenticated}
-      />
+      {hasLoadedAuthModal && (
+        <AuthModal
+          key={`${locale}-${authState.mode}`}
+          locale={locale}
+          isOpen={authState.isOpen}
+          initialMode={authState.mode}
+          onClose={closeAuth}
+          onAuthenticated={handleAuthenticated}
+        />
+      )}
 
-      <AccountModal
-        locale={locale}
-        isOpen={isAccountOpen}
-        onClose={closeAccount}
-        onLoggedOut={handleLoggedOut}
-      />
+      {hasLoadedAccountModal && (
+        <AccountModal
+          locale={locale}
+          isOpen={isAccountOpen}
+          onClose={closeAccount}
+          onLoggedOut={handleLoggedOut}
+        />
+      )}
 
-      <MenuModal locale={locale} isOpen={isMenuOpen} onClose={closeMenu} />
+      {hasLoadedMenuModal && (
+        <MenuModal locale={locale} isOpen={isMenuOpen} onClose={closeMenu} />
+      )}
 
-      <ReservationModal
-        locale={locale}
-        isOpen={isReservationOpen}
-        onClose={closeReservation}
-      />
+      {hasLoadedReservationModal && (
+        <ReservationModal
+          locale={locale}
+          isOpen={isReservationOpen}
+          onClose={closeReservation}
+        />
+      )}
     </AuthModalContext.Provider>
   );
 }
