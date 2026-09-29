@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -34,6 +34,8 @@ export default function HomeHeader({
 }: HomeHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const mobileToggleRef = useRef<HTMLButtonElement | null>(null);
+
   const shouldReduceMotion = useReducedMotion();
 
   const { openLogin } = useAuthModal();
@@ -49,10 +51,22 @@ export default function HomeHeader({
       }
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+
+        window.setTimeout(() => {
+          mobileToggleRef.current?.focus();
+        }, 0);
+      }
+    };
+
     window.addEventListener("resize", handleResize);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
 
@@ -65,6 +79,14 @@ export default function HomeHeader({
 
     openLogin();
   };
+
+  const mobileMenuLabel = mobileMenuOpen
+    ? locale === "bg"
+      ? "Затвори меню"
+      : "Close menu"
+    : locale === "bg"
+      ? "Отвори меню"
+      : "Open menu";
 
   return (
     <motion.header
@@ -88,7 +110,15 @@ export default function HomeHeader({
       }}
     >
       <div className={styles.headerInner}>
-        <Link href={`/${locale}`} className={styles.logo}>
+        <Link
+          href={`/${locale}`}
+          className={styles.logo}
+          aria-label={
+            locale === "bg"
+              ? "RESTAURANT — начална страница"
+              : "RESTAURANT — homepage"
+          }
+        >
           RESTAURANT
         </Link>
 
@@ -104,19 +134,28 @@ export default function HomeHeader({
         </nav>
 
         <div className={styles.actions}>
-          <div className={styles.languages}>
+          <div
+            className={styles.languages}
+            aria-label={
+              locale === "bg" ? "Избор на език" : "Language selection"
+            }
+          >
             <Link
               href="/bg"
               className={locale === "bg" ? styles.activeLanguage : ""}
+              aria-current={locale === "bg" ? "page" : undefined}
+              hrefLang="bg"
             >
               BG
             </Link>
 
-            <span>/</span>
+            <span aria-hidden="true">/</span>
 
             <Link
               href="/en"
               className={locale === "en" ? styles.activeLanguage : ""}
+              aria-current={locale === "en" ? "page" : undefined}
+              hrefLang="en"
             >
               EN
             </Link>
@@ -148,24 +187,30 @@ export default function HomeHeader({
           </Link>
 
           <button
+            ref={mobileToggleRef}
             type="button"
             className={`${styles.mobileToggle} ${
               mobileMenuOpen ? styles.mobileToggleOpen : ""
             }`}
             onClick={() => setMobileMenuOpen((current) => !current)}
             aria-expanded={mobileMenuOpen}
-            aria-label={locale === "bg" ? "Отвори меню" : "Open menu"}
+            aria-controls="mobile-navigation"
+            aria-label={mobileMenuLabel}
           >
-            <span />
-            <span />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
           </button>
         </div>
       </div>
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+          <motion.nav
+            id="mobile-navigation"
             className={styles.mobileMenu}
+            aria-label={
+              locale === "bg" ? "Мобилна навигация" : "Mobile navigation"
+            }
             initial={
               shouldReduceMotion
                 ? false
@@ -213,7 +258,7 @@ export default function HomeHeader({
                 {labels.login}
               </button>
             )}
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </motion.header>
