@@ -18,6 +18,7 @@ type AuthModalProps = {
   locale: Locale;
   isOpen: boolean;
   initialMode?: AuthMode;
+  emailVerified?: boolean;
   onClose: () => void;
   onAuthenticated: () => void;
 };
@@ -26,10 +27,19 @@ export default function AuthModal({
   locale,
   isOpen,
   initialMode = "login",
+  emailVerified = false,
   onClose,
   onAuthenticated,
 }: AuthModalProps) {
   const shouldReduceMotion = useReducedMotion();
+
+  const isBg = locale === "bg";
+
+  const initialSuccessMessage = emailVerified
+    ? isBg
+      ? "Имейлът ти е потвърден успешно. Вече можеш да влезеш в профила си."
+      : "Your email has been verified successfully. You can now sign in to your account."
+    : "";
 
   const [mode, setMode] = useState<ModalMode>(initialMode);
 
@@ -42,9 +52,7 @@ export default function AuthModal({
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const isBg = locale === "bg";
+  const [success, setSuccess] = useState(initialSuccessMessage);
 
   useEffect(() => {
     if (!isOpen) {
@@ -125,7 +133,15 @@ export default function AuthModal({
     } catch (authError) {
       const message = authError instanceof Error ? authError.message : "";
 
-      if (message.toLowerCase().includes("invalid login credentials")) {
+      const normalizedMessage = message.toLowerCase();
+
+      if (normalizedMessage.includes("email not confirmed")) {
+        setError(
+          isBg
+            ? "Първо потвърди имейл адреса си чрез линка, който ти изпратихме."
+            : "Please verify your email address using the link we sent you before signing in.",
+        );
+      } else if (normalizedMessage.includes("invalid login credentials")) {
         setError(
           isBg ? "Невалиден имейл или парола." : "Invalid email or password.",
         );
@@ -181,10 +197,15 @@ export default function AuthModal({
     try {
       const supabase = createClient();
 
+      const confirmationRedirect =
+        `${window.location.origin}/${locale}` + "?auth=login&verified=1";
+
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
+          emailRedirectTo: confirmationRedirect,
+
           data: {
             full_name: fullName.trim(),
             phone: phone.trim(),
@@ -197,33 +218,17 @@ export default function AuthModal({
       }
 
       if (data.session) {
-        setSuccess(
-          isBg
-            ? "Профилът е създаден успешно."
-            : "Your account was created successfully.",
-        );
-
-        window.setTimeout(() => {
-          onAuthenticated();
-        }, 400);
-
-        return;
+        await supabase.auth.signOut();
       }
+
+      setPassword("");
+      setConfirmPassword("");
 
       setSuccess(
         isBg
-          ? "Регистрацията е успешна. Влез в профила си."
-          : "Registration successful. Please sign in.",
+          ? "Регистрацията е успешна! Изпратихме ти имейл за потвърждение. Провери входящата си поща и потвърди имейл адреса си. След това ще можеш да влезеш в профила си."
+          : "Registration successful! We've sent you a confirmation email. Check your inbox and verify your email address. After that, you'll be able to sign in to your account.",
       );
-
-      window.setTimeout(() => {
-        setMode("login");
-
-        setPassword("");
-        setConfirmPassword("");
-
-        setSuccess("");
-      }, 900);
     } catch (authError) {
       const message = authError instanceof Error ? authError.message : "";
 
