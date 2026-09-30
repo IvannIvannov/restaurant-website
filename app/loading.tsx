@@ -1,6 +1,20 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import styles from "./state.module.css";
 
 export default function Loading() {
+  const pathname = usePathname();
+
+  const isEnglish = pathname?.startsWith("/en");
+
+  const loadingLabel = isEnglish ? "Loading" : "Зареждане";
+
+  const loadingText = isEnglish
+    ? "Preparing your experience"
+    : "Подготвяме преживяването";
+
   return (
     <main className={`${styles.main} ${styles.loadingMain}`}>
       <div className={styles.glowTop} />
@@ -13,7 +27,7 @@ export default function Loading() {
 
         <div
           className={styles.loadingMark}
-          aria-label="Зареждане"
+          aria-label={loadingLabel}
           role="status"
         >
           <span />
@@ -21,7 +35,7 @@ export default function Loading() {
           <span />
         </div>
 
-        <p className={styles.loadingText}>Подготвяме преживяването</p>
+        <p className={styles.loadingText}>{loadingText}</p>
       </section>
     </main>
   );

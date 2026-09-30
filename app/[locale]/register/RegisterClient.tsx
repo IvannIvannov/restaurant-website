@@ -38,8 +38,7 @@ const translations = {
 
     required: "Моля, попълни всички задължителни полета.",
 
-    success:
-      "Регистрацията е успешна. Провери имейла си, за да потвърдиш профила си.",
+    success: "Профилът е създаден успешно.",
 
     genericError: "Възникна проблем при регистрацията.",
   },
@@ -71,8 +70,7 @@ const translations = {
 
     required: "Please complete all required fields.",
 
-    success:
-      "Registration successful. Check your email to confirm your account.",
+    success: "Your account was created successfully.",
 
     genericError: "Something went wrong during registration.",
   },

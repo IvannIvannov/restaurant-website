@@ -1,11 +1,8 @@
 "use client";
 
 import Link from "next/link";
-
 import { FormEvent, useState } from "react";
-
 import { motion, useReducedMotion } from "motion/react";
-
 import { useRouter } from "next/navigation";
 
 import { createClient } from "../../../lib/supabase/client";
@@ -28,13 +25,11 @@ export default function ResetPasswordClient({
   const isBg = locale === "bg";
 
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
-
   const [success, setSuccess] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -43,11 +38,11 @@ export default function ResetPasswordClient({
     setError("");
     setSuccess("");
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       setError(
         isBg
-          ? "Паролата трябва да бъде поне 6 символа."
-          : "Password must be at least 6 characters.",
+          ? "Паролата трябва да бъде поне 8 символа."
+          : "Password must be at least 8 characters.",
       );
 
       return;
@@ -135,7 +130,6 @@ export default function ResetPasswordClient({
         }}
         transition={{
           duration: shouldReduceMotion ? 0 : 0.7,
-
           ease: [0.22, 1, 0.36, 1],
         }}
       >

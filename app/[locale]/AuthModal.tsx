@@ -34,19 +34,14 @@ export default function AuthModal({
   const [mode, setMode] = useState<ModalMode>(initialMode);
 
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [fullName, setFullName] = useState("");
-
   const [phone, setPhone] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
-
   const [success, setSuccess] = useState("");
 
   const isBg = locale === "bg";
@@ -115,7 +110,6 @@ export default function AuthModal({
 
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
-
         password,
       });
 
@@ -166,11 +160,11 @@ export default function AuthModal({
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       setError(
         isBg
-          ? "Паролата трябва да бъде поне 6 символа."
-          : "Password must be at least 6 characters.",
+          ? "Паролата трябва да бъде поне 8 символа."
+          : "Password must be at least 8 characters.",
       );
 
       return;
@@ -189,13 +183,10 @@ export default function AuthModal({
 
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: email.trim(),
-
         password,
-
         options: {
           data: {
             full_name: fullName.trim(),
-
             phone: phone.trim(),
           },
         },
@@ -229,7 +220,6 @@ export default function AuthModal({
         setMode("login");
 
         setPassword("");
-
         setConfirmPassword("");
 
         setSuccess("");
@@ -399,7 +389,6 @@ export default function AuthModal({
             }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.42,
-
               ease: [0.22, 1, 0.36, 1],
             }}
           >
@@ -446,7 +435,6 @@ export default function AuthModal({
                   }}
                   transition={{
                     duration: shouldReduceMotion ? 0 : 0.4,
-
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 />
