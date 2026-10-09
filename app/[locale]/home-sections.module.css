@@ -66,10 +66,10 @@
     background: var(--color-accent);
     color: #ffffff;
     box-shadow: 0 18px 44px rgba(65, 88, 67, 0.1);
+    isolation: isolate;
     transition:
         transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.55s ease,
-        background 0.45s ease;
+        box-shadow 0.55s ease;
 }
 
 .eventCard:nth-child(2) {
@@ -83,27 +83,40 @@
 .eventCard::before {
     content: "";
     position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle,
-            rgba(255, 255, 255, 0.09),
-            transparent 68%);
-    pointer-events: none;
+    inset: 0;
+    z-index: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scale(1.01);
     transition:
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.5s ease;
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eventCard:nth-child(1)::before {
+    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101145.png");
+}
+
+.eventCard:nth-child(2)::before {
+    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101239.png");
+}
+
+.eventCard:nth-child(3)::before {
+    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101151.png");
 }
 
 .eventCard::after {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 1;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: inherit;
+    background:
+        linear-gradient(to bottom,
+            rgba(8, 12, 8, 0.18) 0%,
+            rgba(8, 12, 8, 0.24) 40%,
+            rgba(8, 12, 8, 0.82) 100%);
     pointer-events: none;
 }
 
@@ -113,12 +126,12 @@
 }
 
 .eventCard:hover::before {
-    transform: translate(-20px, 20px) scale(1.15);
+    transform: scale(1.07);
 }
 
 .eventCardInner {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     min-height: 470px;
     height: 100%;
@@ -150,9 +163,9 @@
     min-height: 34px;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.26);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(8, 12, 8, 0.2);
     padding: 0 14px;
     color: #ffffff;
     font-size: 8px;
@@ -169,8 +182,8 @@
 
 .eventCard:hover .eventTag {
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.34);
-    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(8, 12, 8, 0.3);
 }
 
 .eventContent {
@@ -195,13 +208,15 @@
     font-weight: 500;
     line-height: 1.04;
     letter-spacing: -0.04em;
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
 }
 
 .eventContent p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.68);
+    color: rgba(255, 255, 255, 0.82);
     font-size: 12px;
     line-height: 1.75;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
 }
 
 /* CONTACT */
@@ -1029,6 +1044,10 @@
     .primaryContactButton:hover,
     .secondaryContactButton:hover {
         transform: none;
+    }
+
+    .eventCard:hover::before {
+        transform: scale(1.01);
     }
 
     .eventCard:hover .eventContent,
