@@ -39,7 +39,28 @@ export default async function HomePage({ params }: Props) {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
-        <div className={styles.heroBackground} />
+        <video
+          className={styles.heroBackground}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/hero.jpg"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source
+            media="(min-width: 651px)"
+            src="https://res.cloudinary.com/dznyfk4z6/video/upload/v1795019457/IMG_8210_desktop_wrqqfv.mp4"
+            type="video/mp4"
+          />
+
+          <source
+            src="https://res.cloudinary.com/dznyfk4z6/video/upload/v1795017593/IMG_8210_ptm8mb.mp4"
+            type="video/mp4"
+          />
+        </video>
 
         <div className={styles.heroOverlay} />
 
@@ -50,24 +71,17 @@ export default async function HomePage({ params }: Props) {
           isLoggedIn={Boolean(user)}
           labels={{
             menu: messages.navigation.menu,
-
             events: messages.navigation.events,
-
             contact: messages.navigation.contact,
-
             reserve: messages.navigation.reserve,
-
             login: messages.navigation.login,
-
             account: messages.navigation.account,
           }}
         />
 
         <div className={styles.sideLabel}>
           <span>Dining</span>
-
           <span>·</span>
-
           <span>Moments</span>
         </div>
 
@@ -76,7 +90,6 @@ export default async function HomePage({ params }: Props) {
 
           <h1 className={styles.heroTitle}>
             <span>{messages.hero.titleLine1}</span>
-
             <span>{messages.hero.titleLine2}</span>
           </h1>
 
@@ -130,7 +143,6 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
-
                   <span>↗</span>
                 </Link>
               </div>
@@ -159,7 +171,6 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
-
                   <span>↗</span>
                 </Link>
               </div>
@@ -196,7 +207,6 @@ export default async function HomePage({ params }: Props) {
 
                   <div className={sectionStyles.eventContent}>
                     <h3>{event.title}</h3>
-
                     <p>{event.description}</p>
                   </div>
                 </div>
