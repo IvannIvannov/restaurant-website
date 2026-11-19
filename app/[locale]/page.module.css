@@ -57,6 +57,8 @@
             transparent 46%);
 }
 
+/* HEADER */
+
 .header {
     position: absolute;
     top: 0;
@@ -69,19 +71,15 @@
     padding: 28px 56px;
 }
 
-.logo {
-    justify-self: start;
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-}
+/* Navigation is now on the left */
 
 .navigation {
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
+    justify-self: start;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 38px;
     font-family: var(--font-body);
     font-size: 13px;
@@ -117,7 +115,24 @@
     transform-origin: left;
 }
 
+/* Logo is now centered */
+
+.logo {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+}
+
+/* Right-side actions remain on the right */
+
 .headerActions {
+    grid-column: 3;
+    grid-row: 1;
     display: flex;
     justify-self: end;
     align-items: center;
@@ -487,8 +502,15 @@
         display: none;
     }
 
+    .logo {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+    }
+
     .headerActions {
         grid-column: 2;
+        grid-row: 1;
     }
 
     .sideLabel {

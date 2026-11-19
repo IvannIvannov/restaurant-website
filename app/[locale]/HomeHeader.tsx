@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
@@ -25,6 +26,10 @@ type HomeHeaderProps = {
     login: string;
     account: string;
   };
+};
+
+const cloudinaryLoader = ({ src }: { src: string }) => {
+  return src;
 };
 
 export default function HomeHeader({
@@ -105,23 +110,10 @@ export default function HomeHeader({
       }}
       transition={{
         duration: shouldReduceMotion ? 0 : 0.7,
-
         ease: [0.22, 1, 0.36, 1],
       }}
     >
       <div className={styles.headerInner}>
-        <Link
-          href={`/${locale}`}
-          className={styles.logo}
-          aria-label={
-            locale === "bg"
-              ? "RESTAURANT — начална страница"
-              : "RESTAURANT — homepage"
-          }
-        >
-          RESTAURANT
-        </Link>
-
         <nav
           className={styles.navigation}
           aria-label={locale === "bg" ? "Основна навигация" : "Main navigation"}
@@ -132,6 +124,26 @@ export default function HomeHeader({
 
           <a href="#contact">{labels.contact}</a>
         </nav>
+
+        <Link
+          href={`/${locale}`}
+          className={styles.logo}
+          aria-label={
+            locale === "bg"
+              ? "MAZU Bar Restaurant — начална страница"
+              : "MAZU Bar Restaurant — homepage"
+          }
+        >
+          <Image
+            loader={cloudinaryLoader}
+            src="https://res.cloudinary.com/dznyfk4z6/image/upload/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png"
+            alt="MAZU Bar Restaurant"
+            width={220}
+            height={220}
+            className={styles.logoImage}
+            priority
+          />
+        </Link>
 
         <div className={styles.actions}>
           <div
@@ -229,7 +241,6 @@ export default function HomeHeader({
             }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.3,
-
               ease: [0.22, 1, 0.36, 1],
             }}
           >
