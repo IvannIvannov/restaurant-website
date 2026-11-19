@@ -79,17 +79,12 @@ export default async function HomePage({ params }: Props) {
           }}
         />
 
-        <div className={styles.sideLabel}>
-          <span>Dining</span>
-          <span>·</span>
-          <span>Moments</span>
-        </div>
-
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
 
           <h1 className={styles.heroTitle}>
             <span>{messages.hero.titleLine1}</span>
+
             <span>{messages.hero.titleLine2}</span>
           </h1>
 
@@ -143,6 +138,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
+
                   <span>↗</span>
                 </Link>
               </div>
@@ -171,6 +167,7 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
+
                   <span>↗</span>
                 </Link>
               </div>
@@ -207,6 +204,7 @@ export default async function HomePage({ params }: Props) {
 
                   <div className={sectionStyles.eventContent}>
                     <h3>{event.title}</h3>
+
                     <p>{event.description}</p>
                   </div>
                 </div>
