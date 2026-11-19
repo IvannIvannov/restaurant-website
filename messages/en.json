@@ -19,8 +19,8 @@
         "bottomLabel": "Restaurant experience"
     },
     "actions": {
-        "eyebrow": "Choose your experience",
-        "title": "IT ALL STARTS HERE",
+        "eyebrow": "Made for sharing",
+        "title": "EVERY OCCASION HAS ITS OWN FLAVOR",
         "bookingLabel": "Reservations",
         "bookingTitle": "RESERVE YOUR TABLE",
         "bookingDescription": "Choose your date, time, number of guests and preferred seating area. We will take care of the rest.",
@@ -32,7 +32,7 @@
     },
     "events": {
         "eyebrow": "Events and occasions",
-        "title": "MORE THAN DINNER",
+        "title": "THE MOMENTS THAT STAY",
         "description": "A place for special evenings, private occasions and moments that deserve a different atmosphere.",
         "items": [
             {

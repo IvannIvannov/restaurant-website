@@ -84,7 +84,6 @@ export default async function HomePage({ params }: Props) {
 
           <h1 className={styles.heroTitle}>
             <span>{messages.hero.titleLine1}</span>
-
             <span>{messages.hero.titleLine2}</span>
           </h1>
 
@@ -120,8 +119,6 @@ export default async function HomePage({ params }: Props) {
             <div className={styles.actionOverlay} />
 
             <div className={styles.actionContent}>
-              <span className={styles.actionNumber}>01</span>
-
               <div>
                 <p className={styles.actionLabel}>
                   {messages.actions.bookingLabel}
@@ -149,8 +146,6 @@ export default async function HomePage({ params }: Props) {
             <div className={styles.actionOverlay} />
 
             <div className={styles.actionContent}>
-              <span className={styles.actionNumber}>02</span>
-
               <div>
                 <p className={styles.actionLabel}>
                   {messages.actions.menuLabel}
@@ -204,7 +199,6 @@ export default async function HomePage({ params }: Props) {
 
                   <div className={sectionStyles.eventContent}>
                     <h3>{event.title}</h3>
-
                     <p>{event.description}</p>
                   </div>
                 </div>
@@ -314,7 +308,6 @@ export default async function HomePage({ params }: Props) {
                 </Link>
 
                 <a href="#events">{messages.navigation.events}</a>
-
                 <a href="#contact">{messages.navigation.contact}</a>
               </div>
 
