@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "../../lib/supabase/server";
 
 import HomeHeader from "./HomeHeader";
+import UpcomingEvents from "./UpcomingEvents";
 
 import styles from "./page.module.css";
 import sectionStyles from "./home-sections.module.css";
@@ -107,6 +108,8 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      <UpcomingEvents locale={currentLocale} />
+
       <section id="booking" className={styles.actionsSection}>
         <div className={styles.actionsHeader}>
           <p className={styles.sectionEyebrow}>{messages.actions.eyebrow}</p>
@@ -199,6 +202,7 @@ export default async function HomePage({ params }: Props) {
 
                   <div className={sectionStyles.eventContent}>
                     <h3>{event.title}</h3>
+
                     <p>{event.description}</p>
                   </div>
                 </div>
@@ -308,6 +312,7 @@ export default async function HomePage({ params }: Props) {
                 </Link>
 
                 <a href="#events">{messages.navigation.events}</a>
+
                 <a href="#contact">{messages.navigation.contact}</a>
               </div>
 
