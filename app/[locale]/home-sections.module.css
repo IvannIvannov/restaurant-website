@@ -26,6 +26,7 @@
 .eyebrow {
     margin: 0 0 12px;
     color: var(--color-accent);
+    font-family: var(--font-body);
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -34,17 +35,18 @@
 
 .sectionHeading h2 {
     margin: 0;
-    font-family: var(--font-body);
-    font-size: clamp(34px, 5vw, 56px);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.04em;
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5vw, 64px);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
 }
 
 .sectionDescription {
     max-width: 390px;
     margin: 0;
     color: rgba(32, 36, 32, 0.68);
+    font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -159,6 +161,7 @@
 
     color: rgba(255, 255, 255, 0.88);
 
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
     line-height: 1;
@@ -180,6 +183,7 @@
 
     color: #ffffff;
 
+    font-family: var(--font-body);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -217,12 +221,13 @@
 
 .eventContent h3 {
     margin: 0;
+
     color: #ffffff;
 
-    font-family: var(--font-body);
-    font-size: clamp(28px, 2.4vw, 38px);
+    font-family: var(--font-display);
+    font-size: clamp(32px, 2.8vw, 44px);
     font-weight: 500;
-    line-height: 1.04;
+    line-height: 0.98;
     letter-spacing: -0.04em;
 
     text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
@@ -230,9 +235,13 @@
 
 .eventContent p {
     margin: 0;
+
     color: rgba(255, 255, 255, 0.82);
+
+    font-family: var(--font-body);
     font-size: 12px;
     line-height: 1.75;
+
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
 }
 
@@ -292,6 +301,7 @@
 
     color: rgba(65, 88, 67, 0.66);
 
+    font-family: var(--font-body);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -301,26 +311,33 @@
 .contactIntro .eyebrow::before,
 .contactIntro .eyebrow::after {
     content: "";
+
     width: 26px;
     height: 1px;
+
     background: rgba(65, 88, 67, 0.24);
 }
 
 .contactIntro h2 {
     margin: 0 0 22px;
+
     color: #202420;
 
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(50px, 6vw, 76px);
-    font-weight: 400;
-    line-height: 0.98;
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 500;
+    line-height: 0.94;
     letter-spacing: -0.05em;
 }
 
 .contactIntro p {
     max-width: 640px;
+
     margin: 0 auto;
+
     color: rgba(32, 36, 32, 0.56);
+
+    font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.9;
 }
@@ -341,8 +358,10 @@
     justify-content: center;
 
     border-radius: 999px;
+
     padding: 0 22px;
 
+    font-family: var(--font-body);
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -364,7 +383,9 @@
 
 .primaryContactButton::after {
     content: "↗";
+
     margin-left: 13px;
+
     font-size: 10px;
 
     transition:
@@ -373,6 +394,7 @@
 
 .primaryContactButton:hover {
     transform: translateY(-2px);
+
     border-color: var(--color-accent-hover);
     background: var(--color-accent-hover);
 }
@@ -389,6 +411,7 @@
 
 .secondaryContactButton:hover {
     transform: translateY(-2px);
+
     border-color: rgba(65, 88, 67, 0.28);
     background: rgba(65, 88, 67, 0.035);
 }
@@ -407,12 +430,15 @@
 .contactItem:nth-child(odd),
 .contactItem:nth-child(even) {
     position: relative;
+
     min-width: 0;
 
     padding: 28px 24px 30px;
 
     border: 0;
+
     background: transparent;
+
     text-align: center;
 
     transition:
@@ -428,16 +454,20 @@
 .contactItem:nth-child(odd):hover,
 .contactItem:nth-child(even):hover {
     transform: translateY(-2px);
+
     background: rgba(65, 88, 67, 0.025);
+
     padding-left: 24px;
 }
 
 .contactLabel {
     display: block;
+
     margin-bottom: 10px;
 
     color: rgba(65, 88, 67, 0.54);
 
+    font-family: var(--font-body);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -453,10 +483,12 @@
 
 .contactValue {
     display: inline-block;
+
     max-width: 100%;
 
     color: #252a25;
 
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
     line-height: 1.6;
@@ -497,7 +529,7 @@
 
     color: rgba(65, 88, 67, 0.05);
 
-    font-family: Georgia, serif;
+    font-family: var(--font-display);
     font-size: 420px;
     line-height: 1;
 
@@ -528,10 +560,10 @@
     max-width: 700px;
     margin: 0;
 
-    font-family: var(--font-body);
-    font-size: clamp(38px, 5vw, 64px);
-    font-weight: 600;
-    line-height: 0.98;
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5.5vw, 68px);
+    font-weight: 500;
+    line-height: 0.95;
     letter-spacing: -0.045em;
 }
 
@@ -541,6 +573,7 @@
 
     color: rgba(32, 36, 32, 0.68);
 
+    font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -621,6 +654,7 @@
     transform: translateY(-7px);
 
     border-color: rgba(65, 88, 67, 0.22);
+
     background: #ffffff;
 
     box-shadow: 0 24px 45px rgba(65, 88, 67, 0.12);
@@ -638,6 +672,8 @@
 
 .stars {
     color: var(--color-accent);
+
+    font-family: var(--font-body);
     font-size: 11px;
     letter-spacing: 0.12em;
 
@@ -654,15 +690,18 @@
 
     color: #202420;
 
-    font-size: 17px;
+    font-family: var(--font-display);
+    font-size: 20px;
     font-weight: 500;
-    line-height: 1.65;
-    letter-spacing: -0.015em;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
 }
 
 .reviewAuthor {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
     padding-top: 20px;
@@ -687,6 +726,7 @@
 
     color: #ffffff;
 
+    font-family: var(--font-body);
     font-size: 9px;
     font-weight: 600;
 
@@ -709,12 +749,15 @@
 }
 
 .reviewAuthorInfo strong {
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 600;
 }
 
 .reviewAuthorInfo span {
     color: rgba(32, 36, 32, 0.65);
+
+    font-family: var(--font-body);
     font-size: 9px;
 }
 
@@ -783,6 +826,7 @@
 
     color: rgba(255, 255, 255, 0.48);
 
+    font-family: var(--font-body);
     font-size: 11px;
     line-height: 1.85;
 }
@@ -811,6 +855,7 @@
 
     color: rgba(255, 255, 255, 0.68);
 
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.04em;
@@ -864,6 +909,7 @@
 
     color: rgba(255, 255, 255, 0.34);
 
+    font-family: var(--font-body);
     font-size: 8px;
     letter-spacing: 0.035em;
 }
@@ -880,6 +926,7 @@
 .footerLanguages a {
     color: #ffffff;
 
+    font-family: var(--font-body);
     font-size: 8px;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -906,6 +953,7 @@
 
 .upcomingSection {
     position: relative;
+
     overflow: hidden;
 
     background: #f8f5ee;
@@ -944,7 +992,7 @@
 }
 
 .upcomingHeader {
-    max-width: 720px;
+    max-width: 760px;
     margin-bottom: 64px;
 }
 
@@ -957,6 +1005,7 @@
 
     color: rgba(65, 88, 67, 0.72);
 
+    font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -977,12 +1026,11 @@
 
     color: #202420;
 
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: clamp(52px, 6vw, 82px);
-    font-weight: 400;
-    line-height: 0.98;
-    letter-spacing: -0.045em;
+    font-family: var(--font-display);
+    font-size: clamp(54px, 6vw, 84px);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.05em;
 }
 
 .upcomingDescription {
@@ -990,11 +1038,11 @@
 
     color: rgba(32, 36, 32, 0.5);
 
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 16px;
+    font-family: var(--font-display);
+    font-size: 18px;
     font-style: italic;
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.55;
 }
 
 .upcomingList {
@@ -1059,20 +1107,22 @@
 
 .upcomingEventMain {
     display: flex;
+
     align-items: center;
+
     min-width: 0;
 }
 
 .upcomingDate {
     width: 96px;
+
     flex-shrink: 0;
 
     color: #202420;
 
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: clamp(24px, 2.2vw, 32px);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-size: clamp(27px, 2.4vw, 35px);
+    font-weight: 500;
     letter-spacing: -0.03em;
 
     transition:
@@ -1096,16 +1146,16 @@
 
 .upcomingEventMain h3 {
     min-width: 0;
+
     margin: 0;
 
     color: #202420;
 
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: clamp(28px, 3vw, 44px);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.4vw, 48px);
+    font-weight: 500;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
 
     transition:
         color 0.35s ease,
@@ -1114,14 +1164,18 @@
 
 .upcomingEventMeta {
     display: flex;
+
     align-items: center;
+
     gap: 30px;
+
     padding-left: 30px;
 }
 
 .upcomingType {
     color: rgba(65, 88, 67, 0.52);
 
+    font-family: var(--font-body);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -1148,6 +1202,7 @@
 
     color: var(--color-accent);
 
+    font-family: var(--font-body);
     font-size: 12px;
 
     transition:
@@ -1165,6 +1220,7 @@
 
     color: rgba(65, 88, 67, 0.08);
 
+    font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -1191,6 +1247,7 @@
     transform: rotate(45deg);
 
     border-color: var(--color-accent);
+
     background: var(--color-accent);
 
     color: #ffffff;
@@ -1198,24 +1255,32 @@
 
 .upcomingFooter {
     display: flex;
+
     align-items: center;
+
     gap: 22px;
+
     margin-top: 36px;
 }
 
 .upcomingFooterLine {
     height: 1px;
+
     flex: 1;
+
     background: rgba(65, 88, 67, 0.1);
 }
 
 .upcomingReserve {
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
 
     color: var(--color-accent);
 
+    font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -1244,7 +1309,9 @@
 
 .upcomingReserve:hover span {
     transform: rotate(45deg);
+
     background: var(--color-accent);
+
     color: #ffffff;
 }
 
@@ -1267,7 +1334,7 @@
 
     .upcomingDescription {
         margin-top: 13px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .upcomingEvent {
@@ -1290,20 +1357,22 @@
 
     .upcomingDate {
         width: 62px;
-        font-size: 21px;
+        font-size: 23px;
     }
 
     .upcomingDash {
         width: 24px;
+
         margin: 0 16px 0 5px;
     }
 
     .upcomingEventMain h3 {
-        font-size: 29px;
+        font-size: 32px;
     }
 
     .upcomingEventMeta {
         justify-content: space-between;
+
         padding-left: 0;
     }
 
@@ -1409,9 +1478,9 @@
     .sectionHeading h2,
     .contactIntro h2,
     .reviewsHeading h2 {
-        font-size: clamp(32px, 9.4vw, 40px);
-        line-height: 1.02;
-        letter-spacing: -0.035em;
+        font-size: clamp(38px, 11vw, 48px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
     }
 
     .sectionDescription,
@@ -1455,8 +1524,8 @@
     }
 
     .eventContent h3 {
-        font-size: 28px;
-        line-height: 1.05;
+        font-size: 33px;
+        line-height: 1;
     }
 
     .eventContent p {
@@ -1539,8 +1608,8 @@
 
     .reviewText {
         margin: 31px 0;
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: 18px;
+        line-height: 1.5;
     }
 
     .reviewAuthor {
