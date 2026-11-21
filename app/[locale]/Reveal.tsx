@@ -2,102 +2,46 @@
 
 import type { ReactNode } from "react";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "framer-motion";
 
-type Direction = "up" | "down" | "left" | "right" | "none";
-
-type RevealProps = {
+type Props = {
   children: ReactNode;
   delay?: number;
-  duration?: number;
-  distance?: number;
-  direction?: Direction;
+  amount?: number;
   className?: string;
-  scale?: number;
-  once?: boolean;
 };
 
 export default function Reveal({
   children,
   delay = 0,
-  duration = 0.75,
-  distance = 24,
-  direction = "up",
+  amount = 0.12,
   className,
-  scale = 1,
-  once = true,
-}: RevealProps) {
-  const shouldReduceMotion = useReducedMotion();
+}: Props) {
+  const reduceMotion = useReducedMotion();
 
-  const getInitialPosition = () => {
-    if (shouldReduceMotion || direction === "none") {
-      return {
-        x: 0,
-        y: 0,
-      };
-    }
-
-    switch (direction) {
-      case "down":
-        return {
-          x: 0,
-          y: -distance,
-        };
-
-      case "left":
-        return {
-          x: distance,
-          y: 0,
-        };
-
-      case "right":
-        return {
-          x: -distance,
-          y: 0,
-        };
-
-      case "up":
-      default:
-        return {
-          x: 0,
-          y: distance,
-        };
-    }
-  };
-
-  const position = getInitialPosition();
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
-      initial={
-        shouldReduceMotion
-          ? {
-              opacity: 1,
-              x: 0,
-              y: 0,
-              scale: 1,
-            }
-          : {
-              opacity: 0,
-              x: position.x,
-              y: position.y,
-              scale,
-            }
-      }
+      initial={{
+        opacity: 0,
+        y: 16,
+      }}
       whileInView={{
         opacity: 1,
-        x: 0,
         y: 0,
-        scale: 1,
       }}
       viewport={{
-        once,
-        amount: 0.16,
+        once: true,
+        amount,
+        margin: "0px 0px -40px 0px",
       }}
       transition={{
-        duration: shouldReduceMotion ? 0 : duration,
-        delay: shouldReduceMotion ? 0 : delay,
+        duration: 0.65,
+        delay,
         ease: [0.22, 1, 0.36, 1],
       }}
     >

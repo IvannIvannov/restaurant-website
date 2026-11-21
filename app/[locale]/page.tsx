@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 
 import { createClient } from "../../lib/supabase/server";
 
+import HeroVideo from "./HeroVideo";
 import HomeHeader from "./HomeHeader";
+import Reveal from "./Reveal";
 import UpcomingEvents from "./UpcomingEvents";
 
 import styles from "./page.module.css";
@@ -40,30 +42,12 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <main className={styles.main}>
-      {/* HERO */}
-      <section className={styles.hero}>
-        <video
-          className={styles.heroBackground}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/hero.jpg"
-          aria-hidden="true"
-          tabIndex={-1}
-        >
-          <source
-            media="(min-width: 651px)"
-            src="https://res.cloudinary.com/dznyfk4z6/video/upload/v1795019457/IMG_8210_desktop_wrqqfv.mp4"
-            type="video/mp4"
-          />
+      {/* =========================
+          HERO
+      ========================= */}
 
-          <source
-            src="https://res.cloudinary.com/dznyfk4z6/video/upload/v1795017593/IMG_8210_ptm8mb.mp4"
-            type="video/mp4"
-          />
-        </video>
+      <section className={styles.hero}>
+        <HeroVideo />
 
         <div className={styles.heroOverlay} />
         <div className={styles.heroGlow} />
@@ -81,208 +65,248 @@ export default async function HomePage({ params }: Props) {
           }}
         />
 
-        <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
+        <Reveal>
+          <div className={styles.heroContent}>
+            <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
 
-          <h1 className={styles.heroTitle}>
-            <span>{messages.hero.titleLine1}</span>
-            <span>{messages.hero.titleLine2}</span>
-          </h1>
+            <h1 className={styles.heroTitle}>
+              <span>{messages.hero.titleLine1}</span>
 
-          <p className={styles.heroDescription}>{messages.hero.description}</p>
+              <span>{messages.hero.titleLine2}</span>
+            </h1>
 
-          <div className={styles.heroButtons}>
-            <Link
-              href={`/${currentLocale}/reservations`}
-              className={styles.primaryButton}
-            >
-              {messages.hero.reserve}
-            </Link>
+            <p className={styles.heroDescription}>
+              {messages.hero.description}
+            </p>
 
-            <Link
-              href={`/${currentLocale}/menu`}
-              className={styles.secondaryButton}
-            >
-              {messages.hero.menu}
-            </Link>
+            <div className={styles.heroButtons}>
+              <Link
+                href={`/${currentLocale}/reservations`}
+                className={styles.primaryButton}
+              >
+                {messages.hero.reserve}
+              </Link>
+
+              <Link
+                href={`/${currentLocale}/menu`}
+                className={styles.secondaryButton}
+              >
+                {messages.hero.menu}
+              </Link>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* UPCOMING EVENTS */}
+      {/* =========================
+          UPCOMING EVENTS
+      ========================= */}
+
       <UpcomingEvents locale={currentLocale} />
 
-      {/* RESERVATION / MENU */}
-      <section id="booking" className={styles.actionsSection}>
-        <div className={styles.actionsHeader}>
-          <p className={styles.sectionEyebrow}>{messages.actions.eyebrow}</p>
+      {/* =========================
+          RESERVATION / MENU
+      ========================= */}
 
-          <h2 className={styles.actionsTitle}>{messages.actions.title}</h2>
-        </div>
+      <section id="booking" className={styles.actionsSection}>
+        <Reveal>
+          <div className={styles.actionsHeader}>
+            <p className={styles.sectionEyebrow}>{messages.actions.eyebrow}</p>
+
+            <h2 className={styles.actionsTitle}>{messages.actions.title}</h2>
+          </div>
+        </Reveal>
 
         <div className={styles.actionsGrid}>
-          <article className={`${styles.actionCard} ${styles.bookingCard}`}>
-            <div className={styles.actionOverlay} />
+          <Reveal delay={0.04}>
+            <article className={`${styles.actionCard} ${styles.bookingCard}`}>
+              <div className={styles.actionOverlay} />
 
-            <div className={styles.actionContent}>
-              <div>
-                <p className={styles.actionLabel}>
-                  {messages.actions.bookingLabel}
-                </p>
+              <div className={styles.actionContent}>
+                <div>
+                  <p className={styles.actionLabel}>
+                    {messages.actions.bookingLabel}
+                  </p>
 
-                <h3>{messages.actions.bookingTitle}</h3>
+                  <h3>{messages.actions.bookingTitle}</h3>
 
-                <p className={styles.actionDescription}>
-                  {messages.actions.bookingDescription}
-                </p>
+                  <p className={styles.actionDescription}>
+                    {messages.actions.bookingDescription}
+                  </p>
 
-                <Link
-                  href={`/${currentLocale}/reservations`}
-                  className={styles.actionButton}
-                >
-                  {messages.actions.bookingButton}
-                  <span>↗</span>
-                </Link>
+                  <Link
+                    href={`/${currentLocale}/reservations`}
+                    className={styles.actionButton}
+                  >
+                    {messages.actions.bookingButton}
+
+                    <span>↗</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </Reveal>
 
-          <article className={`${styles.actionCard} ${styles.menuCard}`}>
-            <div className={styles.actionOverlay} />
+          <Reveal delay={0.1}>
+            <article className={`${styles.actionCard} ${styles.menuCard}`}>
+              <div className={styles.actionOverlay} />
 
-            <div className={styles.actionContent}>
-              <div>
-                <p className={styles.actionLabel}>
-                  {messages.actions.menuLabel}
-                </p>
+              <div className={styles.actionContent}>
+                <div>
+                  <p className={styles.actionLabel}>
+                    {messages.actions.menuLabel}
+                  </p>
 
-                <h3>{messages.actions.menuTitle}</h3>
+                  <h3>{messages.actions.menuTitle}</h3>
 
-                <p className={styles.actionDescription}>
-                  {messages.actions.menuDescription}
-                </p>
+                  <p className={styles.actionDescription}>
+                    {messages.actions.menuDescription}
+                  </p>
 
-                <Link
-                  href={`/${currentLocale}/menu`}
-                  className={styles.actionButton}
-                >
-                  {messages.actions.menuButton}
-                  <span>↗</span>
-                </Link>
+                  <Link
+                    href={`/${currentLocale}/menu`}
+                    className={styles.actionButton}
+                  >
+                    {messages.actions.menuButton}
+
+                    <span>↗</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </Reveal>
         </div>
       </section>
 
-      {/* SPECIAL OCCASIONS */}
+      {/* =========================
+          SPECIAL OCCASIONS
+      ========================= */}
+
       <section id="events" className={sectionStyles.eventsSection}>
         <div className={sectionStyles.sectionContainer}>
-          <div className={sectionStyles.sectionHeading}>
-            <div className={sectionStyles.sectionHeadingText}>
-              <p className={sectionStyles.eyebrow}>{messages.events.eyebrow}</p>
+          <Reveal>
+            <div className={sectionStyles.sectionHeading}>
+              <div className={sectionStyles.sectionHeadingText}>
+                <p className={sectionStyles.eyebrow}>
+                  {messages.events.eyebrow}
+                </p>
 
-              <h2>{messages.events.title}</h2>
+                <h2>{messages.events.title}</h2>
+              </div>
+
+              <p className={sectionStyles.sectionDescription}>
+                {messages.events.description}
+              </p>
             </div>
-
-            <p className={sectionStyles.sectionDescription}>
-              {messages.events.description}
-            </p>
-          </div>
+          </Reveal>
 
           <div className={sectionStyles.eventsGrid}>
             {messages.events.items.map((event, index) => (
-              <article key={event.title} className={sectionStyles.eventCard}>
-                <div className={sectionStyles.eventCardInner}>
-                  <div className={sectionStyles.eventTop}>
-                    <span className={sectionStyles.eventNumber}>
-                      0{index + 1}
-                    </span>
+              <Reveal key={event.title} delay={index * 0.07}>
+                <article className={sectionStyles.eventCard}>
+                  <div className={sectionStyles.eventCardInner}>
+                    <div className={sectionStyles.eventTop}>
+                      <span className={sectionStyles.eventNumber}>
+                        0{index + 1}
+                      </span>
 
-                    <span className={sectionStyles.eventTag}>{event.tag}</span>
+                      <span className={sectionStyles.eventTag}>
+                        {event.tag}
+                      </span>
+                    </div>
+
+                    <div className={sectionStyles.eventContent}>
+                      <h3>{event.title}</h3>
+
+                      <p>{event.description}</p>
+                    </div>
                   </div>
-
-                  <div className={sectionStyles.eventContent}>
-                    <h3>{event.title}</h3>
-
-                    <p>{event.description}</p>
-                  </div>
-                </div>
-              </article>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* =========================
+          CONTACT
+      ========================= */}
+
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
-          <div className={sectionStyles.contactIntro}>
-            <h2>{messages.contact.title}</h2>
+          <Reveal>
+            <div className={sectionStyles.contactIntro}>
+              <h2>{messages.contact.title}</h2>
 
-            <p>{messages.contact.description}</p>
+              <p>{messages.contact.description}</p>
 
-            <div className={sectionStyles.contactActions}>
-              <Link
-                href={`/${currentLocale}/reservations`}
-                className={sectionStyles.primaryContactButton}
-              >
-                {messages.contact.reserve}
-              </Link>
+              <div className={sectionStyles.contactActions}>
+                <Link
+                  href={`/${currentLocale}/reservations`}
+                  className={sectionStyles.primaryContactButton}
+                >
+                  {messages.contact.reserve}
+                </Link>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className={sectionStyles.contactDetails}>
-            <div className={sectionStyles.contactItem}>
-              <span className={sectionStyles.contactLabel}>
-                {messages.contact.addressLabel}
-              </span>
+          <Reveal delay={0.08}>
+            <div className={sectionStyles.contactDetails}>
+              <div className={sectionStyles.contactItem}>
+                <span className={sectionStyles.contactLabel}>
+                  {messages.contact.addressLabel}
+                </span>
 
-              <span className={sectionStyles.contactValue}>
-                {messages.contact.address}
-              </span>
+                <span className={sectionStyles.contactValue}>
+                  {messages.contact.address}
+                </span>
+              </div>
+
+              <div className={sectionStyles.contactItem}>
+                <span className={sectionStyles.contactLabel}>
+                  {messages.contact.hoursLabel}
+                </span>
+
+                <span className={sectionStyles.contactValue}>
+                  {messages.contact.hours}
+                </span>
+              </div>
+
+              <div className={sectionStyles.contactItem}>
+                <span className={sectionStyles.contactLabel}>
+                  {messages.contact.phoneLabel}
+                </span>
+
+                <a
+                  href="tel:+359881234567"
+                  className={sectionStyles.contactValue}
+                >
+                  +359 88 123 4567
+                </a>
+              </div>
+
+              <div className={sectionStyles.contactItem}>
+                <span className={sectionStyles.contactLabel}>
+                  {messages.contact.emailLabel}
+                </span>
+
+                <a
+                  href="mailto:contact@restaurant-demo.com"
+                  className={sectionStyles.contactValue}
+                >
+                  contact@restaurant-demo.com
+                </a>
+              </div>
             </div>
-
-            <div className={sectionStyles.contactItem}>
-              <span className={sectionStyles.contactLabel}>
-                {messages.contact.hoursLabel}
-              </span>
-
-              <span className={sectionStyles.contactValue}>
-                {messages.contact.hours}
-              </span>
-            </div>
-
-            <div className={sectionStyles.contactItem}>
-              <span className={sectionStyles.contactLabel}>
-                {messages.contact.phoneLabel}
-              </span>
-
-              <a
-                href="tel:+359881234567"
-                className={sectionStyles.contactValue}
-              >
-                +359 88 123 4567
-              </a>
-            </div>
-
-            <div className={sectionStyles.contactItem}>
-              <span className={sectionStyles.contactLabel}>
-                {messages.contact.emailLabel}
-              </span>
-
-              <a
-                href="mailto:contact@restaurant-demo.com"
-                className={sectionStyles.contactValue}
-              >
-                contact@restaurant-demo.com
-              </a>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* =========================
+          FOOTER
+      ========================= */}
+
       <footer className={sectionStyles.footer}>
         <div className={sectionStyles.footerInner}>
           <div className={sectionStyles.footerTop}>
