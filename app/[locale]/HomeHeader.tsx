@@ -93,6 +93,9 @@ export default function HomeHeader({
       ? "Отвори меню"
       : "Open menu";
 
+  const specialOccasionsLabel =
+    locale === "bg" ? "Специални поводи" : "Special occasions";
+
   return (
     <motion.header
       className={styles.header}
@@ -118,9 +121,11 @@ export default function HomeHeader({
           className={styles.navigation}
           aria-label={locale === "bg" ? "Основна навигация" : "Main navigation"}
         >
+          <a href="#upcoming-events">{labels.events}</a>
+
           <Link href={`/${locale}/menu`}>{labels.menu}</Link>
 
-          <a href="#events">{labels.events}</a>
+          <a href="#events">{specialOccasionsLabel}</a>
 
           <a href="#contact">{labels.contact}</a>
         </nav>
@@ -244,12 +249,16 @@ export default function HomeHeader({
               ease: [0.22, 1, 0.36, 1],
             }}
           >
+            <a href="#upcoming-events" onClick={closeMobileMenu}>
+              {labels.events}
+            </a>
+
             <Link href={`/${locale}/menu`} onClick={closeMobileMenu}>
               {labels.menu}
             </Link>
 
             <a href="#events" onClick={closeMobileMenu}>
-              {labels.events}
+              {specialOccasionsLabel}
             </a>
 
             <a href="#contact" onClick={closeMobileMenu}>
