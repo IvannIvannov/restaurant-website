@@ -64,7 +64,6 @@ export default async function HomePage({ params }: Props) {
         </video>
 
         <div className={styles.heroOverlay} />
-
         <div className={styles.heroGlow} />
 
         <HomeHeader
@@ -138,7 +137,6 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.bookingButton}
-
                   <span>↗</span>
                 </Link>
               </div>
@@ -165,7 +163,6 @@ export default async function HomePage({ params }: Props) {
                   className={styles.actionButton}
                 >
                   {messages.actions.menuButton}
-
                   <span>↗</span>
                 </Link>
               </div>
@@ -215,8 +212,6 @@ export default async function HomePage({ params }: Props) {
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
           <div className={sectionStyles.contactIntro}>
-            <p className={sectionStyles.eyebrow}>{messages.contact.eyebrow}</p>
-
             <h2>{messages.contact.title}</h2>
 
             <p>{messages.contact.description}</p>
@@ -228,13 +223,6 @@ export default async function HomePage({ params }: Props) {
               >
                 {messages.contact.reserve}
               </Link>
-
-              <a
-                href="mailto:contact@restaurant-demo.com"
-                className={sectionStyles.secondaryContactButton}
-              >
-                {messages.contact.emailButton}
-              </a>
             </div>
           </div>
 

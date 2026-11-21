@@ -36,56 +36,32 @@
         "description": "From intimate celebrations to grand events, we create an atmosphere where every detail is thoughtfully considered and every shared moment becomes a beautiful memory.",
         "items": [
             {
-                "tag": "Evenings",
-                "title": "Special evenings",
-                "description": "Seasonal selections, themed menus and evenings with their own character."
+                "tag": "Celebrations",
+                "title": "Personal celebrations",
+                "description": "Birthdays, anniversaries and special occasions."
             },
             {
-                "tag": "Events",
-                "title": "Private events",
-                "description": "A welcoming setting for birthdays, family gatherings and personal occasions."
+                "tag": "Family",
+                "title": "Family occasions",
+                "description": "Weddings, christenings and anniversaries."
             },
             {
-                "tag": "Groups",
-                "title": "Group reservations",
-                "description": "A coordinated experience for larger groups with details arranged in advance."
+                "tag": "Corporate",
+                "title": "Corporate events",
+                "description": "Corporate dinners, parties and celebrations."
             }
         ]
     },
     "contact": {
-        "eyebrow": "Contact",
-        "title": "SEE YOU HERE",
-        "description": "Contact us for reservations, events, group visits or additional information.",
+        "title": "WE LOOK FORWARD TO WELCOMING YOU",
+        "description": "For reservations, upcoming events or special occasions, get in touch with us. We will take care of every detail to make your visit an unforgettable experience.",
         "reserve": "Reserve a table",
-        "emailButton": "Send an email",
         "addressLabel": "Address",
-        "address": "Demo location · Bulgaria",
+        "address": "Asparuhovo Beach, Asparuhovo, 9003 Varna",
         "hoursLabel": "Opening hours",
-        "hours": "Daily · 11:00 – 23:00",
+        "hours": "9:00 – 0:00",
         "phoneLabel": "Phone",
         "emailLabel": "Email"
-    },
-    "reviews": {
-        "eyebrow": "Guest reviews",
-        "title": "WHAT OUR GUESTS SAY",
-        "description": "A memorable evening is not only about taste, but also about the atmosphere, the people and the smallest details.",
-        "items": [
-            {
-                "name": "Maria P.",
-                "initials": "MP",
-                "text": "A lovely atmosphere, attentive service and beautifully presented food. Definitely a place we would happily return to."
-            },
-            {
-                "name": "Alexander K.",
-                "initials": "AK",
-                "text": "A perfect setting for a relaxed evening with friends. We enjoyed both the food and the overall feeling of the restaurant."
-            },
-            {
-                "name": "Elena S.",
-                "initials": "ES",
-                "text": "From the welcome to dessert, everything felt effortless and thoughtful. I would definitely choose it again for a special occasion."
-            }
-        ]
     },
     "footer": {
         "description": "A demo restaurant website with online reservations, customer accounts and an administration dashboard.",
