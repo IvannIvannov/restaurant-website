@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -39,6 +40,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <main className={styles.main}>
+      {/* HERO */}
       <section className={styles.hero}>
         <video
           className={styles.heroBackground}
@@ -107,8 +109,10 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* UPCOMING EVENTS */}
       <UpcomingEvents locale={currentLocale} />
 
+      {/* RESERVATION / MENU */}
       <section id="booking" className={styles.actionsSection}>
         <div className={styles.actionsHeader}>
           <p className={styles.sectionEyebrow}>{messages.actions.eyebrow}</p>
@@ -171,6 +175,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* SPECIAL OCCASIONS */}
       <section id="events" className={sectionStyles.eventsSection}>
         <div className={sectionStyles.sectionContainer}>
           <div className={sectionStyles.sectionHeading}>
@@ -209,6 +214,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* CONTACT */}
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
           <div className={sectionStyles.contactIntro}>
@@ -276,62 +282,55 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className={sectionStyles.footer}>
         <div className={sectionStyles.footerInner}>
           <div className={sectionStyles.footerTop}>
             <div className={sectionStyles.footerBrand}>
-              <span className={sectionStyles.footerLogo}>RESTAURANT</span>
+              <Link
+                href={`/${currentLocale}`}
+                className={sectionStyles.footerLogoLink}
+                aria-label={
+                  currentLocale === "bg"
+                    ? "MAZU Bar Restaurant — начална страница"
+                    : "MAZU Bar Restaurant — homepage"
+                }
+              >
+                <Image
+                  src="https://res.cloudinary.com/dznyfk4z6/image/upload/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png"
+                  alt="MAZU Bar Restaurant"
+                  width={220}
+                  height={220}
+                  className={sectionStyles.footerLogoImage}
+                  unoptimized
+                />
+              </Link>
 
               <p>{messages.footer.description}</p>
             </div>
 
-            <div className={sectionStyles.footerLinks}>
-              <div className={sectionStyles.footerColumn}>
-                <span className={sectionStyles.footerColumnTitle}>
-                  {messages.footer.navigation}
-                </span>
+            <nav
+              className={sectionStyles.footerNavigation}
+              aria-label={
+                currentLocale === "bg"
+                  ? "Навигация във футъра"
+                  : "Footer navigation"
+              }
+            >
+              <a href="#upcoming-events">{messages.navigation.events}</a>
 
-                <Link href={`/${currentLocale}/menu`}>
-                  {messages.navigation.menu}
-                </Link>
+              <Link href={`/${currentLocale}/menu`}>
+                {messages.navigation.menu}
+              </Link>
 
-                <Link href={`/${currentLocale}/reservations`}>
-                  {messages.navigation.reserve}
-                </Link>
+              <a href="#events">{messages.footer.specialOccasions}</a>
 
-                <a href="#events">{messages.navigation.events}</a>
-
-                <a href="#contact">{messages.navigation.contact}</a>
-              </div>
-
-              <div className={sectionStyles.footerColumn}>
-                <span className={sectionStyles.footerColumnTitle}>
-                  {messages.footer.account}
-                </span>
-
-                <Link
-                  href={
-                    user
-                      ? `/${currentLocale}/account`
-                      : `/${currentLocale}/login`
-                  }
-                >
-                  {user
-                    ? messages.navigation.account
-                    : messages.navigation.login}
-                </Link>
-
-                {!user && (
-                  <Link href={`/${currentLocale}/register`}>
-                    {messages.footer.register}
-                  </Link>
-                )}
-              </div>
-            </div>
+              <a href="#contact">{messages.navigation.contact}</a>
+            </nav>
           </div>
 
           <div className={sectionStyles.footerBottom}>
-            <span>© 2026 RESTAURANT · {messages.footer.demo}</span>
+            <span>{messages.footer.copyright}</span>
 
             <div className={sectionStyles.footerLanguages}>
               <Link

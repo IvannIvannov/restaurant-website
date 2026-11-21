@@ -64,10 +64,12 @@
         "emailLabel": "Email"
     },
     "footer": {
-        "description": "A demo restaurant website with online reservations, customer accounts and an administration dashboard.",
+        "description": "A place for shared evenings, special events and experiences that stay with you long after the final bite.",
         "navigation": "Navigation",
-        "account": "Account",
-        "register": "Create account",
-        "demo": "Portfolio demo"
+        "specialOccasions": "Special occasions",
+        "reservations": "Reservations",
+        "upcomingEvents": "Upcoming events",
+        "reservationPhone": "Reservation phone",
+        "copyright": "© 2026 MAZU Beach. All rights reserved."
     }
 }
