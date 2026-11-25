@@ -43,18 +43,18 @@
     align-items: center;
     justify-content: flex-start;
 
-    gap: 34px;
+    gap: 28px;
 }
 
 .navigation a {
     position: relative;
 
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.88);
 
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.04em;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
 
     text-decoration: none;
     white-space: nowrap;
@@ -147,7 +147,7 @@
     align-items: center;
     justify-content: flex-end;
 
-    gap: 17px;
+    gap: 22px;
 
     white-space: nowrap;
 }
@@ -157,17 +157,18 @@
 
     align-items: center;
 
-    gap: 5px;
+    gap: 6px;
 
     color: rgba(255, 255, 255, 0.8);
 
-    font-size: 9px;
+    font-size: 12px;
 }
 
 .languages a {
     color: #ffffff;
 
-    font-size: 9px;
+    font-size: 12px;
+    font-weight: 500;
 
     text-decoration: none;
 
@@ -198,15 +199,15 @@
 
     padding: 10px 3px;
 
-    color: rgba(255, 255, 255, 0.84);
+    color: rgba(255, 255, 255, 0.88);
 
     cursor: pointer;
 
     font-family: var(--font-body);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.04em;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
 
     text-decoration: none;
 
@@ -225,25 +226,26 @@
 .reserveButton {
     display: inline-flex;
 
-    min-height: 44px;
+    min-height: 46px;
 
     align-items: center;
     justify-content: center;
 
-    gap: 12px;
+    gap: 14px;
 
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
 
     background: var(--color-accent);
 
-    padding: 0 9px 0 18px;
+    padding: 0 9px 0 20px;
 
     color: #ffffff;
 
-    font-size: 9px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.05em;
+
+    letter-spacing: 0.02em;
 
     text-decoration: none;
 
@@ -269,8 +271,10 @@
 .reserveArrow {
     display: flex;
 
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
 
     align-items: center;
     justify-content: center;
@@ -279,7 +283,7 @@
 
     background: rgba(255, 255, 255, 0.14);
 
-    font-size: 11px;
+    font-size: 13px;
 
     transition:
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
@@ -385,6 +389,33 @@
 }
 
 /* =========================
+   SMALL DESKTOP
+========================= */
+
+@media (max-width: 1280px) {
+    .navigation {
+        gap: 20px;
+    }
+
+    .navigation a {
+        font-size: 13px;
+    }
+
+    .actions {
+        gap: 16px;
+    }
+
+    .loginButton,
+    .accountButton {
+        font-size: 13px;
+    }
+
+    .reserveButton {
+        font-size: 12px;
+    }
+}
+
+/* =========================
    LAPTOP
 ========================= */
 
@@ -394,15 +425,80 @@
     }
 
     .navigation {
-        gap: 18px;
+        gap: 14px;
+    }
+
+    .navigation a {
+        font-size: 12px;
+        letter-spacing: 0;
     }
 
     .actions {
         gap: 12px;
     }
 
+    .languages,
+    .languages a {
+        font-size: 11px;
+    }
+
+    .loginButton,
+    .accountButton {
+        font-size: 12px;
+    }
+
+    .reserveButton {
+        min-height: 44px;
+
+        gap: 9px;
+
+        padding-left: 14px;
+
+        font-size: 11px;
+    }
+
     .logoImage {
         height: 115px;
+    }
+}
+
+/* =========================
+   COMPACT LAPTOP
+========================= */
+
+@media (min-width: 851px) and (max-width: 960px) {
+    .header {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .navigation {
+        gap: 10px;
+    }
+
+    .navigation a {
+        font-size: 11px;
+    }
+
+    .actions {
+        gap: 9px;
+    }
+
+    .logoImage {
+        height: 95px;
+    }
+
+    .reserveButton {
+        gap: 6px;
+
+        padding-left: 10px;
+
+        font-size: 10px;
+    }
+
+    .reserveArrow {
+        width: 26px;
+        height: 26px;
     }
 }
 
@@ -514,7 +610,7 @@
         display: flex;
 
         width: 100%;
-        min-height: 50px;
+        min-height: 54px;
 
         align-items: center;
 
@@ -531,7 +627,8 @@
         cursor: pointer;
 
         font-family: var(--font-body);
-        font-size: 12px;
+        font-size: 15px;
+        font-weight: 500;
 
         text-align: left;
         text-decoration: none;
