@@ -36,7 +36,7 @@
 }
 
 .eyebrow {
-    margin: 0 0 16px;
+    margin: 0 0 12px;
 
     color: var(--color-accent);
 
@@ -48,9 +48,10 @@
 }
 
 .eventsSection .eyebrow {
+    margin-bottom: 16px;
+
     font-size: 14px;
     line-height: 1.4;
-    letter-spacing: 0.18em;
 }
 
 .sectionHeading h2 {
@@ -75,6 +76,10 @@
     line-height: 1.75;
 }
 
+/* =========================
+   SPECIAL OCCASION CARDS
+========================= */
+
 .eventsGrid {
     display: grid;
 
@@ -88,6 +93,7 @@
     isolation: isolate;
 
     min-height: 470px;
+    height: 100%;
 
     overflow: hidden;
 
@@ -158,8 +164,6 @@
 
     padding: 28px;
 }
-
-/* Hide card numbering and tags */
 
 .eventTop,
 .eventNumber,
@@ -382,6 +386,10 @@
     outline-offset: 4px;
 }
 
+/* =========================
+   CONTACT DETAILS
+========================= */
+
 .contactDetails {
     display: grid;
 
@@ -393,9 +401,7 @@
     border-bottom: 1px solid rgba(65, 88, 67, 0.12);
 }
 
-.contactItem,
-.contactItem:nth-child(odd),
-.contactItem:nth-child(even) {
+.contactItem {
     position: relative;
 
     min-width: 0;
@@ -447,6 +453,237 @@
 }
 
 /* =========================
+   REVIEWS
+========================= */
+
+.reviewsSection {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #f3efe8;
+
+    color: #202420;
+
+    padding: 120px 24px 135px;
+
+    font-family: var(--font-body);
+}
+
+.reviewsSection::before {
+    content: "“";
+
+    position: absolute;
+    top: -115px;
+    right: 4%;
+
+    color: rgba(65, 88, 67, 0.05);
+
+    font-family: var(--font-display);
+    font-size: 420px;
+    line-height: 1;
+
+    pointer-events: none;
+}
+
+.reviewsHeader {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+
+    width: min(1180px, 100%);
+
+    grid-template-columns: 1.3fr 0.7fr;
+
+    gap: 70px;
+
+    align-items: end;
+
+    margin: 0 auto 55px;
+}
+
+.reviewsHeading {
+    max-width: 720px;
+}
+
+.reviewsHeading h2 {
+    max-width: 700px;
+
+    margin: 0;
+
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5.5vw, 68px);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+}
+
+.reviewsDescription {
+    max-width: 390px;
+
+    margin: 0;
+
+    color: rgba(32, 36, 32, 0.78);
+
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.reviewsGrid {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+
+    width: min(1180px, 100%);
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin: 0 auto;
+}
+
+.reviewsGrid>div {
+    height: 100%;
+}
+
+.reviewCard {
+    position: relative;
+
+    display: flex;
+
+    min-height: 340px;
+    height: 100%;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(65, 88, 67, 0.1);
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.68);
+
+    padding: 30px;
+}
+
+.reviewCard::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -110px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(65, 88, 67, 0.14),
+            transparent 70%);
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.reviewTop {
+    display: flex;
+
+    align-items: center;
+}
+
+.stars {
+    color: var(--color-accent);
+
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+
+    transition: letter-spacing 0.4s ease;
+}
+
+.reviewText {
+    margin: 45px 0;
+
+    color: #202420;
+
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+}
+
+.reviewAuthor {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(65, 88, 67, 0.1);
+}
+
+.reviewAvatar {
+    display: flex;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--color-accent);
+
+    color: #ffffff;
+
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+
+    box-shadow: 0 6px 16px rgba(65, 88, 67, 0.18);
+
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.3s ease;
+}
+
+.reviewAuthorInfo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.reviewAuthorInfo strong {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.reviewAuthorInfo span {
+    color: rgba(32, 36, 32, 0.78);
+
+    font-family: var(--font-body);
+    font-size: 9px;
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -461,7 +698,7 @@
 
     font-family: var(--font-body);
 
-    padding: 76px 24px 26px;
+    padding: 60px 24px 28px;
 }
 
 .footerInner {
@@ -476,7 +713,7 @@
     flex-direction: column;
     align-items: center;
 
-    padding-bottom: 48px;
+    padding-bottom: 42px;
 
     text-align: center;
 }
@@ -487,13 +724,13 @@
     flex-direction: column;
     align-items: center;
 
-    max-width: 520px;
+    max-width: 680px;
 }
 
 .footerLogoLink {
     display: inline-flex;
 
-    margin-bottom: 22px;
+    margin-bottom: 12px;
 
     text-decoration: none;
 }
@@ -510,15 +747,16 @@
 }
 
 .footerBrand p {
-    max-width: 460px;
+    max-width: 640px;
 
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255, 255, 255, 0.88);
 
     font-family: var(--font-body);
-    font-size: 11px;
-    line-height: 1.85;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
 }
 
 .footerNavigation {
@@ -531,22 +769,22 @@
 
     gap: clamp(34px, 5vw, 70px);
 
-    margin-top: 42px;
+    margin-top: 38px;
 
     padding-top: 30px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footerNavigation a {
     position: relative;
 
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
 
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: 16px;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
 
     text-decoration: none;
 
@@ -588,15 +826,16 @@
 
     gap: 30px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-    padding-top: 22px;
+    padding-top: 24px;
 
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.8);
 
     font-family: var(--font-body);
-    font-size: 8px;
-    letter-spacing: 0.035em;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
 }
 
 .footerLanguages {
@@ -604,18 +843,20 @@
 
     align-items: center;
 
-    gap: 7px;
+    gap: 10px;
 
     color: rgba(255, 255, 255, 0.7);
+
+    font-size: 13px;
 }
 
 .footerLanguages a {
     color: #ffffff;
 
     font-family: var(--font-body);
-    font-size: 8px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 
     text-decoration: none;
 
@@ -1163,6 +1404,28 @@
 }
 
 /* =========================
+   RESPONSIVE — SMALL LAPTOP
+========================= */
+
+@media (max-width: 1000px) {
+    .contactDetails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contactItem:nth-child(3) {
+        border-left: 0;
+    }
+
+    .contactItem:nth-child(n + 3) {
+        border-top: 1px solid rgba(65, 88, 67, 0.1);
+    }
+
+    .contactIntro p {
+        font-size: 17px;
+    }
+}
+
+/* =========================
    RESPONSIVE — TABLET
 ========================= */
 
@@ -1220,8 +1483,16 @@
         min-height: 280px;
     }
 
+    .footerBrand p {
+        font-size: 15px;
+    }
+
     .footerNavigation {
         gap: 34px;
+    }
+
+    .footerNavigation a {
+        font-size: 15px;
     }
 }
 
@@ -1304,6 +1575,8 @@
 
 @media (max-width: 600px) {
 
+    /* SPECIAL OCCASIONS */
+
     .eventsSection,
     .contactSection,
     .reviewsSection {
@@ -1314,16 +1587,6 @@
     .eventsSection {
         padding-top: 72px;
         padding-bottom: 76px;
-    }
-
-    .contactSection {
-        padding-top: 76px;
-        padding-bottom: 78px;
-    }
-
-    .reviewsSection {
-        padding-top: 76px;
-        padding-bottom: 80px;
     }
 
     .sectionHeading {
@@ -1352,25 +1615,10 @@
         letter-spacing: -0.04em;
     }
 
-    .contactIntro h2,
-    .reviewsHeading h2 {
-        font-size: clamp(38px, 11vw, 48px);
-        line-height: 0.98;
-        letter-spacing: -0.04em;
-    }
-
     .sectionDescription {
         max-width: 100%;
 
         font-size: 16px;
-        line-height: 1.7;
-    }
-
-    .contactIntro p,
-    .reviewsDescription {
-        max-width: 100%;
-
-        font-size: 12px;
         line-height: 1.7;
     }
 
@@ -1404,18 +1652,41 @@
     }
 
     .eventContent p {
+        min-height: 3.3em;
         max-width: 100%;
 
         font-size: 15px;
         line-height: 1.65;
     }
 
+    /* CONTACT */
+
+    .contactSection {
+        padding-top: 76px;
+        padding-bottom: 78px;
+    }
+
     .contactGrid {
         gap: 38px;
     }
 
+    .contactIntro .eyebrow {
+        font-size: 11px;
+    }
+
     .contactIntro h2 {
-        margin-bottom: 16px;
+        margin-bottom: 22px;
+
+        font-size: clamp(44px, 12vw, 58px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+    }
+
+    .contactIntro p {
+        max-width: 100%;
+
+        font-size: 16px;
+        line-height: 1.75;
     }
 
     .contactActions {
@@ -1426,22 +1697,21 @@
 
     .primaryContactButton,
     .secondaryContactButton {
-        min-height: 46px;
+        min-height: 50px;
 
-        padding: 0 17px;
+        padding: 0 25px;
 
-        font-size: 9px;
+        font-size: 13px;
     }
 
     .contactDetails {
         grid-template-columns: 1fr;
+
+        margin-top: 48px;
     }
 
-    .contactItem:nth-child(odd),
-    .contactItem:nth-child(even) {
-        padding: 20px 0;
-
-        border-left: 0;
+    .contactItem {
+        padding: 24px 12px;
     }
 
     .contactItem+.contactItem {
@@ -1451,17 +1721,37 @@
     }
 
     .contactLabel {
-        margin-bottom: 7px;
+        margin-bottom: 10px;
 
-        font-size: 8px;
+        font-size: 11px;
     }
 
     .contactValue {
-        font-size: 12px;
+        font-size: 16px;
+    }
+
+    /* REVIEWS */
+
+    .reviewsSection {
+        padding-top: 76px;
+        padding-bottom: 80px;
     }
 
     .reviewsSection::before {
         display: none;
+    }
+
+    .reviewsHeading h2 {
+        font-size: clamp(38px, 11vw, 48px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+    }
+
+    .reviewsDescription {
+        max-width: 100%;
+
+        font-size: 12px;
+        line-height: 1.7;
     }
 
     .reviewsHeader {
@@ -1490,7 +1780,6 @@
         margin: 31px 0;
 
         font-size: 18px;
-
         line-height: 1.5;
     }
 
@@ -1505,16 +1794,18 @@
         height: 35px;
     }
 
+    /* FOOTER */
+
     .footer {
-        padding: 58px 18px 23px;
+        padding: 44px 18px 24px;
     }
 
     .footerTop {
-        padding-bottom: 40px;
+        padding-bottom: 34px;
     }
 
     .footerLogoLink {
-        margin-bottom: 19px;
+        margin-bottom: 12px;
     }
 
     .footerLogoImage {
@@ -1522,39 +1813,47 @@
     }
 
     .footerBrand p {
-        max-width: 330px;
+        max-width: 360px;
 
-        font-size: 10px;
-
-        line-height: 1.75;
+        font-size: 14px;
+        line-height: 1.8;
     }
 
     .footerNavigation {
         display: grid;
 
-        grid-template-columns: repeat(2, max-content);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
 
-        gap: 24px 36px;
+        gap: 24px 20px;
 
-        margin-top: 36px;
+        margin-top: 30px;
 
         padding-top: 28px;
+
+        text-align: center;
     }
 
     .footerNavigation a {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .footerBottom {
-        align-items: flex-start;
+        align-items: center;
 
         flex-direction: column;
 
-        gap: 14px;
+        gap: 20px;
 
-        padding-top: 20px;
+        padding-top: 24px;
 
-        font-size: 8px;
+        font-size: 11px;
+
+        text-align: center;
+    }
+
+    .footerLanguages,
+    .footerLanguages a {
+        font-size: 13px;
     }
 }
 
@@ -1584,10 +1883,6 @@
         font-size: 35px;
     }
 
-    .eventContent p {
-        font-size: 15px;
-    }
-
     .contactActions {
         flex-direction: column;
     }
@@ -1607,7 +1902,7 @@
     }
 
     .footerNavigation {
-        column-gap: 26px;
+        column-gap: 14px;
     }
 }
 
@@ -1658,74 +1953,5 @@
     .upcomingEvent:hover .upcomingArrow,
     .upcomingReserve:hover span {
         transform: none;
-    }
-}
-
-/* =========================
-   CONTACT — RESPONSIVE TYPOGRAPHY
-========================= */
-
-@media (max-width: 1000px) {
-    .contactDetails {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .contactItem:nth-child(3) {
-        border-left: 0;
-    }
-
-    .contactItem:nth-child(n + 3) {
-        border-top: 1px solid rgba(65, 88, 67, 0.1);
-    }
-
-    .contactIntro p {
-        font-size: 17px;
-    }
-}
-
-@media (max-width: 600px) {
-    .contactIntro h2 {
-        font-size: clamp(44px, 12vw, 58px);
-        margin-bottom: 22px;
-    }
-
-    .contactIntro p {
-        font-size: 16px;
-        line-height: 1.75;
-    }
-
-    .contactIntro .eyebrow {
-        font-size: 11px;
-    }
-
-    .primaryContactButton,
-    .secondaryContactButton {
-        min-height: 50px;
-        padding: 0 25px;
-        font-size: 13px;
-    }
-
-    .contactDetails {
-        grid-template-columns: 1fr;
-        margin-top: 48px;
-    }
-
-    .contactItem:nth-child(odd),
-    .contactItem:nth-child(even) {
-        padding: 24px 12px;
-        border-left: 0;
-    }
-
-    .contactItem+.contactItem {
-        border-top: 1px solid rgba(65, 88, 67, 0.1);
-    }
-
-    .contactLabel {
-        margin-bottom: 10px;
-        font-size: 11px;
-    }
-
-    .contactValue {
-        font-size: 16px;
     }
 }
