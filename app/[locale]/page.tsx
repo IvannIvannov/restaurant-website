@@ -8,6 +8,7 @@ import HeroVideo from "./HeroVideo";
 import HomeHeader from "./HomeHeader";
 import Reveal from "./Reveal";
 import UpcomingEvents from "./UpcomingEvents";
+import CloudinaryImage from "./CloudinaryImage";
 
 import styles from "./page.module.css";
 import sectionStyles from "./home-sections.module.css";
@@ -26,17 +27,17 @@ const FOOTER_LOGO =
 
 const ACTION_IMAGES = {
   booking:
-    "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1400,q_auto:good/v1795599180/IMG_5733_tcaakb.webp",
+    "https://res.cloudinary.com/dznyfk4z6/image/upload/v1795599180/IMG_5733_tcaakb.webp",
 
-  menu: "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1400,q_auto:good/v1795017013/1794410596623630_loou1b.webp",
+  menu: "https://res.cloudinary.com/dznyfk4z6/image/upload/v1795017013/1794410596623630_loou1b.webp",
 };
 
 const OCCASION_IMAGES = [
-  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_9232_aooaxy.webp",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/v1795599180/IMG_9232_aooaxy.webp",
 
-  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_8693_miu17k.webp",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/v1795599180/IMG_8693_miu17k.webp",
 
-  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_5790_rf9ujb.webp",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/v1795599180/IMG_5790_rf9ujb.webp",
 ];
 
 const ACTION_IMAGE_SIZES =
@@ -89,15 +90,10 @@ export default async function HomePage({ params }: Props) {
           isLoggedIn={Boolean(user)}
           labels={{
             menu: messages.navigation.menu,
-
             events: messages.navigation.events,
-
             contact: messages.navigation.contact,
-
             reserve: messages.navigation.reserve,
-
             login: messages.navigation.login,
-
             account: messages.navigation.account,
           }}
         />
@@ -155,12 +151,12 @@ export default async function HomePage({ params }: Props) {
         <div className={styles.actionsGrid}>
           <Reveal delay={0.04}>
             <article className={`${styles.actionCard} ${styles.bookingCard}`}>
-              <Image
+              <CloudinaryImage
                 src={ACTION_IMAGES.booking}
                 alt=""
                 fill
                 sizes={ACTION_IMAGE_SIZES}
-                quality={70}
+                quality={68}
                 loading="lazy"
                 decoding="async"
                 className={styles.actionImage}
@@ -196,12 +192,12 @@ export default async function HomePage({ params }: Props) {
 
           <Reveal delay={0.1}>
             <article className={`${styles.actionCard} ${styles.menuCard}`}>
-              <Image
+              <CloudinaryImage
                 src={ACTION_IMAGES.menu}
                 alt=""
                 fill
                 sizes={ACTION_IMAGE_SIZES}
-                quality={70}
+                quality={68}
                 loading="lazy"
                 decoding="async"
                 className={styles.actionImage}
@@ -263,7 +259,7 @@ export default async function HomePage({ params }: Props) {
             {messages.events.items.map((event, index) => (
               <Reveal key={event.title} delay={index * 0.07}>
                 <article className={sectionStyles.eventCard}>
-                  <Image
+                  <CloudinaryImage
                     src={OCCASION_IMAGES[index % OCCASION_IMAGES.length]}
                     alt=""
                     fill
@@ -275,16 +271,6 @@ export default async function HomePage({ params }: Props) {
                   />
 
                   <div className={sectionStyles.eventCardInner}>
-                    <div className={sectionStyles.eventTop}>
-                      <span className={sectionStyles.eventNumber}>
-                        0{index + 1}
-                      </span>
-
-                      <span className={sectionStyles.eventTag}>
-                        {event.tag}
-                      </span>
-                    </div>
-
                     <div className={sectionStyles.eventContent}>
                       <h3>{event.title}</h3>
 
