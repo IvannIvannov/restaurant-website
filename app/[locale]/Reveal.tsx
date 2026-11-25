@@ -36,13 +36,19 @@ export default function Reveal({
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+    const touchDevice = window.matchMedia("(hover: none), (pointer: coarse)");
+
+    if (
+      reducedMotion.matches ||
+      touchDevice.matches ||
+      !("IntersectionObserver" in window)
+    ) {
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) {
+        if (!entry?.isIntersecting) {
           return;
         }
 

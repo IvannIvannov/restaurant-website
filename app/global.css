@@ -1,37 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --color-background: #151815;
-  --color-surface: #1d211d;
+    --color-background: #151815;
+    --color-surface: #1d211d;
 
-  --color-text-primary: #f4efe5;
-  --color-text-secondary: rgba(244, 239, 229, 0.65);
+    --color-text-primary: #f4efe5;
+    --color-text-secondary: rgba(244, 239, 229, 0.65);
 
-  --color-accent: #415843;
-  --color-accent-hover: #344737;
-  --color-accent-deep: #2a392c;
-  --color-accent-soft: rgba(65, 88, 67, 0.14);
+    --color-accent: #415843;
+    --color-accent-hover: #344737;
+    --color-accent-deep: #2a392c;
+    --color-accent-soft: rgba(65, 88, 67, 0.14);
 
-  --color-border: rgba(255, 255, 255, 0.18);
+    --color-border: rgba(255, 255, 255, 0.18);
 
-  --font-display: serif;
-  --font-body: sans-serif;
+    --font-display: serif;
+    --font-body: sans-serif;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
-  margin: 0;
-  background: var(--color-background);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -39,13 +39,34 @@ a,
 input,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 a {
-  color: inherit;
+    color: inherit;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (hover: none),
+(pointer: coarse) {
+
+    a,
+    button {
+        touch-action: manipulation;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }

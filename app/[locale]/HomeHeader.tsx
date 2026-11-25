@@ -13,9 +13,7 @@ type Locale = "bg" | "en";
 
 type HomeHeaderProps = {
   locale: Locale;
-
   isLoggedIn: boolean;
-
   labels: {
     menu: string;
     events: string;
@@ -28,6 +26,48 @@ type HomeHeaderProps = {
 
 const LOGO_URL =
   "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_320/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
+
+function LanguageSwitcher({
+  locale,
+  className,
+}: {
+  locale: Locale;
+  className: string;
+}) {
+  return (
+    <div
+      className={className}
+      role="group"
+      aria-label={locale === "bg" ? "Избор на език" : "Language selection"}
+    >
+      <Link
+        href="/bg"
+        className={locale === "bg" ? styles.activeLanguage : ""}
+        aria-current={locale === "bg" ? "page" : undefined}
+        aria-label="Български"
+        hrefLang="bg"
+        lang="bg"
+        prefetch={false}
+      >
+        BG
+      </Link>
+
+      <span aria-hidden="true">/</span>
+
+      <Link
+        href="/en"
+        className={locale === "en" ? styles.activeLanguage : ""}
+        aria-current={locale === "en" ? "page" : undefined}
+        aria-label="English"
+        hrefLang="en"
+        lang="en"
+        prefetch={false}
+      >
+        EN
+      </Link>
+    </div>
+  );
+}
 
 export default function HomeHeader({
   locale,
@@ -45,8 +85,10 @@ export default function HomeHeader({
       return;
     }
 
-    const handleResize = () => {
-      if (window.innerWidth > 850) {
+    const desktopQuery = window.matchMedia("(min-width: 851px)");
+
+    const handleViewportChange = () => {
+      if (desktopQuery.matches) {
         setMobileMenuOpen(false);
       }
     };
@@ -61,12 +103,14 @@ export default function HomeHeader({
       }
     };
 
-    window.addEventListener("resize", handleResize);
+    desktopQuery.addEventListener("change", handleViewportChange);
 
     document.addEventListener("keydown", handleKeyDown);
 
+    handleViewportChange();
+
     return () => {
-      window.removeEventListener("resize", handleResize);
+      desktopQuery.removeEventListener("change", handleViewportChange);
 
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -78,7 +122,6 @@ export default function HomeHeader({
 
   const handleLogin = () => {
     closeMobileMenu();
-
     openLogin();
   };
 
@@ -111,6 +154,11 @@ export default function HomeHeader({
           <a href="#contact">{labels.contact}</a>
         </nav>
 
+        <LanguageSwitcher
+          locale={locale}
+          className={`${styles.languages} ${styles.mobileLanguages}`}
+        />
+
         <Link
           href={`/${locale}`}
           className={styles.logo}
@@ -132,34 +180,10 @@ export default function HomeHeader({
         </Link>
 
         <div className={styles.actions}>
-          <div
-            className={styles.languages}
-            aria-label={
-              locale === "bg" ? "Избор на език" : "Language selection"
-            }
-          >
-            <Link
-              href="/bg"
-              className={locale === "bg" ? styles.activeLanguage : ""}
-              aria-current={locale === "bg" ? "page" : undefined}
-              hrefLang="bg"
-              prefetch={false}
-            >
-              BG
-            </Link>
-
-            <span aria-hidden="true">/</span>
-
-            <Link
-              href="/en"
-              className={locale === "en" ? styles.activeLanguage : ""}
-              aria-current={locale === "en" ? "page" : undefined}
-              hrefLang="en"
-              prefetch={false}
-            >
-              EN
-            </Link>
-          </div>
+          <LanguageSwitcher
+            locale={locale}
+            className={`${styles.languages} ${styles.desktopLanguages}`}
+          />
 
           {isLoggedIn ? (
             <Link
