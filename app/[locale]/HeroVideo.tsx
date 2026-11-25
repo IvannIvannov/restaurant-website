@@ -40,6 +40,8 @@ const MEDIA = {
   },
 };
 
+const MAX_START_DELAY = 3000;
+
 export default function HeroVideo() {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -66,9 +68,20 @@ export default function HeroVideo() {
 
     let isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
 
+    let isDisposed = false;
     let canStart = false;
     let hasLoadedVideo = false;
     let hasFailed = false;
+
+    let posterReady = poster.complete;
+    let fontsReady = !("fonts" in document);
+
+    let pageReady = document.readyState === "complete";
+
+    let startScheduled = false;
+
+    let firstFrame = 0;
+    let secondFrame = 0;
 
     const hideVideo = () => {
       wrapper.classList.remove(styles.videoVisible);
@@ -76,6 +89,7 @@ export default function HeroVideo() {
 
     const showVideo = () => {
       if (
+        !isDisposed &&
         isVisible &&
         !document.hidden &&
         !reducedMotion.matches &&
@@ -86,6 +100,10 @@ export default function HeroVideo() {
     };
 
     const updatePlayback = () => {
+      if (isDisposed) {
+        return;
+      }
+
       if (
         !canStart ||
         !isVisible ||
@@ -117,7 +135,7 @@ export default function HeroVideo() {
     };
 
     const allowVideoStart = () => {
-      if (canStart) {
+      if (isDisposed || canStart) {
         return;
       }
 
@@ -125,11 +143,47 @@ export default function HeroVideo() {
 
       window.clearTimeout(startTimer);
 
+      window.cancelAnimationFrame(firstFrame);
+
+      window.cancelAnimationFrame(secondFrame);
+
       updatePlayback();
     };
 
+    const scheduleVideoStart = () => {
+      if (
+        isDisposed ||
+        canStart ||
+        startScheduled ||
+        !posterReady ||
+        !fontsReady ||
+        !pageReady
+      ) {
+        return;
+      }
+
+      startScheduled = true;
+
+      // Give the browser a rendering opportunity
+      // before starting the video request.
+
+      firstFrame = window.requestAnimationFrame(() => {
+        secondFrame = window.requestAnimationFrame(() => {
+          allowVideoStart();
+        });
+      });
+    };
+
     const handlePosterReady = () => {
-      allowVideoStart();
+      posterReady = true;
+
+      scheduleVideoStart();
+    };
+
+    const handlePageReady = () => {
+      pageReady = true;
+
+      scheduleVideoStart();
     };
 
     const handleVideoPlaying = () => {
@@ -148,7 +202,17 @@ export default function HeroVideo() {
       updatePlayback();
     };
 
-    const startTimer = window.setTimeout(allowVideoStart, 1500);
+    const handleFontsReady = () => {
+      if (isDisposed) {
+        return;
+      }
+
+      fontsReady = true;
+
+      scheduleVideoStart();
+    };
+
+    const startTimer = window.setTimeout(allowVideoStart, MAX_START_DELAY);
 
     const observer =
       "IntersectionObserver" in window
@@ -174,18 +238,28 @@ export default function HeroVideo() {
 
     video.addEventListener("error", handleVideoError);
 
+    window.addEventListener("load", handlePageReady);
+
     document.addEventListener("visibilitychange", updatePlayback);
 
     reducedMotion.addEventListener("change", handleMotionChange);
 
-    if (poster.complete) {
-      allowVideoStart();
+    if ("fonts" in document) {
+      void document.fonts.ready.then(handleFontsReady, handleFontsReady);
     }
 
+    scheduleVideoStart();
+
     return () => {
+      isDisposed = true;
+
       observer?.disconnect();
 
       window.clearTimeout(startTimer);
+
+      window.cancelAnimationFrame(firstFrame);
+
+      window.cancelAnimationFrame(secondFrame);
 
       poster.removeEventListener("load", handlePosterReady);
 
@@ -194,6 +268,8 @@ export default function HeroVideo() {
       video.removeEventListener("playing", handleVideoPlaying);
 
       video.removeEventListener("error", handleVideoError);
+
+      window.removeEventListener("load", handlePageReady);
 
       document.removeEventListener("visibilitychange", updatePlayback);
 
