@@ -5,35 +5,31 @@
     color: var(--color-text-primary);
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
     position: relative;
     isolation: isolate;
+
     display: flex;
+
     min-height: 100svh;
+
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    background: #182119;
-}
 
-.heroBackground {
-    position: absolute;
-    inset: 0;
-    z-index: -4;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transform: scale(1.03);
-    pointer-events: none;
+    overflow: hidden;
+
+    background: #182119;
 }
 
 .heroOverlay {
     position: absolute;
     inset: 0;
     z-index: -3;
+
     background:
         linear-gradient(to bottom,
             rgba(8, 12, 8, 0.65) 0%,
@@ -45,47 +41,60 @@
             transparent 35%,
             transparent 65%,
             rgba(5, 8, 5, 0.22));
+
+    pointer-events: none;
 }
 
 .heroGlow {
     position: absolute;
     inset: 0;
     z-index: -2;
+
     background:
         radial-gradient(circle at center,
             rgba(65, 88, 67, 0.16),
             transparent 46%);
+
+    pointer-events: none;
 }
 
 .heroContent {
     position: relative;
     z-index: 5;
+
     width: 100%;
     max-width: 1200px;
+
     padding: 70px 28px 80px;
+
     text-align: center;
 }
 
 .eyebrow {
     margin: 0 0 27px;
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.44em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.72);
+
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .heroTitle {
     display: flex;
     flex-direction: column;
+
     margin: 0;
+
     font-family: var(--font-display);
     font-size: clamp(58px, 7.4vw, 118px);
     font-weight: 500;
     line-height: 0.82;
     letter-spacing: -0.045em;
     text-transform: uppercase;
+
     text-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
 }
 
@@ -97,34 +106,46 @@
 
 .heroDescription {
     max-width: 550px;
+
     margin: 38px auto 0;
+
     font-family: var(--font-body);
     font-size: 14px;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.7);
+
+    color: rgba(255, 255, 255, 0.88);
 }
 
 .heroButtons {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 14px;
+
     margin-top: 38px;
 }
 
 .primaryButton,
 .secondaryButton {
     display: inline-flex;
+
     min-width: 190px;
+
     align-items: center;
     justify-content: center;
+
     padding: 16px 26px;
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+
     text-decoration: none;
+
     transition:
         background 0.3s ease,
         color 0.3s ease,
@@ -135,57 +156,67 @@
 
 .primaryButton {
     border: 1px solid var(--color-accent);
-    background: var(--color-accent);
-    color: #ffffff;
-    box-shadow: 0 14px 34px rgba(65, 88, 67, 0.26);
-}
 
-.primaryButton:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-accent-hover);
-    background: var(--color-accent-hover);
-    box-shadow: 0 18px 40px rgba(65, 88, 67, 0.34);
+    background: var(--color-accent);
+
+    color: #ffffff;
+
+    box-shadow: 0 14px 34px rgba(65, 88, 67, 0.26);
 }
 
 .secondaryButton {
     border: 1px solid rgba(255, 255, 255, 0.45);
+
     background: rgba(255, 255, 255, 0.02);
+
     color: #ffffff;
+
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-.secondaryButton:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.7);
-    background: rgba(65, 88, 67, 0.26);
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.actionButton:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 5px;
 }
 
-/* ACTIONS */
+/* =========================
+   ACTIONS
+========================= */
 
 .actionsSection {
     padding: 110px 56px;
+
     background: #eee7dc;
+
     color: #1b211b;
 }
 
 .actionsHeader {
     max-width: 1220px;
+
     margin: 0 auto 52px;
 }
 
 .sectionEyebrow {
     margin: 0 0 18px;
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
+
     color: var(--color-accent);
 }
 
 .actionsTitle {
     max-width: 900px;
+
     margin: 0;
+
     font-family: var(--font-display);
     font-size: clamp(56px, 7vw, 110px);
     font-weight: 500;
@@ -196,84 +227,94 @@
 
 .actionsGrid {
     display: grid;
+
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
     max-width: 1220px;
+
     margin: 0 auto;
+
     gap: 18px;
 }
 
 .actionCard {
     position: relative;
+    isolation: isolate;
+
     min-height: 540px;
+
     overflow: hidden;
-    background-position: center;
-    background-size: cover;
+
+    background: var(--color-accent);
 }
 
 .bookingCard {
-    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1600/v1791530039/Screenshot_2026-10-09_101040.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #485f4a;
 }
 
 .menuCard {
-    background-image: url("https://res.cloudinary.com/dznyfk4z6/image/upload/f_auto,q_auto:good,w_1600/v1795017013/1794410596623630_loou1b.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #354a38;
 }
 
-.actionCard::before {
-    content: "";
+.actionImage {
     position: absolute;
     inset: 0;
-    background: inherit;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+    z-index: 0;
 
-.actionCard:hover::before {
-    transform: scale(1.05);
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    pointer-events: none;
 }
 
 .actionOverlay {
     position: absolute;
     inset: 0;
     z-index: 1;
+
     background:
         linear-gradient(to bottom,
             rgba(8, 10, 8, 0.12) 0%,
             rgba(8, 10, 8, 0.24) 42%,
             rgba(8, 10, 8, 0.84) 100%);
+
+    pointer-events: none;
 }
 
 .actionContent {
     position: absolute;
     inset: 0;
     z-index: 2;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+
     padding: 30px;
+
     color: #ffffff;
 }
 
 .actionLabel {
     margin: 0 0 13px;
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    opacity: 0.72;
+
+    opacity: 0.88;
 }
 
 .actionContent h3 {
     max-width: 500px;
+
     margin: 0;
+
     font-family: var(--font-display);
     font-size: clamp(44px, 4.3vw, 70px);
     font-weight: 500;
@@ -284,46 +325,104 @@
 
 .actionDescription {
     max-width: 420px;
+
     margin: 20px 0 0;
+
     font-family: var(--font-body);
     font-size: 12px;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.82);
+
+    color: rgba(255, 255, 255, 0.88);
 }
 
 .actionButton {
     display: inline-flex;
+
     align-items: center;
+
     gap: 14px;
+
     margin-top: 24px;
+
     width: fit-content;
+
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
+
     background: var(--color-accent);
+
     padding: 13px 17px 13px 20px;
+
     color: #ffffff;
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-decoration: none;
     text-transform: uppercase;
+
     box-shadow: 0 12px 30px rgba(65, 88, 67, 0.24);
+
     transition:
-        gap 0.3s ease,
         transform 0.3s ease,
         background 0.3s ease,
         box-shadow 0.3s ease;
 }
 
-.actionButton:hover {
-    gap: 20px;
-    transform: translateY(-2px);
-    background: var(--color-accent-hover);
-    box-shadow: 0 16px 38px rgba(65, 88, 67, 0.34);
+.actionButton span {
+    display: inline-block;
+
+    transition: transform 0.3s ease;
 }
 
-/* RESPONSIVE */
+/* =========================
+   DESKTOP HOVER
+========================= */
+
+@media (hover: hover) and (pointer: fine) {
+    .primaryButton:hover {
+        transform: translateY(-2px);
+
+        border-color: var(--color-accent-hover);
+        background: var(--color-accent-hover);
+
+        box-shadow: 0 18px 40px rgba(65, 88, 67, 0.34);
+    }
+
+    .secondaryButton:hover {
+        transform: translateY(-2px);
+
+        border-color: rgba(255, 255, 255, 0.7);
+
+        background: rgba(65, 88, 67, 0.26);
+    }
+
+    .actionImage {
+        transition:
+            transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .actionCard:hover .actionImage {
+        transform: scale(1.05);
+    }
+
+    .actionButton:hover {
+        transform: translateY(-2px);
+
+        background: var(--color-accent-hover);
+
+        box-shadow: 0 16px 38px rgba(65, 88, 67, 0.34);
+    }
+
+    .actionButton:hover span {
+        transform: translateX(4px);
+    }
+}
+
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 1000px) {
     .actionsSection {
@@ -332,6 +431,7 @@
 
     .actionsGrid {
         grid-template-columns: 1fr;
+
         max-width: 720px;
     }
 
@@ -344,15 +444,15 @@
     }
 }
 
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 650px) {
     .hero {
         min-height: 100svh;
-        align-items: center;
-    }
 
-    .heroBackground {
-        object-position: 38% center;
-        transform: scale(1.015);
+        align-items: center;
     }
 
     .heroOverlay {
@@ -374,11 +474,13 @@
     .heroContent {
         width: 100%;
         max-width: 430px;
+
         padding: 104px 18px 48px;
     }
 
     .eyebrow {
         margin-bottom: 18px;
+
         font-size: 8px;
         line-height: 1.4;
         letter-spacing: 0.26em;
@@ -396,26 +498,41 @@
 
     .heroDescription {
         max-width: 330px;
+
         margin: 25px auto 0;
+
         font-size: 12px;
         line-height: 1.7;
     }
 
     .heroButtons {
         width: min(320px, 100%);
+
         flex-direction: column;
+
         gap: 10px;
+
         margin: 27px auto 0;
     }
 
     .primaryButton,
     .secondaryButton {
         width: 100%;
+
         min-width: 0;
         min-height: 48px;
+
         padding: 14px 20px;
+
         font-size: 9px;
         letter-spacing: 0.16em;
+    }
+
+    .secondaryButton {
+        background: rgba(18, 25, 19, 0.26);
+
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 
     .actionsSection {
@@ -428,6 +545,7 @@
 
     .sectionEyebrow {
         margin-bottom: 13px;
+
         font-size: 9px;
     }
 
@@ -454,6 +572,7 @@
 
     .actionDescription {
         margin-top: 16px;
+
         font-size: 11.5px;
         line-height: 1.65;
     }
@@ -475,6 +594,7 @@
 
     .heroDescription {
         max-width: 300px;
+
         font-size: 11.5px;
     }
 
@@ -489,5 +609,28 @@
 
     .actionCard {
         min-height: 390px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .primaryButton,
+    .secondaryButton,
+    .actionImage,
+    .actionButton,
+    .actionButton span {
+        transition: none;
+    }
+
+    .primaryButton:hover,
+    .secondaryButton:hover,
+    .actionCard:hover .actionImage,
+    .actionButton:hover,
+    .actionButton:hover span {
+        transform: none;
     }
 }

@@ -7,7 +7,7 @@ import styles from "./hero-video.module.css";
 const VIDEOS = {
   desktop: {
     optimized:
-      "https://res.cloudinary.com/dznyfk4z6/video/upload/c_limit,w_1920,vc_h264,ac_none,q_auto:good/v1795019457/IMG_8210_desktop_wrqqfv.mp4",
+      "https://res.cloudinary.com/dznyfk4z6/video/upload/c_limit,w_1920/fps_24/vc_h264/ac_none/q_auto:good/v1795019457/IMG_8210_desktop_wrqqfv.mp4",
 
     original:
       "https://res.cloudinary.com/dznyfk4z6/video/upload/v1795019457/IMG_8210_desktop_wrqqfv.mp4",
@@ -15,7 +15,7 @@ const VIDEOS = {
 
   mobile: {
     optimized:
-      "https://res.cloudinary.com/dznyfk4z6/video/upload/c_limit,w_720,vc_h264,ac_none,q_auto:good/v1795017593/IMG_8210_ptm8mb.mp4",
+      "https://res.cloudinary.com/dznyfk4z6/video/upload/c_limit,w_540/fps_24/vc_h264/ac_none/q_auto:eco/v1795017593/IMG_8210_ptm8mb.mp4",
 
     original:
       "https://res.cloudinary.com/dznyfk4z6/video/upload/v1795017593/IMG_8210_ptm8mb.mp4",
@@ -86,12 +86,12 @@ export default function HeroVideo() {
 
     motionPreference.addEventListener("change", updatePlayback);
 
+    updatePlayback();
+
     const frameId = window.requestAnimationFrame(() => {
       if (video.readyState >= 2) {
         setIsReady(true);
       }
-
-      updatePlayback();
     });
 
     return () => {
@@ -137,6 +137,7 @@ export default function HeroVideo() {
           key={useOriginal ? "original" : "optimized"}
           ref={videoRef}
           className={`${styles.video} ${isReady ? styles.videoReady : ""}`}
+          autoPlay
           muted
           loop
           playsInline
@@ -152,9 +153,15 @@ export default function HeroVideo() {
             media="(min-width: 651px)"
             src={desktopSource}
             type="video/mp4"
+            onError={handleVideoError}
           />
 
-          <source src={mobileSource} type="video/mp4" />
+          <source
+            media="(max-width: 650px)"
+            src={mobileSource}
+            type="video/mp4"
+            onError={handleVideoError}
+          />
         </video>
       )}
     </div>

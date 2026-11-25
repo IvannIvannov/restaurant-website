@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/dznyfk4z6/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/mxjelcos/**",
+      },
     ],
 
     formats: ["image/webp"],
@@ -37,17 +42,14 @@ const nextConfig: NextConfig = {
             key: "X-Content-Type-Options",
             value: "nosniff",
           },
-
           {
             key: "X-Frame-Options",
             value: "SAMEORIGIN",
           },
-
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
-
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",

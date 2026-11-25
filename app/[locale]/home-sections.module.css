@@ -1,21 +1,33 @@
+/* =========================
+   SPECIAL OCCASIONS
+========================= */
+
 .eventsSection {
     overflow: hidden;
+
     background: #f3efe8;
+
     padding: 110px 24px 125px;
+
     color: #202420;
+
     font-family: var(--font-body);
 }
 
 .sectionContainer {
     width: min(1180px, 100%);
+
     margin: 0 auto;
 }
 
 .sectionHeading {
     display: flex;
+
     align-items: flex-end;
     justify-content: space-between;
+
     gap: 40px;
+
     margin-bottom: 50px;
 }
 
@@ -25,7 +37,9 @@
 
 .eyebrow {
     margin: 0 0 12px;
+
     color: var(--color-accent);
+
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 700;
@@ -35,6 +49,7 @@
 
 .sectionHeading h2 {
     margin: 0;
+
     font-family: var(--font-display);
     font-size: clamp(42px, 5vw, 64px);
     font-weight: 500;
@@ -44,8 +59,11 @@
 
 .sectionDescription {
     max-width: 390px;
+
     margin: 0;
-    color: rgba(32, 36, 32, 0.68);
+
+    color: rgba(32, 36, 32, 0.78);
+
     font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.8;
@@ -53,62 +71,57 @@
 
 .eventsGrid {
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 16px;
 }
 
 .eventCard {
     position: relative;
-    min-height: 470px;
-    overflow: hidden;
-    border: 1px solid rgba(65, 88, 67, 0.08);
-    border-radius: 22px;
-    background: var(--color-accent);
-    color: #ffffff;
-    box-shadow: 0 18px 44px rgba(65, 88, 67, 0.1);
     isolation: isolate;
 
-    transition:
-        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.55s ease;
+    min-height: 470px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(65, 88, 67, 0.08);
+    border-radius: 22px;
+
+    background: var(--color-accent);
+
+    color: #ffffff;
+
+    box-shadow: 0 18px 44px rgba(65, 88, 67, 0.1);
 }
 
-.eventCard:nth-child(2) {
+.eventsGrid>div:nth-child(2) .eventCard {
     background: #485f4a;
 }
 
-.eventCard:nth-child(3) {
+.eventsGrid>div:nth-child(3) .eventCard {
     background: #354a38;
 }
 
-.eventCard::before {
-    content: "";
+.eventImage {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
     transform: scale(1.01);
 
-    transition:
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.eventCard:nth-child(1)::before {
-    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101145.png");
-}
-
-.eventCard:nth-child(2)::before {
-    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101239.png");
-}
-
-.eventCard:nth-child(3)::before {
-    background-image: url("https://res.cloudinary.com/mxjelcos/image/upload/f_auto,q_auto:good,w_1200/v1791530039/Screenshot_2026-10-09_101151.png");
+    pointer-events: none;
 }
 
 .eventCard::after {
     content: "";
+
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -118,20 +131,11 @@
 
     background:
         linear-gradient(to bottom,
-            rgba(8, 12, 8, 0.18) 0%,
+            rgba(8, 12, 8, 0.25) 0%,
             rgba(8, 12, 8, 0.24) 40%,
-            rgba(8, 12, 8, 0.82) 100%);
+            rgba(8, 12, 8, 0.86) 100%);
 
     pointer-events: none;
-}
-
-.eventCard:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 30px 62px rgba(65, 88, 67, 0.2);
-}
-
-.eventCard:hover::before {
-    transform: scale(1.07);
 }
 
 .eventCardInner {
@@ -139,8 +143,10 @@
     z-index: 2;
 
     display: flex;
+
     min-height: 470px;
     height: 100%;
+
     flex-direction: column;
     justify-content: space-between;
 
@@ -149,17 +155,20 @@
 
 .eventTop {
     display: flex;
+
     align-items: center;
     justify-content: flex-start;
+
     gap: 10px;
 }
 
 .eventNumber {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
 
-    color: rgba(255, 255, 255, 0.88);
+    color: #ffffff;
 
     font-family: var(--font-body);
     font-size: 13px;
@@ -170,14 +179,16 @@
 
 .eventTag {
     display: inline-flex;
+
     min-height: 34px;
+
     align-items: center;
     justify-content: center;
 
     border: 1px solid rgba(255, 255, 255, 0.26);
     border-radius: 999px;
 
-    background: rgba(8, 12, 8, 0.2);
+    background: rgba(8, 12, 8, 0.5);
 
     padding: 0 14px;
 
@@ -188,35 +199,17 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    transition:
-        background 0.35s ease,
-        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-        border-color 0.35s ease;
-}
-
-.eventCard:hover .eventTag {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.42);
-    background: rgba(8, 12, 8, 0.3);
 }
 
 .eventContent {
     display: flex;
+
     max-width: 320px;
+
     flex-direction: column;
     align-items: flex-start;
+
     gap: 16px;
-
-    transition:
-        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.eventCard:hover .eventContent {
-    transform: translateY(-5px);
 }
 
 .eventContent h3 {
@@ -236,7 +229,7 @@
 .eventContent p {
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.9);
 
     font-family: var(--font-body);
     font-size: 12px;
@@ -251,6 +244,7 @@
 
 .contactSection {
     position: relative;
+
     overflow: hidden;
 
     background:
@@ -260,6 +254,7 @@
         #fbfaf7;
 
     color: #202420;
+
     font-family: var(--font-body);
 
     padding: 125px 24px 120px;
@@ -267,6 +262,7 @@
 
 .contactSection::before {
     content: "";
+
     position: absolute;
     top: 0;
     left: 50%;
@@ -277,29 +273,35 @@
     background: rgba(65, 88, 67, 0.08);
 
     transform: translateX(-50%);
+
     pointer-events: none;
 }
 
 .contactGrid {
     width: min(1180px, 100%);
+
     margin: 0 auto;
 }
 
 .contactIntro {
     max-width: 760px;
+
     margin: 0 auto;
+
     text-align: center;
 }
 
 .contactIntro .eyebrow {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 12px;
 
     margin: 0 0 18px;
 
-    color: rgba(65, 88, 67, 0.66);
+    color: #59695b;
 
     font-family: var(--font-body);
     font-size: 8px;
@@ -335,7 +337,7 @@
 
     margin: 0 auto;
 
-    color: rgba(32, 36, 32, 0.56);
+    color: #59635a;
 
     font-family: var(--font-body);
     font-size: 13px;
@@ -344,7 +346,9 @@
 
 .contactActions {
     display: flex;
+
     justify-content: center;
+
     margin-top: 31px;
 }
 
@@ -377,7 +381,9 @@
 
 .primaryContactButton {
     border: 1px solid var(--color-accent);
+
     background: var(--color-accent);
+
     color: #ffffff;
 }
 
@@ -392,32 +398,24 @@
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.primaryContactButton:hover {
-    transform: translateY(-2px);
-
-    border-color: var(--color-accent-hover);
-    background: var(--color-accent-hover);
-}
-
-.primaryContactButton:hover::after {
-    transform: rotate(45deg);
-}
-
 .secondaryContactButton {
     border: 1px solid rgba(65, 88, 67, 0.16);
+
     background: transparent;
+
     color: var(--color-accent);
 }
 
-.secondaryContactButton:hover {
-    transform: translateY(-2px);
-
-    border-color: rgba(65, 88, 67, 0.28);
-    background: rgba(65, 88, 67, 0.035);
+.primaryContactButton:focus-visible,
+.secondaryContactButton:focus-visible,
+.contactValue:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
 }
 
 .contactDetails {
     display: grid;
+
     grid-template-columns: repeat(4, minmax(0, 1fr));
 
     margin-top: 72px;
@@ -440,24 +438,10 @@
     background: transparent;
 
     text-align: center;
-
-    transition:
-        background 0.3s ease,
-        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contactItem+.contactItem {
     border-left: 1px solid rgba(65, 88, 67, 0.1);
-}
-
-.contactItem:hover,
-.contactItem:nth-child(odd):hover,
-.contactItem:nth-child(even):hover {
-    transform: translateY(-2px);
-
-    background: rgba(65, 88, 67, 0.025);
-
-    padding-left: 24px;
 }
 
 .contactLabel {
@@ -465,20 +449,13 @@
 
     margin-bottom: 10px;
 
-    color: rgba(65, 88, 67, 0.54);
+    color: #59695b;
 
     font-family: var(--font-body);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-
-    transition:
-        color 0.3s ease;
-}
-
-.contactItem:hover .contactLabel {
-    color: var(--color-accent);
 }
 
 .contactValue {
@@ -496,12 +473,7 @@
     text-decoration: none;
     word-break: break-word;
 
-    transition:
-        color 0.3s ease;
-}
-
-.contactValue:hover {
-    color: var(--color-accent);
+    transition: color 0.3s ease;
 }
 
 /* =========================
@@ -510,9 +482,11 @@
 
 .reviewsSection {
     position: relative;
+
     overflow: hidden;
 
     background: #f3efe8;
+
     color: #202420;
 
     padding: 120px 24px 135px;
@@ -545,6 +519,7 @@
     width: min(1180px, 100%);
 
     grid-template-columns: 1.3fr 0.7fr;
+
     gap: 70px;
 
     align-items: end;
@@ -558,6 +533,7 @@
 
 .reviewsHeading h2 {
     max-width: 700px;
+
     margin: 0;
 
     font-family: var(--font-display);
@@ -569,9 +545,10 @@
 
 .reviewsDescription {
     max-width: 390px;
+
     margin: 0;
 
-    color: rgba(32, 36, 32, 0.68);
+    color: rgba(32, 36, 32, 0.78);
 
     font-family: var(--font-body);
     font-size: 13px;
@@ -587,6 +564,7 @@
     width: min(1180px, 100%);
 
     grid-template-columns: repeat(3, 1fr);
+
     gap: 14px;
 
     margin: 0 auto;
@@ -615,14 +593,6 @@
     background: rgba(255, 255, 255, 0.68);
 
     padding: 30px;
-
-    backdrop-filter: blur(10px);
-
-    transition:
-        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-        background 0.4s ease,
-        border-color 0.4s ease,
-        box-shadow 0.5s ease;
 }
 
 .reviewCard::before {
@@ -645,28 +615,12 @@
 
     opacity: 0;
 
-    transition:
-        opacity 0.4s ease,
-        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reviewCard:hover {
-    transform: translateY(-7px);
-
-    border-color: rgba(65, 88, 67, 0.22);
-
-    background: #ffffff;
-
-    box-shadow: 0 24px 45px rgba(65, 88, 67, 0.12);
-}
-
-.reviewCard:hover::before {
-    opacity: 1;
-    transform: translate(-20px, 20px) scale(1.15);
+    pointer-events: none;
 }
 
 .reviewTop {
     display: flex;
+
     align-items: center;
 }
 
@@ -677,12 +631,7 @@
     font-size: 11px;
     letter-spacing: 0.12em;
 
-    transition:
-        letter-spacing 0.4s ease;
-}
-
-.reviewCard:hover .stars {
-    letter-spacing: 0.18em;
+    transition: letter-spacing 0.4s ease;
 }
 
 .reviewText {
@@ -737,14 +686,11 @@
         background 0.3s ease;
 }
 
-.reviewCard:hover .reviewAvatar {
-    transform: scale(1.06) rotate(-3deg);
-    background: var(--color-accent-hover);
-}
-
 .reviewAuthorInfo {
     display: flex;
+
     flex-direction: column;
+
     gap: 3px;
 }
 
@@ -755,7 +701,7 @@
 }
 
 .reviewAuthorInfo span {
-    color: rgba(32, 36, 32, 0.65);
+    color: rgba(32, 36, 32, 0.78);
 
     font-family: var(--font-body);
     font-size: 9px;
@@ -767,9 +713,11 @@
 
 .footer {
     position: relative;
+
     overflow: hidden;
 
     background: var(--color-accent-deep);
+
     color: #ffffff;
 
     font-family: var(--font-body);
@@ -779,11 +727,13 @@
 
 .footerInner {
     width: min(1180px, 100%);
+
     margin: 0 auto;
 }
 
 .footerTop {
     display: flex;
+
     flex-direction: column;
     align-items: center;
 
@@ -794,6 +744,7 @@
 
 .footerBrand {
     display: flex;
+
     flex-direction: column;
     align-items: center;
 
@@ -824,14 +775,12 @@
 
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.48);
+    color: rgba(255, 255, 255, 0.78);
 
     font-family: var(--font-body);
     font-size: 11px;
     line-height: 1.85;
 }
-
-/* MINIMAL NAVIGATION */
 
 .footerNavigation {
     display: flex;
@@ -853,7 +802,7 @@
 .footerNavigation a {
     position: relative;
 
-    color: rgba(255, 255, 255, 0.68);
+    color: rgba(255, 255, 255, 0.85);
 
     font-family: var(--font-body);
     font-size: 11px;
@@ -862,8 +811,7 @@
 
     text-decoration: none;
 
-    transition:
-        color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 .footerNavigation a::after {
@@ -886,13 +834,11 @@
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.footerNavigation a:hover {
-    color: #ffffff;
-}
-
-.footerNavigation a:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+.footerNavigation a:focus-visible,
+.footerLanguages a:focus-visible,
+.footerLogoLink:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 5px;
 }
 
 .footerBottom {
@@ -907,7 +853,7 @@
 
     padding-top: 22px;
 
-    color: rgba(255, 255, 255, 0.34);
+    color: rgba(255, 255, 255, 0.75);
 
     font-family: var(--font-body);
     font-size: 8px;
@@ -916,11 +862,12 @@
 
 .footerLanguages {
     display: flex;
+
     align-items: center;
 
     gap: 7px;
 
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .footerLanguages a {
@@ -933,14 +880,9 @@
 
     text-decoration: none;
 
-    opacity: 0.32;
+    opacity: 0.75;
 
-    transition:
-        opacity 0.3s ease;
-}
-
-.footerLanguages a:hover {
-    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
 .footerLanguages .activeLanguage {
@@ -948,7 +890,7 @@
 }
 
 /* =========================
-   UPCOMING EVENTS
+   UPCOMING EVENTS — LEGACY
 ========================= */
 
 .upcomingSection {
@@ -993,17 +935,20 @@
 
 .upcomingHeader {
     max-width: 760px;
+
     margin-bottom: 64px;
 }
 
 .upcomingEyebrow {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
     margin: 0 0 18px;
 
-    color: rgba(65, 88, 67, 0.72);
+    color: #59695b;
 
     font-family: var(--font-body);
     font-size: 9px;
@@ -1036,7 +981,7 @@
 .upcomingDescription {
     margin: 18px 0 0;
 
-    color: rgba(32, 36, 32, 0.5);
+    color: #59635a;
 
     font-family: var(--font-display);
     font-size: 18px;
@@ -1054,8 +999,7 @@
 
     display: grid;
 
-    grid-template-columns:
-        minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
 
     align-items: center;
 
@@ -1091,20 +1035,6 @@
         width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.upcomingEvent:hover {
-    padding-left: 18px;
-    padding-right: 16px;
-
-    background:
-        linear-gradient(90deg,
-            rgba(65, 88, 67, 0.045),
-            transparent 70%);
-}
-
-.upcomingEvent:hover::before {
-    width: 100%;
-}
-
 .upcomingEventMain {
     display: flex;
 
@@ -1125,8 +1055,7 @@
     font-weight: 500;
     letter-spacing: -0.03em;
 
-    transition:
-        color 0.35s ease;
+    transition: color 0.35s ease;
 }
 
 .upcomingDash {
@@ -1173,7 +1102,7 @@
 }
 
 .upcomingType {
-    color: rgba(65, 88, 67, 0.52);
+    color: #59695b;
 
     font-family: var(--font-body);
     font-size: 8px;
@@ -1182,8 +1111,7 @@
 
     white-space: nowrap;
 
-    transition:
-        color 0.35s ease;
+    transition: color 0.35s ease;
 }
 
 .upcomingArrow {
@@ -1226,31 +1154,6 @@
     letter-spacing: 0.12em;
 
     pointer-events: none;
-}
-
-.upcomingEvent:hover .upcomingDate,
-.upcomingEvent:hover .upcomingEventMain h3,
-.upcomingEvent:hover .upcomingType {
-    color: var(--color-accent);
-}
-
-.upcomingEvent:hover .upcomingDash {
-    width: 58px;
-    background: rgba(65, 88, 67, 0.55);
-}
-
-.upcomingEvent:hover .upcomingEventMain h3 {
-    transform: translateX(4px);
-}
-
-.upcomingEvent:hover .upcomingArrow {
-    transform: rotate(45deg);
-
-    border-color: var(--color-accent);
-
-    background: var(--color-accent);
-
-    color: #ffffff;
 }
 
 .upcomingFooter {
@@ -1307,12 +1210,249 @@
         color 0.3s ease;
 }
 
-.upcomingReserve:hover span {
-    transform: rotate(45deg);
+/* =========================
+   DESKTOP HOVER
+========================= */
 
-    background: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+    .eventCard {
+        transition:
+            transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.55s ease;
+    }
 
-    color: #ffffff;
+    .eventImage {
+        transition:
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .eventTag {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        transition:
+            background 0.35s ease,
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.35s ease;
+    }
+
+    .eventContent {
+        transition:
+            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .eventCard:hover {
+        transform: translateY(-8px);
+
+        box-shadow: 0 30px 62px rgba(65, 88, 67, 0.2);
+    }
+
+    .eventCard:hover .eventImage {
+        transform: scale(1.07);
+    }
+
+    .eventCard:hover .eventTag {
+        transform: translateY(-2px);
+
+        border-color: rgba(255, 255, 255, 0.42);
+
+        background: rgba(8, 12, 8, 0.6);
+    }
+
+    .eventCard:hover .eventContent {
+        transform: translateY(-5px);
+    }
+
+    .primaryContactButton:hover {
+        transform: translateY(-2px);
+
+        border-color: var(--color-accent-hover);
+        background: var(--color-accent-hover);
+    }
+
+    .primaryContactButton:hover::after {
+        transform: rotate(45deg);
+    }
+
+    .secondaryContactButton:hover {
+        transform: translateY(-2px);
+
+        border-color: rgba(65, 88, 67, 0.28);
+
+        background: rgba(65, 88, 67, 0.035);
+    }
+
+    .contactItem {
+        transition:
+            background 0.3s ease,
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contactItem:hover {
+        transform: translateY(-2px);
+
+        background: rgba(65, 88, 67, 0.025);
+    }
+
+    .contactLabel {
+        transition: color 0.3s ease;
+    }
+
+    .contactItem:hover .contactLabel,
+    .contactValue:hover {
+        color: var(--color-accent);
+    }
+
+    .reviewCard {
+        transition:
+            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+            background 0.4s ease,
+            border-color 0.4s ease,
+            box-shadow 0.5s ease;
+    }
+
+    .reviewCard::before {
+        transition:
+            opacity 0.4s ease,
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reviewCard:hover {
+        transform: translateY(-7px);
+
+        border-color: rgba(65, 88, 67, 0.22);
+
+        background: #ffffff;
+
+        box-shadow: 0 24px 45px rgba(65, 88, 67, 0.12);
+    }
+
+    .reviewCard:hover::before {
+        opacity: 1;
+
+        transform: translate(-20px, 20px) scale(1.15);
+    }
+
+    .reviewCard:hover .stars {
+        letter-spacing: 0.18em;
+    }
+
+    .reviewCard:hover .reviewAvatar {
+        transform: scale(1.06) rotate(-3deg);
+
+        background: var(--color-accent-hover);
+    }
+
+    .footerNavigation a:hover {
+        color: #ffffff;
+    }
+
+    .footerNavigation a:hover::after {
+        transform: scaleX(1);
+
+        transform-origin: left;
+    }
+
+    .footerLanguages a:hover {
+        opacity: 1;
+    }
+
+    .upcomingEvent:hover {
+        padding-left: 18px;
+        padding-right: 16px;
+
+        background:
+            linear-gradient(90deg,
+                rgba(65, 88, 67, 0.045),
+                transparent 70%);
+    }
+
+    .upcomingEvent:hover::before {
+        width: 100%;
+    }
+
+    .upcomingEvent:hover .upcomingDate,
+    .upcomingEvent:hover .upcomingEventMain h3,
+    .upcomingEvent:hover .upcomingType {
+        color: var(--color-accent);
+    }
+
+    .upcomingEvent:hover .upcomingDash {
+        width: 58px;
+
+        background: rgba(65, 88, 67, 0.55);
+    }
+
+    .upcomingEvent:hover .upcomingEventMain h3 {
+        transform: translateX(4px);
+    }
+
+    .upcomingEvent:hover .upcomingArrow {
+        transform: rotate(45deg);
+
+        border-color: var(--color-accent);
+
+        background: var(--color-accent);
+
+        color: #ffffff;
+    }
+
+    .upcomingReserve:hover span {
+        transform: rotate(45deg);
+
+        background: var(--color-accent);
+
+        color: #ffffff;
+    }
+}
+
+/* =========================
+   RESPONSIVE — TABLET
+========================= */
+
+@media (max-width: 850px) {
+    .sectionHeading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .eventsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .eventCard,
+    .eventCardInner {
+        min-height: 420px;
+    }
+
+    .eventContent {
+        max-width: 520px;
+    }
+
+    .contactGrid {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+    .reviewsHeader {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+    .reviewsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .reviewCard {
+        min-height: 280px;
+    }
+
+    .footerNavigation {
+        gap: 34px;
+    }
 }
 
 /* =========================
@@ -1334,6 +1474,7 @@
 
     .upcomingDescription {
         margin-top: 13px;
+
         font-size: 16px;
     }
 
@@ -1347,16 +1488,13 @@
         padding: 24px 2px;
     }
 
-    .upcomingEvent:hover {
-        padding: 24px 8px;
-    }
-
     .upcomingEventMain {
         align-items: center;
     }
 
     .upcomingDate {
         width: 62px;
+
         font-size: 23px;
     }
 
@@ -1391,52 +1529,6 @@
 }
 
 /* =========================
-   RESPONSIVE — TABLET
-========================= */
-
-@media (max-width: 850px) {
-    .sectionHeading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .eventsGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .eventCard,
-    .eventCardInner {
-        min-height: 420px;
-    }
-
-    .eventContent {
-        max-width: 520px;
-    }
-
-    .contactGrid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-
-    .reviewsHeader {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-
-    .reviewsGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .reviewCard {
-        min-height: 280px;
-    }
-
-    .footerNavigation {
-        gap: 34px;
-    }
-}
-
-/* =========================
    RESPONSIVE — MOBILE
 ========================= */
 
@@ -1466,11 +1558,13 @@
 
     .sectionHeading {
         gap: 18px;
+
         margin-bottom: 32px;
     }
 
     .eyebrow {
         margin-bottom: 10px;
+
         font-size: 9px;
         letter-spacing: 0.16em;
     }
@@ -1487,6 +1581,7 @@
     .contactIntro p,
     .reviewsDescription {
         max-width: 100%;
+
         font-size: 12px;
         line-height: 1.7;
     }
@@ -1510,7 +1605,9 @@
 
     .eventTag {
         min-height: 30px;
+
         padding: 0 12px;
+
         font-size: 7px;
     }
 
@@ -1520,6 +1617,7 @@
 
     .eventContent {
         max-width: 100%;
+
         gap: 12px;
     }
 
@@ -1530,6 +1628,7 @@
 
     .eventContent p {
         max-width: 320px;
+
         font-size: 11px;
         line-height: 1.65;
     }
@@ -1544,13 +1643,16 @@
 
     .contactActions {
         gap: 8px;
+
         margin-top: 24px;
     }
 
     .primaryContactButton,
     .secondaryContactButton {
         min-height: 46px;
+
         padding: 0 17px;
+
         font-size: 9px;
     }
 
@@ -1561,21 +1663,19 @@
     .contactItem:nth-child(odd),
     .contactItem:nth-child(even) {
         padding: 20px 0;
+
         border-left: 0;
     }
 
     .contactItem+.contactItem {
         border-left: 0;
-        border-top: 1px solid rgba(65, 88, 67, 0.1);
-    }
 
-    .contactItem:nth-child(odd):hover,
-    .contactItem:nth-child(even):hover {
-        padding-left: 0;
+        border-top: 1px solid rgba(65, 88, 67, 0.1);
     }
 
     .contactLabel {
         margin-bottom: 7px;
+
         font-size: 8px;
     }
 
@@ -1589,6 +1689,7 @@
 
     .reviewsHeader {
         gap: 18px;
+
         margin-bottom: 28px;
     }
 
@@ -1598,7 +1699,9 @@
 
     .reviewCard {
         min-height: auto;
+
         border-radius: 16px;
+
         padding: 22px;
     }
 
@@ -1608,12 +1711,14 @@
 
     .reviewText {
         margin: 31px 0;
+
         font-size: 18px;
         line-height: 1.5;
     }
 
     .reviewAuthor {
         gap: 10px;
+
         padding-top: 17px;
     }
 
@@ -1621,8 +1726,6 @@
         width: 35px;
         height: 35px;
     }
-
-    /* FOOTER */
 
     .footer {
         padding: 58px 18px 23px;
@@ -1642,17 +1745,20 @@
 
     .footerBrand p {
         max-width: 330px;
+
         font-size: 10px;
         line-height: 1.75;
     }
 
     .footerNavigation {
         display: grid;
+
         grid-template-columns: repeat(2, max-content);
 
         gap: 24px 36px;
 
         margin-top: 36px;
+
         padding-top: 28px;
     }
 
@@ -1662,6 +1768,7 @@
 
     .footerBottom {
         align-items: flex-start;
+
         flex-direction: column;
 
         gap: 14px;
@@ -1720,13 +1827,14 @@
 @media (prefers-reduced-motion: reduce) {
 
     .eventCard,
-    .eventCard::before,
+    .eventImage,
     .eventTag,
     .eventContent,
     .contactItem,
     .contactLabel,
     .contactValue,
     .primaryContactButton,
+    .primaryContactButton::after,
     .secondaryContactButton,
     .reviewCard,
     .reviewCard::before,
@@ -1734,23 +1842,32 @@
     .reviewAvatar,
     .footerNavigation a,
     .footerNavigation a::after,
-    .footerLanguages a {
+    .footerLanguages a,
+    .upcomingEvent,
+    .upcomingEvent::before,
+    .upcomingDate,
+    .upcomingDash,
+    .upcomingEventMain h3,
+    .upcomingType,
+    .upcomingArrow,
+    .upcomingReserve span {
         transition: none;
     }
 
     .eventCard:hover,
-    .reviewCard:hover,
-    .primaryContactButton:hover,
-    .secondaryContactButton:hover {
-        transform: none;
-    }
-
-    .eventCard:hover::before {
-        transform: scale(1.01);
-    }
-
+    .eventCard:hover .eventImage,
     .eventCard:hover .eventContent,
-    .eventCard:hover .eventTag {
+    .eventCard:hover .eventTag,
+    .contactItem:hover,
+    .reviewCard:hover,
+    .reviewCard:hover::before,
+    .reviewCard:hover .reviewAvatar,
+    .primaryContactButton:hover,
+    .primaryContactButton:hover::after,
+    .secondaryContactButton:hover,
+    .upcomingEvent:hover .upcomingEventMain h3,
+    .upcomingEvent:hover .upcomingArrow,
+    .upcomingReserve:hover span {
         transform: none;
     }
 }

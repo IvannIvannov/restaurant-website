@@ -23,6 +23,35 @@ type Props = {
 const FOOTER_LOGO =
   "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_440/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
 
+const ACTION_IMAGES = {
+  booking:
+    "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1600/v1791530039/Screenshot_2026-10-09_101040.png",
+
+  menu: "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1600/v1795017013/1794410596623630_loou1b.jpg",
+};
+
+const OCCASION_IMAGES = [
+  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101145.png",
+
+  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101239.png",
+
+  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101151.png",
+];
+
+const ACTION_IMAGE_SIZES =
+  "(max-width: 650px) calc(100vw - 36px), " +
+  "(max-width: 780px) calc(100vw - 60px), " +
+  "(max-width: 1000px) 720px, " +
+  "(max-width: 1332px) calc((100vw - 130px) / 2), " +
+  "601px";
+
+const OCCASION_IMAGE_SIZES =
+  "(max-width: 400px) calc(100vw - 32px), " +
+  "(max-width: 600px) calc(100vw - 36px), " +
+  "(max-width: 850px) calc(100vw - 48px), " +
+  "(max-width: 1228px) calc((100vw - 80px) / 3), " +
+  "383px";
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
 
@@ -42,7 +71,9 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <main className={styles.main}>
-      {/* HERO */}
+      {/* =========================
+          HERO
+      ========================= */}
 
       <section className={styles.hero}>
         <HeroVideo />
@@ -56,15 +87,10 @@ export default async function HomePage({ params }: Props) {
           isLoggedIn={Boolean(user)}
           labels={{
             menu: messages.navigation.menu,
-
             events: messages.navigation.events,
-
             contact: messages.navigation.contact,
-
             reserve: messages.navigation.reserve,
-
             login: messages.navigation.login,
-
             account: messages.navigation.account,
           }}
         />
@@ -100,11 +126,15 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* UPCOMING EVENTS */}
+      {/* =========================
+          UPCOMING EVENTS
+      ========================= */}
 
       <UpcomingEvents locale={currentLocale} />
 
-      {/* RESERVATION / MENU */}
+      {/* =========================
+          RESERVATION / MENU
+      ========================= */}
 
       <section id="booking" className={styles.actionsSection}>
         <Reveal>
@@ -118,6 +148,17 @@ export default async function HomePage({ params }: Props) {
         <div className={styles.actionsGrid}>
           <Reveal delay={0.04}>
             <article className={`${styles.actionCard} ${styles.bookingCard}`}>
+              <Image
+                src={ACTION_IMAGES.booking}
+                alt=""
+                fill
+                sizes={ACTION_IMAGE_SIZES}
+                quality={75}
+                loading="lazy"
+                decoding="async"
+                className={styles.actionImage}
+              />
+
               <div className={styles.actionOverlay} />
 
               <div className={styles.actionContent}>
@@ -148,6 +189,17 @@ export default async function HomePage({ params }: Props) {
 
           <Reveal delay={0.1}>
             <article className={`${styles.actionCard} ${styles.menuCard}`}>
+              <Image
+                src={ACTION_IMAGES.menu}
+                alt=""
+                fill
+                sizes={ACTION_IMAGE_SIZES}
+                quality={75}
+                loading="lazy"
+                decoding="async"
+                className={styles.actionImage}
+              />
+
               <div className={styles.actionOverlay} />
 
               <div className={styles.actionContent}>
@@ -178,7 +230,9 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* SPECIAL OCCASIONS */}
+      {/* =========================
+          SPECIAL OCCASIONS
+      ========================= */}
 
       <section id="events" className={sectionStyles.eventsSection}>
         <div className={sectionStyles.sectionContainer}>
@@ -202,6 +256,17 @@ export default async function HomePage({ params }: Props) {
             {messages.events.items.map((event, index) => (
               <Reveal key={event.title} delay={index * 0.07}>
                 <article className={sectionStyles.eventCard}>
+                  <Image
+                    src={OCCASION_IMAGES[index % OCCASION_IMAGES.length]}
+                    alt=""
+                    fill
+                    sizes={OCCASION_IMAGE_SIZES}
+                    quality={75}
+                    loading="lazy"
+                    decoding="async"
+                    className={sectionStyles.eventImage}
+                  />
+
                   <div className={sectionStyles.eventCardInner}>
                     <div className={sectionStyles.eventTop}>
                       <span className={sectionStyles.eventNumber}>
@@ -226,7 +291,9 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* =========================
+          CONTACT
+      ========================= */}
 
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
@@ -300,7 +367,9 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* =========================
+          FOOTER
+      ========================= */}
 
       <footer className={sectionStyles.footer}>
         <div className={sectionStyles.footerInner}>
