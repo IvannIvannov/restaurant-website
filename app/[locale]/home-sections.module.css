@@ -1,33 +1,23 @@
-/* =========================
-   SPECIAL OCCASIONS
-========================= */
+/* SPECIAL OCCASIONS */
 
 .eventsSection {
     overflow: hidden;
-
     background: #f3efe8;
-
     padding: 110px 24px 125px;
-
     color: #202420;
-
     font-family: var(--font-body);
 }
 
 .sectionContainer {
     width: min(1180px, 100%);
-
     margin: 0 auto;
 }
 
 .sectionHeading {
     display: flex;
-
     align-items: flex-end;
     justify-content: space-between;
-
     gap: 40px;
-
     margin-bottom: 50px;
 }
 
@@ -37,9 +27,7 @@
 
 .eyebrow {
     margin: 0 0 12px;
-
     color: var(--color-accent);
-
     font-family: var(--font-body);
     font-size: 10px;
     font-weight: 700;
@@ -49,14 +37,12 @@
 
 .eventsSection .eyebrow {
     margin-bottom: 16px;
-
     font-size: 14px;
     line-height: 1.4;
 }
 
 .sectionHeading h2 {
     margin: 0;
-
     font-family: var(--font-display);
     font-size: clamp(46px, 5.5vw, 76px);
     font-weight: 500;
@@ -66,44 +52,29 @@
 
 .sectionDescription {
     max-width: 390px;
-
     margin: 0;
-
     color: rgba(32, 36, 32, 0.85);
-
     font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.75;
 }
 
-/* =========================
-   SPECIAL OCCASION CARDS
-========================= */
-
 .eventsGrid {
     display: grid;
-
     grid-template-columns: repeat(3, minmax(0, 1fr));
-
     gap: 16px;
 }
 
 .eventCard {
     position: relative;
     isolation: isolate;
-
     min-height: 470px;
     height: 100%;
-
     overflow: hidden;
-
     border: 1px solid rgba(65, 88, 67, 0.08);
     border-radius: 22px;
-
     background: var(--color-accent);
-
     color: #ffffff;
-
     box-shadow: 0 18px 44px rgba(65, 88, 67, 0.1);
 }
 
@@ -119,49 +90,37 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
     object-position: center;
-
     transform: scale(1.01);
-
     pointer-events: none;
 }
 
 .eventCard::after {
     content: "";
-
     position: absolute;
     inset: 0;
     z-index: 1;
-
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: inherit;
-
     background:
         linear-gradient(to bottom,
             rgba(8, 12, 8, 0.25) 0%,
             rgba(8, 12, 8, 0.24) 40%,
             rgba(8, 12, 8, 0.86) 100%);
-
     pointer-events: none;
 }
 
 .eventCardInner {
     position: relative;
     z-index: 2;
-
     display: flex;
-
     min-height: 470px;
     height: 100%;
-
     flex-direction: column;
     justify-content: flex-end;
-
     padding: 28px;
 }
 
@@ -173,109 +132,79 @@
 
 .eventContent {
     display: flex;
-
     width: 100%;
     max-width: 100%;
-
     flex-direction: column;
     align-items: flex-start;
-
     gap: 16px;
 }
 
 .eventContent h3 {
     margin: 0;
-
     color: #ffffff;
-
     font-family: var(--font-display);
     font-size: clamp(36px, 3vw, 48px);
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -0.04em;
-
     text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
 }
 
 .eventContent p {
     min-height: 3.3em;
-
     margin: 0;
-
     color: rgba(255, 255, 255, 0.96);
-
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.65;
-
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 
 .contactSection {
     position: relative;
-
     overflow: hidden;
-
     background:
         radial-gradient(circle at 50% 0%,
             rgba(65, 88, 67, 0.04),
             transparent 34%),
         #fbfaf7;
-
     color: #202420;
-
     font-family: var(--font-body);
-
     padding: 125px 24px 120px;
 }
 
 .contactSection::before {
     content: "";
-
     position: absolute;
     top: 0;
     left: 50%;
-
     width: min(1180px, calc(100% - 48px));
     height: 1px;
-
     background: rgba(65, 88, 67, 0.08);
-
     transform: translateX(-50%);
-
     pointer-events: none;
 }
 
 .contactGrid {
     width: min(1180px, 100%);
-
     margin: 0 auto;
 }
 
 .contactIntro {
     max-width: 880px;
-
     margin: 0 auto;
-
     text-align: center;
 }
 
 .contactIntro .eyebrow {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 12px;
-
     margin: 0 0 18px;
-
     color: #59695b;
-
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 700;
@@ -286,18 +215,14 @@
 .contactIntro .eyebrow::before,
 .contactIntro .eyebrow::after {
     content: "";
-
     width: 26px;
     height: 1px;
-
     background: rgba(65, 88, 67, 0.24);
 }
 
 .contactIntro h2 {
     margin: 0 0 26px;
-
     color: #202420;
-
     font-family: var(--font-display);
     font-size: clamp(56px, 6.5vw, 90px);
     font-weight: 500;
@@ -307,11 +232,8 @@
 
 .contactIntro p {
     max-width: 780px;
-
     margin: 0 auto;
-
     color: #59635a;
-
     font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.8;
@@ -319,32 +241,23 @@
 
 .contactActions {
     display: flex;
-
     justify-content: center;
-
     margin-top: 34px;
 }
 
 .primaryContactButton,
 .secondaryContactButton {
     display: inline-flex;
-
     min-height: 54px;
-
     align-items: center;
     justify-content: center;
-
     border-radius: 999px;
-
     padding: 0 28px;
-
     font-family: var(--font-body);
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.02em;
-
     text-decoration: none;
-
     transition:
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease,
@@ -354,28 +267,21 @@
 
 .primaryContactButton {
     border: 1px solid var(--color-accent);
-
     background: var(--color-accent);
-
     color: #ffffff;
 }
 
 .primaryContactButton::after {
     content: "↗";
-
     margin-left: 16px;
-
     font-size: 14px;
-
     transition:
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .secondaryContactButton {
     border: 1px solid rgba(65, 88, 67, 0.16);
-
     background: transparent;
-
     color: var(--color-accent);
 }
 
@@ -386,32 +292,20 @@
     outline-offset: 4px;
 }
 
-/* =========================
-   CONTACT DETAILS
-========================= */
-
 .contactDetails {
     display: grid;
-
     grid-template-columns: repeat(4, minmax(0, 1fr));
-
     margin-top: 72px;
-
     border-top: 1px solid rgba(65, 88, 67, 0.12);
     border-bottom: 1px solid rgba(65, 88, 67, 0.12);
 }
 
 .contactItem {
     position: relative;
-
     min-width: 0;
-
     padding: 30px 20px 32px;
-
     border: 0;
-
     background: transparent;
-
     text-align: center;
 }
 
@@ -421,11 +315,8 @@
 
 .contactLabel {
     display: block;
-
     margin-bottom: 14px;
-
     color: #59695b;
-
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 700;
@@ -436,70 +327,48 @@
 
 .contactValue {
     display: inline-block;
-
     max-width: 100%;
-
     color: #252a25;
-
     font-family: var(--font-body);
     font-size: 16px;
     font-weight: 500;
     line-height: 1.65;
-
     text-decoration: none;
     overflow-wrap: anywhere;
-
     transition: color 0.3s ease;
 }
 
-/* =========================
-   REVIEWS
-========================= */
+/* REVIEWS */
 
 .reviewsSection {
     position: relative;
-
     overflow: hidden;
-
     background: #f3efe8;
-
     color: #202420;
-
     padding: 120px 24px 135px;
-
     font-family: var(--font-body);
 }
 
 .reviewsSection::before {
     content: "“";
-
     position: absolute;
     top: -115px;
     right: 4%;
-
     color: rgba(65, 88, 67, 0.05);
-
     font-family: var(--font-display);
     font-size: 420px;
     line-height: 1;
-
     pointer-events: none;
 }
 
 .reviewsHeader {
     position: relative;
     z-index: 1;
-
     display: grid;
-
     width: min(1180px, 100%);
-
     grid-template-columns: 1.3fr 0.7fr;
-
     gap: 70px;
-
     align-items: end;
-
     margin: 0 auto 55px;
 }
 
@@ -509,9 +378,7 @@
 
 .reviewsHeading h2 {
     max-width: 700px;
-
     margin: 0;
-
     font-family: var(--font-display);
     font-size: clamp(44px, 5.5vw, 68px);
     font-weight: 500;
@@ -521,11 +388,8 @@
 
 .reviewsDescription {
     max-width: 390px;
-
     margin: 0;
-
     color: rgba(32, 36, 32, 0.78);
-
     font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.8;
@@ -534,15 +398,10 @@
 .reviewsGrid {
     position: relative;
     z-index: 1;
-
     display: grid;
-
     width: min(1180px, 100%);
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 14px;
-
     margin: 0 auto;
 }
 
@@ -552,69 +411,50 @@
 
 .reviewCard {
     position: relative;
-
     display: flex;
-
     min-height: 340px;
     height: 100%;
-
     flex-direction: column;
     justify-content: space-between;
-
     overflow: hidden;
-
     border: 1px solid rgba(65, 88, 67, 0.1);
     border-radius: 18px;
-
     background: rgba(255, 255, 255, 0.68);
-
     padding: 30px;
 }
 
 .reviewCard::before {
     content: "";
-
     position: absolute;
-
     width: 180px;
     height: 180px;
-
     top: -110px;
     right: -90px;
-
     border-radius: 50%;
-
     background:
         radial-gradient(circle,
             rgba(65, 88, 67, 0.14),
             transparent 70%);
-
     opacity: 0;
-
     pointer-events: none;
 }
 
 .reviewTop {
     display: flex;
-
     align-items: center;
 }
 
 .stars {
     color: var(--color-accent);
-
     font-family: var(--font-body);
     font-size: 11px;
     letter-spacing: 0.12em;
-
     transition: letter-spacing 0.4s ease;
 }
 
 .reviewText {
     margin: 45px 0;
-
     color: #202420;
-
     font-family: var(--font-display);
     font-size: 20px;
     font-weight: 500;
@@ -624,39 +464,26 @@
 
 .reviewAuthor {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     padding-top: 20px;
-
     border-top: 1px solid rgba(65, 88, 67, 0.1);
 }
 
 .reviewAvatar {
     display: flex;
-
     width: 38px;
     height: 38px;
-
     flex-shrink: 0;
-
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background: var(--color-accent);
-
     color: #ffffff;
-
     font-family: var(--font-body);
     font-size: 9px;
     font-weight: 600;
-
     box-shadow: 0 6px 16px rgba(65, 88, 67, 0.18);
-
     transition:
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease;
@@ -664,9 +491,7 @@
 
 .reviewAuthorInfo {
     display: flex;
-
     flex-direction: column;
-
     gap: 3px;
 }
 
@@ -678,81 +503,59 @@
 
 .reviewAuthorInfo span {
     color: rgba(32, 36, 32, 0.78);
-
     font-family: var(--font-body);
     font-size: 9px;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer {
     position: relative;
-
     overflow: hidden;
-
     background: var(--color-accent-deep);
-
     color: #ffffff;
-
     font-family: var(--font-body);
-
     padding: 60px 24px 28px;
 }
 
 .footerInner {
     width: min(1180px, 100%);
-
     margin: 0 auto;
 }
 
 .footerTop {
     display: flex;
-
     flex-direction: column;
     align-items: center;
-
     padding-bottom: 42px;
-
     text-align: center;
 }
 
 .footerBrand {
     display: flex;
-
     flex-direction: column;
     align-items: center;
-
     max-width: 680px;
 }
 
 .footerLogoLink {
     display: inline-flex;
-
     margin-bottom: 12px;
-
     text-decoration: none;
 }
 
 .footerLogoImage {
     display: block;
-
     width: 120px;
     height: auto;
-
     object-fit: contain;
-
     filter: brightness(0) invert(1);
 }
 
 .footerBrand p {
     max-width: 640px;
-
     margin: 0;
-
     color: rgba(255, 255, 255, 0.88);
-
     font-family: var(--font-body);
     font-size: 16px;
     font-weight: 400;
@@ -761,52 +564,36 @@
 
 .footerNavigation {
     display: flex;
-
     width: 100%;
-
     align-items: center;
     justify-content: center;
-
     gap: clamp(34px, 5vw, 70px);
-
     margin-top: 38px;
-
     padding-top: 30px;
-
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footerNavigation a {
     position: relative;
-
     color: rgba(255, 255, 255, 0.9);
-
     font-family: var(--font-body);
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0.02em;
-
     text-decoration: none;
-
     transition: color 0.3s ease;
 }
 
 .footerNavigation a::after {
     content: "";
-
     position: absolute;
-
     left: 0;
     bottom: -8px;
-
     width: 100%;
     height: 1px;
-
     background: rgba(255, 255, 255, 0.7);
-
     transform: scaleX(0);
     transform-origin: right;
-
     transition:
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -820,18 +607,12 @@
 
 .footerBottom {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     gap: 30px;
-
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-
     padding-top: 24px;
-
     color: rgba(255, 255, 255, 0.8);
-
     font-family: var(--font-body);
     font-size: 12px;
     line-height: 1.6;
@@ -840,28 +621,20 @@
 
 .footerLanguages {
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
     color: rgba(255, 255, 255, 0.7);
-
     font-size: 13px;
 }
 
 .footerLanguages a {
     color: #ffffff;
-
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.08em;
-
     text-decoration: none;
-
     opacity: 0.75;
-
     transition: opacity 0.3s ease;
 }
 
@@ -869,68 +642,47 @@
     opacity: 1;
 }
 
-/* =========================
-   UPCOMING EVENTS — LEGACY
-========================= */
+/* UPCOMING EVENTS — LEGACY */
 
 .upcomingSection {
     position: relative;
-
     overflow: hidden;
-
     background: #f8f5ee;
-
     padding: 125px 24px 130px;
-
     color: #202420;
-
     font-family: var(--font-body);
 }
 
 .upcomingSection::before {
     content: "";
-
     position: absolute;
-
     width: 420px;
     height: 420px;
-
     right: -220px;
     top: -220px;
-
     border: 1px solid rgba(65, 88, 67, 0.06);
-
     border-radius: 50%;
-
     pointer-events: none;
 }
 
 .upcomingContainer {
     position: relative;
     z-index: 1;
-
     width: min(1180px, 100%);
-
     margin: 0 auto;
 }
 
 .upcomingHeader {
     max-width: 760px;
-
     margin-bottom: 64px;
 }
 
 .upcomingEyebrow {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     margin: 0 0 18px;
-
     color: #59695b;
-
     font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
@@ -940,18 +692,14 @@
 
 .upcomingEyebrow span {
     display: block;
-
     width: 28px;
     height: 1px;
-
     background: rgba(65, 88, 67, 0.42);
 }
 
 .upcomingHeader h2 {
     margin: 0;
-
     color: #202420;
-
     font-family: var(--font-display);
     font-size: clamp(54px, 6vw, 84px);
     font-weight: 500;
@@ -961,9 +709,7 @@
 
 .upcomingDescription {
     margin: 18px 0 0;
-
     color: #59635a;
-
     font-family: var(--font-display);
     font-size: 18px;
     font-style: italic;
@@ -977,23 +723,14 @@
 
 .upcomingEvent {
     position: relative;
-
     display: grid;
-
     grid-template-columns: minmax(0, 1fr) auto;
-
     align-items: center;
-
     min-height: 124px;
-
     border-bottom: 1px solid rgba(65, 88, 67, 0.14);
-
     padding: 0 8px;
-
     color: #202420;
-
     text-decoration: none;
-
     transition:
         padding 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.4s ease;
@@ -1001,54 +738,39 @@
 
 .upcomingEvent::before {
     content: "";
-
     position: absolute;
-
     left: 0;
     bottom: -1px;
-
     width: 0;
     height: 1px;
-
     background: var(--color-accent);
-
     transition:
         width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .upcomingEventMain {
     display: flex;
-
     align-items: center;
-
     min-width: 0;
 }
 
 .upcomingDate {
     width: 96px;
-
     flex-shrink: 0;
-
     color: #202420;
-
     font-family: var(--font-display);
     font-size: clamp(27px, 2.4vw, 35px);
     font-weight: 500;
     letter-spacing: -0.03em;
-
     transition: color 0.35s ease;
 }
 
 .upcomingDash {
     width: 48px;
     height: 1px;
-
     flex-shrink: 0;
-
     margin: 0 30px 0 10px;
-
     background: rgba(65, 88, 67, 0.25);
-
     transition:
         width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.35s ease;
@@ -1056,17 +778,13 @@
 
 .upcomingEventMain h3 {
     min-width: 0;
-
     margin: 0;
-
     color: #202420;
-
     font-family: var(--font-display);
     font-size: clamp(32px, 3.4vw, 48px);
     font-weight: 500;
     line-height: 0.96;
     letter-spacing: -0.04em;
-
     transition:
         color 0.35s ease,
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1074,46 +792,33 @@
 
 .upcomingEventMeta {
     display: flex;
-
     align-items: center;
-
     gap: 30px;
-
     padding-left: 30px;
 }
 
 .upcomingType {
     color: #59695b;
-
     font-family: var(--font-body);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.18em;
-
     white-space: nowrap;
-
     transition: color 0.35s ease;
 }
 
 .upcomingArrow {
     display: inline-flex;
-
     width: 42px;
     height: 42px;
-
     flex-shrink: 0;
-
     align-items: center;
     justify-content: center;
-
     border: 1px solid rgba(65, 88, 67, 0.2);
     border-radius: 50%;
-
     color: var(--color-accent);
-
     font-family: var(--font-body);
     font-size: 12px;
-
     transition:
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.35s ease,
@@ -1123,78 +828,57 @@
 
 .upcomingIndex {
     position: absolute;
-
     right: 72px;
     bottom: 10px;
-
     color: rgba(65, 88, 67, 0.08);
-
     font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.12em;
-
     pointer-events: none;
 }
 
 .upcomingFooter {
     display: flex;
-
     align-items: center;
-
     gap: 22px;
-
     margin-top: 36px;
 }
 
 .upcomingFooterLine {
     height: 1px;
-
     flex: 1;
-
     background: rgba(65, 88, 67, 0.1);
 }
 
 .upcomingReserve {
     display: inline-flex;
-
     align-items: center;
-
     gap: 14px;
-
     color: var(--color-accent);
-
     font-family: var(--font-body);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.12em;
-
     text-decoration: none;
     text-transform: uppercase;
 }
 
 .upcomingReserve span {
     display: inline-flex;
-
     width: 34px;
     height: 34px;
-
     align-items: center;
     justify-content: center;
-
     border: 1px solid rgba(65, 88, 67, 0.18);
-
     border-radius: 50%;
-
     transition:
         transform 0.4s ease,
         background 0.3s ease,
         color 0.3s ease;
 }
 
-/* =========================
-   DESKTOP HOVER
-========================= */
+/* DESKTOP HOVER */
 
 @media (hover: hover) and (pointer: fine) {
     .eventCard {
@@ -1215,7 +899,6 @@
 
     .eventCard:hover {
         transform: translateY(-8px);
-
         box-shadow: 0 30px 62px rgba(65, 88, 67, 0.2);
     }
 
@@ -1229,9 +912,7 @@
 
     .primaryContactButton:hover {
         transform: translateY(-2px);
-
         border-color: var(--color-accent-hover);
-
         background: var(--color-accent-hover);
     }
 
@@ -1241,9 +922,7 @@
 
     .secondaryContactButton:hover {
         transform: translateY(-2px);
-
         border-color: rgba(65, 88, 67, 0.28);
-
         background: rgba(65, 88, 67, 0.035);
     }
 
@@ -1255,7 +934,6 @@
 
     .contactItem:hover {
         transform: translateY(-2px);
-
         background: rgba(65, 88, 67, 0.025);
     }
 
@@ -1284,17 +962,13 @@
 
     .reviewCard:hover {
         transform: translateY(-7px);
-
         border-color: rgba(65, 88, 67, 0.22);
-
         background: #ffffff;
-
         box-shadow: 0 24px 45px rgba(65, 88, 67, 0.12);
     }
 
     .reviewCard:hover::before {
         opacity: 1;
-
         transform: translate(-20px, 20px) scale(1.15);
     }
 
@@ -1304,7 +978,6 @@
 
     .reviewCard:hover .reviewAvatar {
         transform: scale(1.06) rotate(-3deg);
-
         background: var(--color-accent-hover);
     }
 
@@ -1314,7 +987,6 @@
 
     .footerNavigation a:hover::after {
         transform: scaleX(1);
-
         transform-origin: left;
     }
 
@@ -1325,7 +997,6 @@
     .upcomingEvent:hover {
         padding-left: 18px;
         padding-right: 16px;
-
         background:
             linear-gradient(90deg,
                 rgba(65, 88, 67, 0.045),
@@ -1344,7 +1015,6 @@
 
     .upcomingEvent:hover .upcomingDash {
         width: 58px;
-
         background: rgba(65, 88, 67, 0.55);
     }
 
@@ -1354,26 +1024,19 @@
 
     .upcomingEvent:hover .upcomingArrow {
         transform: rotate(45deg);
-
         border-color: var(--color-accent);
-
         background: var(--color-accent);
-
         color: #ffffff;
     }
 
     .upcomingReserve:hover span {
         transform: rotate(45deg);
-
         background: var(--color-accent);
-
         color: #ffffff;
     }
 }
 
-/* =========================
-   RESPONSIVE — LAPTOP
-========================= */
+/* LAPTOP */
 
 @media (max-width: 1100px) {
     .sectionHeading {
@@ -1386,7 +1049,6 @@
 
     .sectionDescription {
         max-width: 340px;
-
         font-size: 16px;
     }
 
@@ -1402,10 +1064,6 @@
         padding: 24px;
     }
 }
-
-/* =========================
-   RESPONSIVE — SMALL LAPTOP
-========================= */
 
 @media (max-width: 1000px) {
     .contactDetails {
@@ -1425,16 +1083,12 @@
     }
 }
 
-/* =========================
-   RESPONSIVE — TABLET
-========================= */
+/* TABLET */
 
 @media (max-width: 850px) {
     .sectionHeading {
         align-items: flex-start;
-
         flex-direction: column;
-
         gap: 24px;
     }
 
@@ -1465,13 +1119,11 @@
 
     .contactGrid {
         grid-template-columns: 1fr;
-
         gap: 50px;
     }
 
     .reviewsHeader {
         grid-template-columns: 1fr;
-
         gap: 25px;
     }
 
@@ -1484,7 +1136,7 @@
     }
 
     .footerBrand p {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .footerNavigation {
@@ -1496,9 +1148,7 @@
     }
 }
 
-/* =========================
-   RESPONSIVE — UPCOMING
-========================= */
+/* UPCOMING EVENTS — MOBILE */
 
 @media (max-width: 700px) {
     .upcomingSection {
@@ -1509,23 +1159,23 @@
         margin-bottom: 42px;
     }
 
+    .upcomingEyebrow {
+        font-size: 12px;
+    }
+
     .upcomingHeader h2 {
         font-size: clamp(44px, 14vw, 60px);
     }
 
     .upcomingDescription {
         margin-top: 13px;
-
         font-size: 16px;
     }
 
     .upcomingEvent {
         grid-template-columns: 1fr;
-
         gap: 17px;
-
         min-height: 145px;
-
         padding: 24px 2px;
     }
 
@@ -1535,13 +1185,11 @@
 
     .upcomingDate {
         width: 62px;
-
         font-size: 23px;
     }
 
     .upcomingDash {
         width: 24px;
-
         margin: 0 16px 0 5px;
     }
 
@@ -1551,13 +1199,17 @@
 
     .upcomingEventMeta {
         justify-content: space-between;
-
         padding-left: 0;
+    }
+
+    .upcomingType {
+        font-size: 12px;
     }
 
     .upcomingArrow {
         width: 38px;
         height: 38px;
+        font-size: 14px;
     }
 
     .upcomingIndex {
@@ -1567,15 +1219,15 @@
     .upcomingFooter {
         margin-top: 28px;
     }
+
+    .upcomingReserve {
+        font-size: 13px;
+    }
 }
 
-/* =========================
-   RESPONSIVE — MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width: 600px) {
-
-    /* SPECIAL OCCASIONS */
 
     .eventsSection,
     .contactSection,
@@ -1591,22 +1243,19 @@
 
     .sectionHeading {
         gap: 20px;
-
         margin-bottom: 32px;
     }
 
     .eyebrow {
         margin-bottom: 10px;
-
-        font-size: 9px;
-        letter-spacing: 0.16em;
+        font-size: 12px;
+        letter-spacing: 0.14em;
     }
 
     .eventsSection .eyebrow {
         margin-bottom: 14px;
-
-        font-size: 12px;
-        letter-spacing: 0.16em;
+        font-size: 13px;
+        letter-spacing: 0.14em;
     }
 
     .sectionHeading h2 {
@@ -1617,7 +1266,6 @@
 
     .sectionDescription {
         max-width: 100%;
-
         font-size: 16px;
         line-height: 1.7;
     }
@@ -1641,21 +1289,18 @@
 
     .eventContent {
         max-width: 100%;
-
         gap: 14px;
     }
 
     .eventContent h3 {
         font-size: 38px;
-
         line-height: 1.02;
     }
 
     .eventContent p {
         min-height: 3.3em;
         max-width: 100%;
-
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.65;
     }
 
@@ -1671,12 +1316,11 @@
     }
 
     .contactIntro .eyebrow {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .contactIntro h2 {
         margin-bottom: 22px;
-
         font-size: clamp(44px, 12vw, 58px);
         line-height: 0.98;
         letter-spacing: -0.04em;
@@ -1684,29 +1328,24 @@
 
     .contactIntro p {
         max-width: 100%;
-
         font-size: 16px;
         line-height: 1.75;
     }
 
     .contactActions {
         gap: 8px;
-
         margin-top: 24px;
     }
 
     .primaryContactButton,
     .secondaryContactButton {
         min-height: 50px;
-
         padding: 0 25px;
-
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .contactDetails {
         grid-template-columns: 1fr;
-
         margin-top: 48px;
     }
 
@@ -1716,14 +1355,13 @@
 
     .contactItem+.contactItem {
         border-left: 0;
-
         border-top: 1px solid rgba(65, 88, 67, 0.1);
     }
 
     .contactLabel {
         margin-bottom: 10px;
-
-        font-size: 11px;
+        font-size: 13px;
+        letter-spacing: 0.1em;
     }
 
     .contactValue {
@@ -1749,14 +1387,12 @@
 
     .reviewsDescription {
         max-width: 100%;
-
-        font-size: 12px;
+        font-size: 16px;
         line-height: 1.7;
     }
 
     .reviewsHeader {
         gap: 18px;
-
         margin-bottom: 28px;
     }
 
@@ -1766,32 +1402,37 @@
 
     .reviewCard {
         min-height: auto;
-
         border-radius: 16px;
-
         padding: 22px;
     }
 
     .stars {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .reviewText {
         margin: 31px 0;
-
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.5;
     }
 
     .reviewAuthor {
         gap: 10px;
-
         padding-top: 17px;
     }
 
     .reviewAvatar {
         width: 35px;
         height: 35px;
+        font-size: 12px;
+    }
+
+    .reviewAuthorInfo strong {
+        font-size: 14px;
+    }
+
+    .reviewAuthorInfo span {
+        font-size: 12px;
     }
 
     /* FOOTER */
@@ -1814,52 +1455,40 @@
 
     .footerBrand p {
         max-width: 360px;
-
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.8;
     }
 
     .footerNavigation {
         display: grid;
-
         grid-template-columns: repeat(2, minmax(0, 1fr));
-
         gap: 24px 20px;
-
         margin-top: 30px;
-
         padding-top: 28px;
-
         text-align: center;
     }
 
     .footerNavigation a {
-        font-size: 14px;
+        font-size: 15px;
+        line-height: 1.4;
     }
 
     .footerBottom {
         align-items: center;
-
         flex-direction: column;
-
         gap: 20px;
-
         padding-top: 24px;
-
-        font-size: 11px;
-
+        font-size: 12px;
         text-align: center;
     }
 
     .footerLanguages,
     .footerLanguages a {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 
-/* =========================
-   SMALL MOBILE
-========================= */
+/* SMALL MOBILE */
 
 @media (max-width: 400px) {
 
@@ -1906,9 +1535,7 @@
     }
 }
 
-/* =========================
-   REDUCED MOTION
-========================= */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 

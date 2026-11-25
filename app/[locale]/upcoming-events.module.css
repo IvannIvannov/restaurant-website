@@ -225,48 +225,54 @@
         border-color 0.3s ease;
 }
 
-.event:hover {
-    transform: translateY(-4px);
+/* DESKTOP HOVER */
+
+@media (hover: hover) and (pointer: fine) {
+    .event:hover {
+        transform: translateY(-4px);
+    }
+
+    .centerEvent:hover {
+        transform: translateY(-40px);
+    }
+
+    .event:hover .image {
+        transform: scale(1.06);
+    }
+
+    .event:hover .overlay {
+        background:
+            linear-gradient(to bottom,
+                rgba(16, 21, 17, 0.02) 0%,
+                rgba(16, 21, 17, 0.06) 44%,
+                rgba(16, 21, 17, 0.42) 100%);
+    }
+
+    .event:hover .hoverContent {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .event:hover .titleRow h3 {
+        transform: translateX(4px);
+    }
+
+    .event:hover .eventDate {
+        background: var(--color-accent);
+        border-color: var(--color-accent);
+        color: #ffffff;
+        transform: translateY(-1px);
+    }
+
+    .event:hover .arrow {
+        transform: rotate(45deg);
+        border-color: #627364;
+        background: #627364;
+        color: #ffffff;
+    }
 }
 
-.centerEvent:hover {
-    transform: translateY(-40px);
-}
-
-.event:hover .image {
-    transform: scale(1.06);
-}
-
-.event:hover .overlay {
-    background:
-        linear-gradient(to bottom,
-            rgba(16, 21, 17, 0.02) 0%,
-            rgba(16, 21, 17, 0.06) 44%,
-            rgba(16, 21, 17, 0.42) 100%);
-}
-
-.event:hover .hoverContent {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.event:hover .titleRow h3 {
-    transform: translateX(4px);
-}
-
-.event:hover .eventDate {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: #ffffff;
-    transform: translateY(-1px);
-}
-
-.event:hover .arrow {
-    transform: rotate(45deg);
-    border-color: #627364;
-    background: #627364;
-    color: #ffffff;
-}
+/* TABLET */
 
 @media (max-width: 1000px) {
     .section {
@@ -296,7 +302,7 @@
     .eventDate {
         min-height: 36px;
         padding: 0 13px;
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .arrow {
@@ -307,6 +313,8 @@
         object-position: center 18%;
     }
 }
+
+/* MOBILE */
 
 @media (max-width: 720px) {
     .section {
@@ -320,7 +328,10 @@
     }
 
     .eyebrow {
-        margin-bottom: 13px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        line-height: 1.4;
+        letter-spacing: 0.16em;
     }
 
     .header h2 {
@@ -368,8 +379,15 @@
         display: none;
     }
 
+    .meta {
+        gap: 12px;
+    }
+
     .label {
-        font-size: 10px;
+        color: #59695b;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
     }
 
     .titleRow {
@@ -382,21 +400,24 @@
     }
 
     .eventDate {
-        min-height: 34px;
-        padding: 0 12px;
-        font-size: 13px;
+        min-height: 36px;
+        padding: 0 13px;
+        font-size: 15px;
     }
 
     .arrow {
         width: 36px;
         height: 36px;
         margin-top: 36px;
+        font-size: 14px;
     }
 
     .krisImage {
         object-position: center 17%;
     }
 }
+
+/* SMALL MOBILE */
 
 @media (max-width: 420px) {
     .header h2 {
@@ -415,13 +436,9 @@
     .titleRow h3 {
         font-size: 31px;
     }
-
-    .eventDate {
-        min-height: 32px;
-        padding: 0 11px;
-        font-size: 12px;
-    }
 }
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -435,11 +452,16 @@
         transition: none;
     }
 
-    .event:hover,
+    .event:hover {
+        transform: none;
+    }
+
+    .centerEvent,
     .centerEvent:hover {
         transform: none;
     }
 
+    .event:hover .image,
     .event:hover .titleRow h3,
     .event:hover .eventDate,
     .event:hover .arrow {
