@@ -1,0 +1,28 @@
+.logo {
+    display: block;
+
+    width: 180px;
+    height: auto;
+
+    object-fit: contain;
+
+    filter: brightness(0) invert(1);
+}
+
+@media (max-width: 850px) {
+    .logo {
+        width: 165px;
+    }
+}
+
+@media (max-width: 600px) {
+    .logo {
+        width: 145px;
+    }
+}
+
+@media (max-width: 380px) {
+    .logo {
+        width: 135px;
+    }
+}

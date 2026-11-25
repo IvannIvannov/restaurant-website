@@ -1,0 +1,19 @@
+# MAZU Bar & Restaurant
+
+> MAZU Bar & Restaurant is a beachfront restaurant located in Asparuhovo, Varna, Bulgaria, offering dining, drinks, live music, special events and online reservations.
+
+The website is available in Bulgarian and English.
+
+Visitors can explore the restaurant menu, discover upcoming events and access online reservations.
+
+## Bulgarian website
+
+- [Начална страница](https://restaurant-website-mu-mauve.vercel.app/bg): Информация за ресторанта, предстоящи събития и специални поводи.
+- [Меню](https://restaurant-website-mu-mauve.vercel.app/bg/menu): Интерактивно меню на ресторанта.
+- [Резервации](https://restaurant-website-mu-mauve.vercel.app/bg/reservations): Онлайн резервации.
+
+## English website
+
+- [Homepage](https://restaurant-website-mu-mauve.vercel.app/en): Restaurant information, upcoming events and special occasions.
+- [Menu](https://restaurant-website-mu-mauve.vercel.app/en/menu): Interactive restaurant menu.
+- [Reservations](https://restaurant-website-mu-mauve.vercel.app/en/reservations): Online reservations.

@@ -6,7 +6,7 @@
 
     width: 100%;
 
-    padding: 22px 42px;
+    padding: 8px 42px;
 
     color: #ffffff;
 
@@ -20,14 +20,17 @@
 
     width: min(1420px, 100%);
 
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns:
+        minmax(0, 1fr) auto minmax(0, 1fr);
 
     align-items: center;
 
     margin: 0 auto;
 }
 
-/* NAVIGATION — LEFT */
+/* =========================
+   NAVIGATION — LEFT
+========================= */
 
 .navigation {
     grid-column: 1;
@@ -38,7 +41,6 @@
     justify-self: start;
 
     align-items: center;
-
     justify-content: flex-start;
 
     gap: 34px;
@@ -47,17 +49,14 @@
 .navigation a {
     position: relative;
 
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.82);
 
     font-size: 10px;
     font-weight: 500;
-
     line-height: 1;
-
     letter-spacing: 0.04em;
 
     text-decoration: none;
-
     white-space: nowrap;
 
     transition: color 0.3s ease;
@@ -77,7 +76,6 @@
     background: var(--color-accent);
 
     transform: scaleX(0);
-
     transform-origin: right center;
 
     transition:
@@ -90,11 +88,12 @@
 
 .navigation a:hover::after {
     transform: scaleX(1);
-
     transform-origin: left center;
 }
 
-/* LOGO — EXACT CENTER */
+/* =========================
+   LOGO — CENTER
+========================= */
 
 .logo {
     grid-column: 2;
@@ -126,14 +125,16 @@
     display: block;
 
     width: auto;
-    height: 76px;
+    height: 140px;
 
     object-fit: contain;
 
     pointer-events: none;
 }
 
-/* ACTIONS — RIGHT */
+/* =========================
+   ACTIONS — RIGHT
+========================= */
 
 .actions {
     grid-column: 3;
@@ -144,7 +145,6 @@
     justify-self: end;
 
     align-items: center;
-
     justify-content: flex-end;
 
     gap: 17px;
@@ -159,7 +159,7 @@
 
     gap: 5px;
 
-    color: rgba(255, 255, 255, 0.32);
+    color: rgba(255, 255, 255, 0.8);
 
     font-size: 9px;
 }
@@ -171,7 +171,7 @@
 
     text-decoration: none;
 
-    opacity: 0.42;
+    opacity: 0.78;
 
     transition:
         opacity 0.25s ease,
@@ -179,7 +179,7 @@
 }
 
 .languages a:hover {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .languages .activeLanguage {
@@ -198,17 +198,14 @@
 
     padding: 10px 3px;
 
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.84);
 
     cursor: pointer;
 
     font-family: var(--font-body);
-
     font-size: 10px;
     font-weight: 500;
-
     line-height: 1;
-
     letter-spacing: 0.04em;
 
     text-decoration: none;
@@ -236,7 +233,6 @@
     gap: 12px;
 
     border: 1px solid rgba(255, 255, 255, 0.12);
-
     border-radius: 999px;
 
     background: var(--color-accent);
@@ -247,16 +243,11 @@
 
     font-size: 9px;
     font-weight: 600;
-
     letter-spacing: 0.05em;
 
     text-decoration: none;
 
     box-shadow: 0 10px 30px rgba(65, 88, 67, 0.24);
-
-    backdrop-filter: blur(12px);
-
-    -webkit-backdrop-filter: blur(12px);
 
     transition:
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -301,7 +292,9 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* MOBILE TOGGLE */
+/* =========================
+   MOBILE TOGGLE
+========================= */
 
 .mobileToggle {
     position: relative;
@@ -314,16 +307,11 @@
     flex-shrink: 0;
 
     border: 1px solid rgba(255, 255, 255, 0.18);
-
     border-radius: 50%;
 
-    background: rgba(65, 88, 67, 0.32);
+    background: rgba(65, 88, 67, 0.48);
 
     cursor: pointer;
-
-    backdrop-filter: blur(12px);
-
-    -webkit-backdrop-filter: blur(12px);
 
     transition:
         background 0.3s ease,
@@ -331,7 +319,7 @@
 }
 
 .mobileToggle:hover {
-    background: rgba(65, 88, 67, 0.5);
+    background: rgba(65, 88, 67, 0.7);
 
     border-color: rgba(255, 255, 255, 0.24);
 }
@@ -379,15 +367,34 @@
     display: none;
 }
 
-/* LAPTOP */
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+.logo:focus-visible,
+.navigation a:focus-visible,
+.languages a:focus-visible,
+.loginButton:focus-visible,
+.accountButton:focus-visible,
+.reserveButton:focus-visible,
+.mobileToggle:focus-visible,
+.mobileMenu a:focus-visible,
+.mobileMenu button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 5px;
+}
+
+/* =========================
+   LAPTOP
+========================= */
 
 @media (max-width: 1100px) {
     .header {
-        padding: 20px 28px;
+        padding: 8px 28px;
     }
 
     .navigation {
-        gap: 22px;
+        gap: 18px;
     }
 
     .actions {
@@ -395,21 +402,24 @@
     }
 
     .logoImage {
-        height: 66px;
+        height: 115px;
     }
 }
 
-/* TABLET / MOBILE */
+/* =========================
+   TABLET / MOBILE
+========================= */
 
 @media (max-width: 850px) {
     .header {
-        padding: 14px 18px;
+        padding: 5px 18px;
     }
 
     .headerInner {
         display: grid;
 
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns:
+            minmax(0, 1fr) auto minmax(0, 1fr);
 
         align-items: center;
 
@@ -428,7 +438,7 @@
     }
 
     .logoImage {
-        height: 62px;
+        height: 100px;
     }
 
     .actions {
@@ -451,15 +461,17 @@
     }
 
     .mobileMenu {
-        display: flex;
+        position: absolute;
 
-        width: calc(100% - 36px);
+        top: calc(100% - 2px);
+        left: 18px;
+        right: 18px;
+
+        display: flex;
 
         flex-direction: column;
 
         gap: 0;
-
-        margin: 12px auto 0;
 
         overflow: hidden;
 
@@ -467,15 +479,34 @@
 
         border-radius: 18px;
 
-        background: rgba(38, 54, 42, 0.94);
+        background: rgba(38, 54, 42, 0.98);
 
         padding: 10px 18px;
 
         box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
 
-        backdrop-filter: blur(20px);
+        opacity: 0;
 
-        -webkit-backdrop-filter: blur(20px);
+        visibility: hidden;
+
+        pointer-events: none;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+            visibility 0.3s ease;
+    }
+
+    .mobileMenuOpen {
+        opacity: 1;
+
+        visibility: visible;
+
+        pointer-events: auto;
+
+        transform: translateY(0);
     }
 
     .mobileMenu a,
@@ -500,11 +531,9 @@
         cursor: pointer;
 
         font-family: var(--font-body);
-
         font-size: 12px;
 
         text-align: left;
-
         text-decoration: none;
 
         transition:
@@ -514,7 +543,7 @@
 
     .mobileMenu a:hover,
     .mobileMenu button:hover {
-        color: rgba(255, 255, 255, 0.76);
+        color: rgba(255, 255, 255, 0.8);
 
         padding-left: 5px;
     }
@@ -524,15 +553,17 @@
     }
 }
 
-/* SMALL MOBILE */
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media (max-width: 520px) {
     .header {
-        padding: 12px 15px;
+        padding: 4px 15px;
     }
 
     .logoImage {
-        height: 54px;
+        height: 95px;
     }
 
     .reserveButton {
@@ -540,15 +571,18 @@
     }
 
     .mobileMenu {
-        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
     }
 }
 
-/* VERY SMALL MOBILE */
+/* =========================
+   VERY SMALL MOBILE
+========================= */
 
 @media (max-width: 380px) {
     .logoImage {
-        height: 49px;
+        height: 85px;
     }
 
     .mobileToggle {
@@ -561,7 +595,9 @@
     }
 }
 
-/* REDUCED MOTION */
+/* =========================
+   REDUCED MOTION
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -575,6 +611,7 @@
     .reserveArrow,
     .mobileToggle,
     .mobileToggle span,
+    .mobileMenu,
     .mobileMenu a,
     .mobileMenu button {
         transition: none;
@@ -584,6 +621,11 @@
     .loginButton:hover,
     .accountButton:hover,
     .reserveButton:hover {
+        transform: none;
+    }
+
+    .mobileMenu,
+    .mobileMenuOpen {
         transform: none;
     }
 

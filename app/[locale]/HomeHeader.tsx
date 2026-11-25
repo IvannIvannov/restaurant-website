@@ -5,8 +5,6 @@ import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-
 import { useAuthModal } from "./AuthModalProvider";
 
 import styles from "./home-header.module.css";
@@ -29,7 +27,7 @@ type HomeHeaderProps = {
 };
 
 const LOGO_URL =
-  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_440/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_320/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
 
 export default function HomeHeader({
   locale,
@@ -39,8 +37,6 @@ export default function HomeHeader({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const mobileToggleRef = useRef<HTMLButtonElement | null>(null);
-
-  const shouldReduceMotion = useReducedMotion();
 
   const { openLogin } = useAuthModal();
 
@@ -82,6 +78,7 @@ export default function HomeHeader({
 
   const handleLogin = () => {
     closeMobileMenu();
+
     openLogin();
   };
 
@@ -126,12 +123,11 @@ export default function HomeHeader({
           <Image
             src={LOGO_URL}
             alt="MAZU Bar Restaurant"
-            width={220}
-            height={220}
+            width={320}
+            height={320}
             className={styles.logoImage}
             unoptimized
             loading="eager"
-            fetchPriority="high"
           />
         </Link>
 
@@ -186,6 +182,7 @@ export default function HomeHeader({
           <Link
             href={`/${locale}/reservations`}
             className={styles.reserveButton}
+            prefetch={false}
           >
             <span>{labels.reserve}</span>
 
@@ -202,7 +199,7 @@ export default function HomeHeader({
             }`}
             onClick={() => setMobileMenuOpen((current) => !current)}
             aria-expanded={mobileMenuOpen}
-            aria-controls={mobileMenuOpen ? "mobile-navigation" : undefined}
+            aria-controls="mobile-navigation"
             aria-label={mobileMenuLabel}
           >
             <span aria-hidden="true" />
@@ -211,86 +208,57 @@ export default function HomeHeader({
         </div>
       </div>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            id="mobile-navigation"
-            className={styles.mobileMenu}
-            aria-label={
-              locale === "bg" ? "Мобилна навигация" : "Mobile navigation"
-            }
-            initial={
-              shouldReduceMotion
-                ? false
-                : {
-                    opacity: 0,
-                    y: -10,
-                  }
-            }
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            exit={
-              shouldReduceMotion
-                ? {
-                    opacity: 0,
-                  }
-                : {
-                    opacity: 0,
-                    y: -8,
-                  }
-            }
-            transition={{
-              duration: shouldReduceMotion ? 0 : 0.3,
+      <nav
+        id="mobile-navigation"
+        className={`${styles.mobileMenu} ${
+          mobileMenuOpen ? styles.mobileMenuOpen : ""
+        }`}
+        aria-label={locale === "bg" ? "Мобилна навигация" : "Mobile navigation"}
+        aria-hidden={!mobileMenuOpen}
+        inert={!mobileMenuOpen}
+      >
+        <a href="#upcoming-events" onClick={closeMobileMenu}>
+          {labels.events}
+        </a>
 
-              ease: [0.22, 1, 0.36, 1],
-            }}
+        <Link
+          href={`/${locale}/menu`}
+          onClick={closeMobileMenu}
+          prefetch={false}
+        >
+          {labels.menu}
+        </Link>
+
+        <a href="#events" onClick={closeMobileMenu}>
+          {specialOccasionsLabel}
+        </a>
+
+        <a href="#contact" onClick={closeMobileMenu}>
+          {labels.contact}
+        </a>
+
+        <Link
+          href={`/${locale}/reservations`}
+          onClick={closeMobileMenu}
+          prefetch={false}
+        >
+          {labels.reserve}
+        </Link>
+
+        {isLoggedIn ? (
+          <Link
+            href={`/${locale}/account`}
+            onClick={closeMobileMenu}
+            prefetch={false}
           >
-            <a href="#upcoming-events" onClick={closeMobileMenu}>
-              {labels.events}
-            </a>
-
-            <Link
-              href={`/${locale}/menu`}
-              onClick={closeMobileMenu}
-              prefetch={false}
-            >
-              {labels.menu}
-            </Link>
-
-            <a href="#events" onClick={closeMobileMenu}>
-              {specialOccasionsLabel}
-            </a>
-
-            <a href="#contact" onClick={closeMobileMenu}>
-              {labels.contact}
-            </a>
-
-            <Link
-              href={`/${locale}/reservations`}
-              onClick={closeMobileMenu}
-              prefetch={false}
-            >
-              {labels.reserve}
-            </Link>
-
-            {isLoggedIn ? (
-              <Link
-                href={`/${locale}/account`}
-                onClick={closeMobileMenu}
-                prefetch={false}
-              >
-                {labels.account}
-              </Link>
-            ) : (
-              <button type="button" onClick={handleLogin}>
-                {labels.login}
-              </button>
-            )}
-          </motion.nav>
+            {labels.account}
+          </Link>
+        ) : (
+          <button type="button" onClick={handleLogin}>
+            {labels.login}
+          </button>
         )}
-      </AnimatePresence>
+      </nav>
     </header>
   );
 }

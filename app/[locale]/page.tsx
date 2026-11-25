@@ -11,6 +11,7 @@ import UpcomingEvents from "./UpcomingEvents";
 
 import styles from "./page.module.css";
 import sectionStyles from "./home-sections.module.css";
+import footerLogoStyles from "./footer-logo.module.css";
 
 type Locale = "bg" | "en";
 
@@ -21,24 +22,25 @@ type Props = {
 };
 
 const FOOTER_LOGO =
-  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_440/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_400/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
 
 const ACTION_IMAGES = {
   booking:
-    "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1600/v1791530039/Screenshot_2026-10-09_101040.png",
+    "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1400,q_auto:good/v1795599180/IMG_5733_tcaakb.webp",
 
-  menu: "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1600/v1795017013/1794410596623630_loou1b.jpg",
+  menu: "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1400,q_auto:good/v1795017013/1794410596623630_loou1b.webp",
 };
 
 const OCCASION_IMAGES = [
-  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101145.png",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_9232_aooaxy.webp",
 
-  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101239.png",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_8693_miu17k.webp",
 
-  "https://res.cloudinary.com/mxjelcos/image/upload/c_limit,w_1200/v1791530039/Screenshot_2026-10-09_101151.png",
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_1000,q_auto:good/v1795599180/IMG_5790_rf9ujb.webp",
 ];
 
 const ACTION_IMAGE_SIZES =
+  "(max-width: 390px) calc(100vw - 32px), " +
   "(max-width: 650px) calc(100vw - 36px), " +
   "(max-width: 780px) calc(100vw - 60px), " +
   "(max-width: 1000px) 720px, " +
@@ -87,10 +89,15 @@ export default async function HomePage({ params }: Props) {
           isLoggedIn={Boolean(user)}
           labels={{
             menu: messages.navigation.menu,
+
             events: messages.navigation.events,
+
             contact: messages.navigation.contact,
+
             reserve: messages.navigation.reserve,
+
             login: messages.navigation.login,
+
             account: messages.navigation.account,
           }}
         />
@@ -153,7 +160,7 @@ export default async function HomePage({ params }: Props) {
                 alt=""
                 fill
                 sizes={ACTION_IMAGE_SIZES}
-                quality={75}
+                quality={70}
                 loading="lazy"
                 decoding="async"
                 className={styles.actionImage}
@@ -194,7 +201,7 @@ export default async function HomePage({ params }: Props) {
                 alt=""
                 fill
                 sizes={ACTION_IMAGE_SIZES}
-                quality={75}
+                quality={70}
                 loading="lazy"
                 decoding="async"
                 className={styles.actionImage}
@@ -261,7 +268,7 @@ export default async function HomePage({ params }: Props) {
                     alt=""
                     fill
                     sizes={OCCASION_IMAGE_SIZES}
-                    quality={75}
+                    quality={68}
                     loading="lazy"
                     decoding="async"
                     className={sectionStyles.eventImage}
@@ -387,9 +394,9 @@ export default async function HomePage({ params }: Props) {
                 <Image
                   src={FOOTER_LOGO}
                   alt="MAZU Bar Restaurant"
-                  width={220}
-                  height={220}
-                  className={sectionStyles.footerLogoImage}
+                  width={400}
+                  height={400}
+                  className={footerLogoStyles.logo}
                   unoptimized
                   loading="lazy"
                   decoding="async"

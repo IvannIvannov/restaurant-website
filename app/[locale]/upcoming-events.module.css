@@ -19,12 +19,12 @@
 
 .eyebrow {
     margin: 0 0 16px;
-    color: #59695b;
+    color: #69796b;
     font-family: var(--font-body);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 700;
     line-height: 1;
-    letter-spacing: 0.29em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
 }
 
@@ -41,54 +41,48 @@
 
 .gallery {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 15px;
-    height: 520px;
+    gap: 22px;
 }
 
 .event {
     position: relative;
     flex: 1 1 0;
     min-width: 0;
-    height: 430px;
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s ease;
 }
 
 .centerEvent {
-    height: 490px;
-}
-
-.eventArticle {
-    width: 100%;
-    height: 100%;
+    transform: translateY(-36px);
 }
 
 .eventLink {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
+    display: block;
     color: inherit;
     text-decoration: none;
 }
 
-.eventLink:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 5px;
-}
-
 .visual {
     position: relative;
-    flex: 1;
-    min-height: 0;
     overflow: hidden;
     background: #d9d4ca;
+    aspect-ratio: 1 / 0.9;
+}
+
+.centerEvent .visual {
+    aspect-ratio: 1 / 1.02;
 }
 
 .image {
     object-fit: cover;
     object-position: center;
     transform: scale(1.025);
+    transition:
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.6s ease;
 }
 
 .krisImage {
@@ -99,55 +93,38 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-
     background:
         linear-gradient(to bottom,
-            rgba(16, 21, 17, 0.02) 0%,
-            rgba(16, 21, 17, 0.04) 55%,
-            rgba(16, 21, 17, 0.3) 100%);
-
+            rgba(16, 21, 17, 0.03) 0%,
+            rgba(16, 21, 17, 0.06) 52%,
+            rgba(16, 21, 17, 0.28) 100%);
     pointer-events: none;
-}
-
-.overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(to bottom,
-            rgba(16, 21, 17, 0.01) 0%,
-            rgba(16, 21, 17, 0.05) 45%,
-            rgba(16, 21, 17, 0.25) 100%);
-
-    opacity: 0;
-
-    pointer-events: none;
+    transition: background 0.45s ease;
 }
 
 .hoverContent {
     position: absolute;
-    right: 20px;
-    bottom: 19px;
-    left: 20px;
+    right: 22px;
+    bottom: 20px;
+    left: 22px;
     z-index: 2;
-
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 20px;
-
     color: #ffffff;
-
     opacity: 0;
     transform: translateY(12px);
+    transition:
+        opacity 0.35s ease,
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hoverContent span {
     font-family: var(--font-body);
-    font-size: 7px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.17em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -155,9 +132,8 @@
     margin: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.55);
     padding-bottom: 3px;
-
     font-family: var(--font-body);
-    font-size: 7px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -165,11 +141,10 @@
 
 .meta {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
-
-    padding-top: 17px;
+    padding-top: 18px;
 }
 
 .eventInfo {
@@ -179,161 +154,119 @@
 
 .label {
     display: block;
-    margin-bottom: 7px;
-
-    color: #59695b;
-
+    margin-bottom: 10px;
+    color: #7b897c;
     font-family: var(--font-body);
-    font-size: 6.5px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.19em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
 .titleRow {
     display: flex;
     min-width: 0;
-    align-items: baseline;
-    gap: 14px;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .titleRow h3 {
     margin: 0;
     min-width: 0;
-
     color: #222822;
-
     font-family: var(--font-display);
     font-size: clamp(28px, 2.6vw, 39px);
     font-weight: 500;
     line-height: 0.95;
     letter-spacing: -0.035em;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .eventDate {
-    flex: 0 0 auto;
-
-    color: #536455;
-
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid rgba(97, 114, 99, 0.18);
+    border-radius: 999px;
+    background: rgba(97, 114, 99, 0.08);
+    color: var(--color-accent);
     font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 800;
     line-height: 1;
     letter-spacing: 0.08em;
+    white-space: nowrap;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.35s ease;
 }
 
 .arrow {
     display: flex;
-
-    width: 31px;
-    height: 31px;
-
+    width: 38px;
+    height: 38px;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-
+    margin-top: 38px;
     border: 1px solid rgba(65, 88, 67, 0.16);
     border-radius: 50%;
-
-    color: #536455;
-
-    font-size: 9px;
+    color: #617263;
+    font-size: 11px;
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
 }
 
-/* =========================
-   DESKTOP HOVER ANIMATIONS
-========================= */
-
-@media (hover: hover) and (pointer: fine) {
-    .event {
-        transition:
-            flex 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-            opacity 0.4s ease;
-    }
-
-    .image {
-        transition:
-            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .overlay::after {
-        transition: opacity 0.5s ease;
-    }
-
-    .hoverContent {
-        transition:
-            opacity 0.4s ease,
-            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .titleRow h3 {
-        transition:
-            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .arrow {
-        transition:
-            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-            background 0.3s ease,
-            color 0.3s ease,
-            border-color 0.3s ease;
-    }
-
-    .event:hover .image {
-        transform: scale(1.075);
-    }
-
-    .event:hover .overlay::after {
-        opacity: 1;
-    }
-
-    .event:hover .hoverContent {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .event:hover .titleRow h3 {
-        transform: translateX(4px);
-    }
-
-    .event:hover .arrow {
-        transform: rotate(45deg);
-        border-color: #627364;
-        background: #627364;
-        color: #ffffff;
-    }
+.event:hover {
+    transform: translateY(-4px);
 }
 
-@media (min-width: 721px) and (hover: hover) and (pointer: fine) {
-    .gallery:has(.event:hover) .event {
-        flex: 0.88 1 0;
-        opacity: 0.78;
-    }
-
-    .gallery .event:hover {
-        flex: 1.35 1 0;
-        opacity: 1;
-    }
+.centerEvent:hover {
+    transform: translateY(-40px);
 }
 
-/* =========================
-   KEYBOARD NAVIGATION
-========================= */
+.event:hover .image {
+    transform: scale(1.06);
+}
 
-.eventLink:focus-visible .hoverContent {
+.event:hover .overlay {
+    background:
+        linear-gradient(to bottom,
+            rgba(16, 21, 17, 0.02) 0%,
+            rgba(16, 21, 17, 0.06) 44%,
+            rgba(16, 21, 17, 0.42) 100%);
+}
+
+.event:hover .hoverContent {
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
 }
 
-.eventLink:focus-visible .arrow {
+.event:hover .titleRow h3 {
+    transform: translateX(4px);
+}
+
+.event:hover .eventDate {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.event:hover .arrow {
+    transform: rotate(45deg);
     border-color: #627364;
     background: #627364;
     color: #ffffff;
 }
-
-/* =========================
-   TABLET
-========================= */
 
 @media (max-width: 1000px) {
     .section {
@@ -345,33 +278,35 @@
     }
 
     .gallery {
-        height: 460px;
-    }
-
-    .event {
-        height: 380px;
+        gap: 16px;
     }
 
     .centerEvent {
-        height: 430px;
+        transform: translateY(-24px);
+    }
+
+    .centerEvent:hover {
+        transform: translateY(-28px);
     }
 
     .titleRow {
-        gap: 10px;
+        gap: 12px;
     }
 
     .eventDate {
-        font-size: 9px;
+        min-height: 36px;
+        padding: 0 13px;
+        font-size: 13px;
+    }
+
+    .arrow {
+        margin-top: 34px;
     }
 
     .krisImage {
         object-position: center 18%;
     }
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 720px) {
     .section {
@@ -391,7 +326,6 @@
     .header h2 {
         max-width: 430px;
         margin: 0 auto;
-
         font-family: var(--font-display);
         font-size: clamp(34px, 9.5vw, 46px);
         font-weight: 500;
@@ -403,19 +337,10 @@
     .gallery {
         justify-content: flex-start;
         gap: 12px;
-
-        height: auto;
-
         overflow-x: auto;
-
         padding: 0 18px 18px;
-
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: 18px;
-
         scrollbar-width: none;
-
-        overscroll-behavior-inline: contain;
     }
 
     .gallery::-webkit-scrollbar {
@@ -425,16 +350,31 @@
     .event,
     .centerEvent {
         flex: 0 0 min(78vw, 330px);
-        height: 450px;
+        transform: none;
         scroll-snap-align: center;
+    }
+
+    .centerEvent:hover,
+    .event:hover {
+        transform: none;
+    }
+
+    .visual,
+    .centerEvent .visual {
+        aspect-ratio: 1 / 1.12;
     }
 
     .hoverContent {
         display: none;
     }
 
+    .label {
+        font-size: 10px;
+    }
+
     .titleRow {
         gap: 12px;
+        align-items: center;
     }
 
     .titleRow h3 {
@@ -442,7 +382,15 @@
     }
 
     .eventDate {
-        font-size: 10px;
+        min-height: 34px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    .arrow {
+        width: 36px;
+        height: 36px;
+        margin-top: 36px;
     }
 
     .krisImage {
@@ -458,11 +406,10 @@
     .event,
     .centerEvent {
         flex-basis: 82vw;
-        height: 420px;
     }
 
     .titleRow {
-        gap: 9px;
+        gap: 10px;
     }
 
     .titleRow h3 {
@@ -470,62 +417,32 @@
     }
 
     .eventDate {
-        font-size: 9px;
+        min-height: 32px;
+        padding: 0 11px;
+        font-size: 12px;
     }
 }
-
-/* =========================
-   REDUCED MOTION
-========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     .event,
     .image,
-    .overlay::after,
     .hoverContent,
     .titleRow h3,
-    .arrow {
+    .eventDate,
+    .arrow,
+    .overlay {
         transition: none;
     }
 
-    .gallery:has(.event:hover) .event,
-    .gallery .event:hover {
-        flex: 1 1 0;
-        opacity: 1;
-    }
-
-    .image,
-    .event:hover .image {
+    .event:hover,
+    .centerEvent:hover {
         transform: none;
     }
 
     .event:hover .titleRow h3,
+    .event:hover .eventDate,
     .event:hover .arrow {
         transform: none;
-    }
-
-    .hoverContent {
-        transform: none;
-    }
-
-    .gallery {
-        scroll-behavior: auto;
-    }
-}
-
-@media (max-width: 720px) and (prefers-reduced-motion: reduce) {
-
-    .gallery:has(.event:hover) .event,
-    .gallery .event:hover {
-        flex: 0 0 min(78vw, 330px);
-    }
-}
-
-@media (max-width: 420px) and (prefers-reduced-motion: reduce) {
-
-    .gallery:has(.event:hover) .event,
-    .gallery .event:hover {
-        flex-basis: 82vw;
     }
 }
