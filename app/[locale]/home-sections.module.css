@@ -253,7 +253,7 @@
 }
 
 .contactIntro {
-    max-width: 760px;
+    max-width: 880px;
 
     margin: 0 auto;
 
@@ -273,9 +273,9 @@
     color: #59695b;
 
     font-family: var(--font-body);
-    font-size: 8px;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
@@ -290,27 +290,27 @@
 }
 
 .contactIntro h2 {
-    margin: 0 0 22px;
+    margin: 0 0 26px;
 
     color: #202420;
 
     font-family: var(--font-display);
-    font-size: clamp(52px, 6vw, 80px);
+    font-size: clamp(56px, 6.5vw, 90px);
     font-weight: 500;
     line-height: 0.94;
     letter-spacing: -0.05em;
 }
 
 .contactIntro p {
-    max-width: 640px;
+    max-width: 780px;
 
     margin: 0 auto;
 
     color: #59635a;
 
     font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 1.9;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
 .contactActions {
@@ -318,26 +318,26 @@
 
     justify-content: center;
 
-    margin-top: 31px;
+    margin-top: 34px;
 }
 
 .primaryContactButton,
 .secondaryContactButton {
     display: inline-flex;
 
-    min-height: 48px;
+    min-height: 54px;
 
     align-items: center;
     justify-content: center;
 
     border-radius: 999px;
 
-    padding: 0 22px;
+    padding: 0 28px;
 
     font-family: var(--font-body);
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
 
     text-decoration: none;
 
@@ -359,9 +359,9 @@
 .primaryContactButton::after {
     content: "↗";
 
-    margin-left: 13px;
+    margin-left: 16px;
 
-    font-size: 10px;
+    font-size: 14px;
 
     transition:
         transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -400,7 +400,7 @@
 
     min-width: 0;
 
-    padding: 28px 24px 30px;
+    padding: 30px 20px 32px;
 
     border: 0;
 
@@ -416,14 +416,15 @@
 .contactLabel {
     display: block;
 
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 
     color: #59695b;
 
     font-family: var(--font-body);
-    font-size: 7px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
@@ -435,245 +436,14 @@
     color: #252a25;
 
     font-family: var(--font-body);
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.6;
+    line-height: 1.65;
 
     text-decoration: none;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 
     transition: color 0.3s ease;
-}
-
-/* =========================
-   REVIEWS
-========================= */
-
-.reviewsSection {
-    position: relative;
-
-    overflow: hidden;
-
-    background: #f3efe8;
-
-    color: #202420;
-
-    padding: 120px 24px 135px;
-
-    font-family: var(--font-body);
-}
-
-.reviewsSection::before {
-    content: "“";
-
-    position: absolute;
-    top: -115px;
-    right: 4%;
-
-    color: rgba(65, 88, 67, 0.05);
-
-    font-family: var(--font-display);
-    font-size: 420px;
-    line-height: 1;
-
-    pointer-events: none;
-}
-
-.reviewsHeader {
-    position: relative;
-    z-index: 1;
-
-    display: grid;
-
-    width: min(1180px, 100%);
-
-    grid-template-columns: 1.3fr 0.7fr;
-
-    gap: 70px;
-
-    align-items: end;
-
-    margin: 0 auto 55px;
-}
-
-.reviewsHeading {
-    max-width: 720px;
-}
-
-.reviewsHeading h2 {
-    max-width: 700px;
-
-    margin: 0;
-
-    font-family: var(--font-display);
-    font-size: clamp(44px, 5.5vw, 68px);
-    font-weight: 500;
-    line-height: 0.95;
-    letter-spacing: -0.045em;
-}
-
-.reviewsDescription {
-    max-width: 390px;
-
-    margin: 0;
-
-    color: rgba(32, 36, 32, 0.78);
-
-    font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.reviewsGrid {
-    position: relative;
-    z-index: 1;
-
-    display: grid;
-
-    width: min(1180px, 100%);
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 14px;
-
-    margin: 0 auto;
-}
-
-.reviewsGrid>div {
-    height: 100%;
-}
-
-.reviewCard {
-    position: relative;
-
-    display: flex;
-
-    min-height: 340px;
-    height: 100%;
-
-    flex-direction: column;
-    justify-content: space-between;
-
-    overflow: hidden;
-
-    border: 1px solid rgba(65, 88, 67, 0.1);
-    border-radius: 18px;
-
-    background: rgba(255, 255, 255, 0.68);
-
-    padding: 30px;
-}
-
-.reviewCard::before {
-    content: "";
-
-    position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    top: -110px;
-    right: -90px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(circle,
-            rgba(65, 88, 67, 0.14),
-            transparent 70%);
-
-    opacity: 0;
-
-    pointer-events: none;
-}
-
-.reviewTop {
-    display: flex;
-
-    align-items: center;
-}
-
-.stars {
-    color: var(--color-accent);
-
-    font-family: var(--font-body);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-
-    transition: letter-spacing 0.4s ease;
-}
-
-.reviewText {
-    margin: 45px 0;
-
-    color: #202420;
-
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: -0.02em;
-}
-
-.reviewAuthor {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding-top: 20px;
-
-    border-top: 1px solid rgba(65, 88, 67, 0.1);
-}
-
-.reviewAvatar {
-    display: flex;
-
-    width: 38px;
-    height: 38px;
-
-    flex-shrink: 0;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: var(--color-accent);
-
-    color: #ffffff;
-
-    font-family: var(--font-body);
-    font-size: 9px;
-    font-weight: 600;
-
-    box-shadow: 0 6px 16px rgba(65, 88, 67, 0.18);
-
-    transition:
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        background 0.3s ease;
-}
-
-.reviewAuthorInfo {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 3px;
-}
-
-.reviewAuthorInfo strong {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.reviewAuthorInfo span {
-    color: rgba(32, 36, 32, 0.78);
-
-    font-family: var(--font-body);
-    font-size: 9px;
 }
 
 /* =========================
@@ -1888,5 +1658,74 @@
     .upcomingEvent:hover .upcomingArrow,
     .upcomingReserve:hover span {
         transform: none;
+    }
+}
+
+/* =========================
+   CONTACT — RESPONSIVE TYPOGRAPHY
+========================= */
+
+@media (max-width: 1000px) {
+    .contactDetails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contactItem:nth-child(3) {
+        border-left: 0;
+    }
+
+    .contactItem:nth-child(n + 3) {
+        border-top: 1px solid rgba(65, 88, 67, 0.1);
+    }
+
+    .contactIntro p {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 600px) {
+    .contactIntro h2 {
+        font-size: clamp(44px, 12vw, 58px);
+        margin-bottom: 22px;
+    }
+
+    .contactIntro p {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .contactIntro .eyebrow {
+        font-size: 11px;
+    }
+
+    .primaryContactButton,
+    .secondaryContactButton {
+        min-height: 50px;
+        padding: 0 25px;
+        font-size: 13px;
+    }
+
+    .contactDetails {
+        grid-template-columns: 1fr;
+        margin-top: 48px;
+    }
+
+    .contactItem:nth-child(odd),
+    .contactItem:nth-child(even) {
+        padding: 24px 12px;
+        border-left: 0;
+    }
+
+    .contactItem+.contactItem {
+        border-top: 1px solid rgba(65, 88, 67, 0.1);
+    }
+
+    .contactLabel {
+        margin-bottom: 10px;
+        font-size: 11px;
+    }
+
+    .contactValue {
+        font-size: 16px;
     }
 }
