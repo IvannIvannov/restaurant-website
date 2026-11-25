@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { createClient } from "../../lib/supabase/server";
+import { getCurrentUser } from "../../lib/supabase/server";
 
 import HeroVideo from "./HeroVideo";
 import HomeHeader from "./HomeHeader";
@@ -20,6 +20,9 @@ type Props = {
   }>;
 };
 
+const FOOTER_LOGO =
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_440/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
 
@@ -29,27 +32,23 @@ export default async function HomePage({ params }: Props) {
 
   const currentLocale = locale as Locale;
 
-  const messages =
+  const [messages, user] = await Promise.all([
     currentLocale === "bg"
-      ? (await import("../../messages/bg.json")).default
-      : (await import("../../messages/en.json")).default;
+      ? import("../../messages/bg.json").then((module) => module.default)
+      : import("../../messages/en.json").then((module) => module.default),
 
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    getCurrentUser(),
+  ]);
 
   return (
     <main className={styles.main}>
-      {/* =========================
-          HERO
-      ========================= */}
+      {/* HERO */}
 
       <section className={styles.hero}>
         <HeroVideo />
 
         <div className={styles.heroOverlay} />
+
         <div className={styles.heroGlow} />
 
         <HomeHeader
@@ -57,56 +56,55 @@ export default async function HomePage({ params }: Props) {
           isLoggedIn={Boolean(user)}
           labels={{
             menu: messages.navigation.menu,
+
             events: messages.navigation.events,
+
             contact: messages.navigation.contact,
+
             reserve: messages.navigation.reserve,
+
             login: messages.navigation.login,
+
             account: messages.navigation.account,
           }}
         />
 
-        <Reveal>
-          <div className={styles.heroContent}>
-            <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
+        <div className={styles.heroContent}>
+          <p className={styles.eyebrow}>{messages.hero.eyebrow}</p>
 
-            <h1 className={styles.heroTitle}>
-              <span>{messages.hero.titleLine1}</span>
+          <h1 className={styles.heroTitle}>
+            <span>{messages.hero.titleLine1}</span>
 
-              <span>{messages.hero.titleLine2}</span>
-            </h1>
+            <span>{messages.hero.titleLine2}</span>
+          </h1>
 
-            <p className={styles.heroDescription}>
-              {messages.hero.description}
-            </p>
+          <p className={styles.heroDescription}>{messages.hero.description}</p>
 
-            <div className={styles.heroButtons}>
-              <Link
-                href={`/${currentLocale}/reservations`}
-                className={styles.primaryButton}
-              >
-                {messages.hero.reserve}
-              </Link>
+          <div className={styles.heroButtons}>
+            <Link
+              href={`/${currentLocale}/reservations`}
+              className={styles.primaryButton}
+              prefetch={false}
+            >
+              {messages.hero.reserve}
+            </Link>
 
-              <Link
-                href={`/${currentLocale}/menu`}
-                className={styles.secondaryButton}
-              >
-                {messages.hero.menu}
-              </Link>
-            </div>
+            <Link
+              href={`/${currentLocale}/menu`}
+              className={styles.secondaryButton}
+              prefetch={false}
+            >
+              {messages.hero.menu}
+            </Link>
           </div>
-        </Reveal>
+        </div>
       </section>
 
-      {/* =========================
-          UPCOMING EVENTS
-      ========================= */}
+      {/* UPCOMING EVENTS */}
 
       <UpcomingEvents locale={currentLocale} />
 
-      {/* =========================
-          RESERVATION / MENU
-      ========================= */}
+      {/* RESERVATION / MENU */}
 
       <section id="booking" className={styles.actionsSection}>
         <Reveal>
@@ -137,10 +135,11 @@ export default async function HomePage({ params }: Props) {
                   <Link
                     href={`/${currentLocale}/reservations`}
                     className={styles.actionButton}
+                    prefetch={false}
                   >
                     {messages.actions.bookingButton}
 
-                    <span>↗</span>
+                    <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </div>
@@ -166,10 +165,11 @@ export default async function HomePage({ params }: Props) {
                   <Link
                     href={`/${currentLocale}/menu`}
                     className={styles.actionButton}
+                    prefetch={false}
                   >
                     {messages.actions.menuButton}
 
-                    <span>↗</span>
+                    <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </div>
@@ -178,9 +178,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* =========================
-          SPECIAL OCCASIONS
-      ========================= */}
+      {/* SPECIAL OCCASIONS */}
 
       <section id="events" className={sectionStyles.eventsSection}>
         <div className={sectionStyles.sectionContainer}>
@@ -228,9 +226,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* =========================
-          CONTACT
-      ========================= */}
+      {/* CONTACT */}
 
       <section id="contact" className={sectionStyles.contactSection}>
         <div className={sectionStyles.contactGrid}>
@@ -244,6 +240,7 @@ export default async function HomePage({ params }: Props) {
                 <Link
                   href={`/${currentLocale}/reservations`}
                   className={sectionStyles.primaryContactButton}
+                  prefetch={false}
                 >
                   {messages.contact.reserve}
                 </Link>
@@ -303,9 +300,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* =========================
-          FOOTER
-      ========================= */}
+      {/* FOOTER */}
 
       <footer className={sectionStyles.footer}>
         <div className={sectionStyles.footerInner}>
@@ -321,12 +316,14 @@ export default async function HomePage({ params }: Props) {
                 }
               >
                 <Image
-                  src="https://res.cloudinary.com/dznyfk4z6/image/upload/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png"
+                  src={FOOTER_LOGO}
                   alt="MAZU Bar Restaurant"
                   width={220}
                   height={220}
                   className={sectionStyles.footerLogoImage}
                   unoptimized
+                  loading="lazy"
+                  decoding="async"
                 />
               </Link>
 
@@ -343,7 +340,7 @@ export default async function HomePage({ params }: Props) {
             >
               <a href="#upcoming-events">{messages.navigation.events}</a>
 
-              <Link href={`/${currentLocale}/menu`}>
+              <Link href={`/${currentLocale}/menu`} prefetch={false}>
                 {messages.navigation.menu}
               </Link>
 
@@ -359,6 +356,9 @@ export default async function HomePage({ params }: Props) {
             <div className={sectionStyles.footerLanguages}>
               <Link
                 href="/bg"
+                hrefLang="bg"
+                prefetch={false}
+                aria-current={currentLocale === "bg" ? "page" : undefined}
                 className={
                   currentLocale === "bg" ? sectionStyles.activeLanguage : ""
                 }
@@ -366,10 +366,13 @@ export default async function HomePage({ params }: Props) {
                 BG
               </Link>
 
-              <span>/</span>
+              <span aria-hidden="true">/</span>
 
               <Link
                 href="/en"
+                hrefLang="en"
+                prefetch={false}
+                aria-current={currentLocale === "en" ? "page" : undefined}
                 className={
                   currentLocale === "en" ? sectionStyles.activeLanguage : ""
                 }

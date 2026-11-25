@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
+
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 
 import "./global.css";
 
 const displayFont = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
+
+  weight: "variable",
+
   variable: "--font-display",
+
+  display: "swap",
+
+  preload: true,
 });
 
 const bodyFont = Manrope({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
+
+  weight: "variable",
+
   variable: "--font-body",
+
+  display: "swap",
+
+  preload: true,
 });
 
 const siteUrl = "https://restaurant-website-mu-mauve.vercel.app";
@@ -22,6 +35,7 @@ export const metadata: Metadata = {
 
   title: {
     default: "RESTAURANT",
+
     template: "%s | RESTAURANT",
   },
 
@@ -42,21 +56,30 @@ export const metadata: Metadata = {
 
   formatDetection: {
     email: false,
+
     address: false,
+
     telephone: false,
   },
 
   openGraph: {
     type: "website",
+
     siteName: "RESTAURANT",
+
     title: "RESTAURANT",
+
     description:
       "Modern restaurant experience with interactive menu, events and online reservations.",
+
     images: [
       {
         url: "/opengraph-image",
+
         width: 1200,
+
         height: 630,
+
         alt: "RESTAURANT",
       },
     ],
@@ -64,21 +87,29 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
+
     title: "RESTAURANT",
+
     description:
       "Modern restaurant experience with interactive menu, events and online reservations.",
+
     images: ["/opengraph-image"],
   },
 
   robots: {
     index: true,
+
     follow: true,
 
     googleBot: {
       index: true,
+
       follow: true,
+
       "max-image-preview": "large",
+
       "max-snippet": -1,
+
       "max-video-preview": -1,
     },
   },

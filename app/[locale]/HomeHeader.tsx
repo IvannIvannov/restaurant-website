@@ -28,9 +28,8 @@ type HomeHeaderProps = {
   };
 };
 
-const cloudinaryLoader = ({ src }: { src: string }) => {
-  return src;
-};
+const LOGO_URL =
+  "https://res.cloudinary.com/dznyfk4z6/image/upload/c_limit,w_440/q_auto:good/f_auto/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png";
 
 export default function HomeHeader({
   locale,
@@ -60,17 +59,19 @@ export default function HomeHeader({
       if (event.key === "Escape") {
         setMobileMenuOpen(false);
 
-        window.setTimeout(() => {
+        window.requestAnimationFrame(() => {
           mobileToggleRef.current?.focus();
-        }, 0);
+        });
       }
     };
 
     window.addEventListener("resize", handleResize);
+
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
@@ -81,7 +82,6 @@ export default function HomeHeader({
 
   const handleLogin = () => {
     closeMobileMenu();
-
     openLogin();
   };
 
@@ -97,25 +97,7 @@ export default function HomeHeader({
     locale === "bg" ? "Специални поводи" : "Special occasions";
 
   return (
-    <motion.header
-      className={styles.header}
-      initial={
-        shouldReduceMotion
-          ? false
-          : {
-              opacity: 0,
-              y: -16,
-            }
-      }
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: shouldReduceMotion ? 0 : 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
+    <header className={styles.header}>
       <div className={styles.headerInner}>
         <nav
           className={styles.navigation}
@@ -123,7 +105,9 @@ export default function HomeHeader({
         >
           <a href="#upcoming-events">{labels.events}</a>
 
-          <Link href={`/${locale}/menu`}>{labels.menu}</Link>
+          <Link href={`/${locale}/menu`} prefetch={false}>
+            {labels.menu}
+          </Link>
 
           <a href="#events">{specialOccasionsLabel}</a>
 
@@ -140,13 +124,14 @@ export default function HomeHeader({
           }
         >
           <Image
-            loader={cloudinaryLoader}
-            src="https://res.cloudinary.com/dznyfk4z6/image/upload/v1795081820/MAZU_Bar_Restaurant_Logo_eiqi6g.png"
+            src={LOGO_URL}
             alt="MAZU Bar Restaurant"
             width={220}
             height={220}
             className={styles.logoImage}
-            priority
+            unoptimized
+            loading="eager"
+            fetchPriority="high"
           />
         </Link>
 
@@ -162,6 +147,7 @@ export default function HomeHeader({
               className={locale === "bg" ? styles.activeLanguage : ""}
               aria-current={locale === "bg" ? "page" : undefined}
               hrefLang="bg"
+              prefetch={false}
             >
               BG
             </Link>
@@ -173,13 +159,18 @@ export default function HomeHeader({
               className={locale === "en" ? styles.activeLanguage : ""}
               aria-current={locale === "en" ? "page" : undefined}
               hrefLang="en"
+              prefetch={false}
             >
               EN
             </Link>
           </div>
 
           {isLoggedIn ? (
-            <Link href={`/${locale}/account`} className={styles.accountButton}>
+            <Link
+              href={`/${locale}/account`}
+              className={styles.accountButton}
+              prefetch={false}
+            >
               {labels.account}
             </Link>
           ) : (
@@ -211,7 +202,7 @@ export default function HomeHeader({
             }`}
             onClick={() => setMobileMenuOpen((current) => !current)}
             aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation"
+            aria-controls={mobileMenuOpen ? "mobile-navigation" : undefined}
             aria-label={mobileMenuLabel}
           >
             <span aria-hidden="true" />
@@ -240,12 +231,19 @@ export default function HomeHeader({
               opacity: 1,
               y: 0,
             }}
-            exit={{
-              opacity: 0,
-              y: -8,
-            }}
+            exit={
+              shouldReduceMotion
+                ? {
+                    opacity: 0,
+                  }
+                : {
+                    opacity: 0,
+                    y: -8,
+                  }
+            }
             transition={{
               duration: shouldReduceMotion ? 0 : 0.3,
+
               ease: [0.22, 1, 0.36, 1],
             }}
           >
@@ -253,7 +251,11 @@ export default function HomeHeader({
               {labels.events}
             </a>
 
-            <Link href={`/${locale}/menu`} onClick={closeMobileMenu}>
+            <Link
+              href={`/${locale}/menu`}
+              onClick={closeMobileMenu}
+              prefetch={false}
+            >
               {labels.menu}
             </Link>
 
@@ -265,12 +267,20 @@ export default function HomeHeader({
               {labels.contact}
             </a>
 
-            <Link href={`/${locale}/reservations`} onClick={closeMobileMenu}>
+            <Link
+              href={`/${locale}/reservations`}
+              onClick={closeMobileMenu}
+              prefetch={false}
+            >
               {labels.reserve}
             </Link>
 
             {isLoggedIn ? (
-              <Link href={`/${locale}/account`} onClick={closeMobileMenu}>
+              <Link
+                href={`/${locale}/account`}
+                onClick={closeMobileMenu}
+                prefetch={false}
+              >
                 {labels.account}
               </Link>
             ) : (
@@ -281,6 +291,6 @@ export default function HomeHeader({
           </motion.nav>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

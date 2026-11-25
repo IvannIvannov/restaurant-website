@@ -2,7 +2,7 @@
 
 import {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -12,9 +12,8 @@ import {
 } from "react";
 
 import dynamic from "next/dynamic";
-import { useRouter, useSearchParams } from "next/navigation";
 
-import { createClient } from "../../lib/supabase/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const AuthModal = dynamic(() => import("./AuthModal"), {
   ssr: false,
@@ -42,20 +41,31 @@ type AuthMode = "login" | "register";
 
 type AuthModalContextValue = {
   openLogin: (returnTo?: string) => void;
+
   openRegister: (returnTo?: string) => void;
+
   openAccount: () => void;
+
   openMenu: () => void;
+
   openReservation: () => void;
+
   closeAuth: () => void;
+
   closeAccount: () => void;
+
   closeMenu: () => void;
+
   closeReservation: () => void;
 };
 
 type AuthState = {
   isOpen: boolean;
+
   mode: AuthMode;
+
   returnTo: string | null;
+
   emailVerified: boolean;
 };
 
@@ -63,7 +73,9 @@ const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 
 type AuthModalProviderProps = {
   children: ReactNode;
+
   locale: Locale;
+
   isLoggedIn: boolean;
 };
 
@@ -73,14 +85,18 @@ export default function AuthModalProvider({
   isLoggedIn,
 }: AuthModalProviderProps) {
   const router = useRouter();
+
   const searchParams = useSearchParams();
 
   const verificationHandled = useRef(false);
 
   const [authState, setAuthState] = useState<AuthState>({
     isOpen: false,
+
     mode: "login",
+
     returnTo: null,
+
     emailVerified: false,
   });
 
@@ -101,13 +117,18 @@ export default function AuthModalProvider({
 
   const closeEverything = useCallback(() => {
     setIsAccountOpen(false);
+
     setIsMenuOpen(false);
+
     setIsReservationOpen(false);
 
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
+
       emailVerified: false,
     }));
   }, []);
@@ -116,13 +137,18 @@ export default function AuthModalProvider({
     setHasLoadedAuthModal(true);
 
     setIsAccountOpen(false);
+
     setIsMenuOpen(false);
+
     setIsReservationOpen(false);
 
     setAuthState({
       isOpen: true,
+
       mode: "login",
+
       returnTo: returnTo ?? null,
+
       emailVerified: false,
     });
   }, []);
@@ -131,13 +157,18 @@ export default function AuthModalProvider({
     setHasLoadedAuthModal(true);
 
     setIsAccountOpen(false);
+
     setIsMenuOpen(false);
+
     setIsReservationOpen(false);
 
     setAuthState({
       isOpen: true,
+
       mode: "register",
+
       returnTo: returnTo ?? null,
+
       emailVerified: false,
     });
   }, []);
@@ -169,8 +200,11 @@ export default function AuthModalProvider({
   const closeAuth = useCallback(() => {
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
+
       emailVerified: false,
     }));
   }, []);
@@ -196,8 +230,11 @@ export default function AuthModalProvider({
 
     setAuthState((current) => ({
       ...current,
+
       isOpen: false,
+
       returnTo: null,
+
       emailVerified: false,
     }));
 
@@ -235,19 +272,15 @@ export default function AuthModalProvider({
   }, [router]);
 
   /*
-   * After a successful email confirmation
-   * Supabase redirects back to:
+   * Email verification:
    *
    * /bg?auth=login&verified=1
-   * or
    * /en?auth=login&verified=1
    *
-   * We intentionally remove any temporary
-   * confirmation session and show the login
-   * modal, because the desired UX is:
-   *
-   * register -> verify email -> sign in.
+   * Load the Supabase browser client only
+   * when handling email verification.
    */
+
   useEffect(() => {
     const auth = searchParams.get("auth");
 
@@ -261,6 +294,8 @@ export default function AuthModalProvider({
 
     const handleVerifiedEmail = async () => {
       try {
+        const { createClient } = await import("../../lib/supabase/client");
+
         const supabase = createClient();
 
         const {
@@ -271,29 +306,32 @@ export default function AuthModalProvider({
           await supabase.auth.signOut();
         }
       } catch {
-        /*
-         * Even if there is no temporary
-         * session to remove, the login
-         * modal should still open.
-         */
+        // The login modal should still open
+        // if there is no temporary session.
       }
 
       setIsAccountOpen(false);
+
       setIsMenuOpen(false);
+
       setIsReservationOpen(false);
 
       setHasLoadedAuthModal(true);
 
       setAuthState({
         isOpen: true,
+
         mode: "login",
+
         returnTo: null,
+
         emailVerified: true,
       });
 
       const cleanParams = new URLSearchParams(searchParams.toString());
 
       cleanParams.delete("auth");
+
       cleanParams.delete("verified");
 
       const cleanQuery = cleanParams.toString();
@@ -310,7 +348,24 @@ export default function AuthModalProvider({
     void handleVerifiedEmail();
   }, [locale, router, searchParams]);
 
+  /*
+   * Intercept internal links that should
+   * open a modal instead of navigating.
+   */
+
   useEffect(() => {
+    const menuPath = `/${locale}/menu`;
+
+    const loginPath = `/${locale}/login`;
+
+    const registerPath = `/${locale}/register`;
+
+    const accountPath = `/${locale}/account`;
+
+    const reservationPath = `/${locale}/reservations`;
+
+    const adminPath = `/${locale}/admin`;
+
     const handleClick = (event: MouseEvent) => {
       if (
         event.button !== 0 ||
@@ -328,13 +383,7 @@ export default function AuthModalProvider({
         return;
       }
 
-      let element: Element | null = null;
-
-      if (target instanceof Element) {
-        element = target;
-      } else {
-        element = target.parentElement;
-      }
+      const element = target instanceof Element ? target : target.parentElement;
 
       if (!element) {
         return;
@@ -346,13 +395,18 @@ export default function AuthModalProvider({
         return;
       }
 
-      if (anchor.target === "_blank") {
+      if (anchor.target === "_blank" || anchor.hasAttribute("download")) {
         return;
       }
 
       const href = anchor.getAttribute("href");
 
-      if (!href) {
+      if (
+        !href ||
+        href.startsWith("#") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:")
+      ) {
         return;
       }
 
@@ -370,18 +424,6 @@ export default function AuthModalProvider({
 
       const normalizedPath = url.pathname.replace(/\/+$/, "");
 
-      const menuPath = `/${locale}/menu`;
-
-      const loginPath = `/${locale}/login`;
-
-      const registerPath = `/${locale}/register`;
-
-      const accountPath = `/${locale}/account`;
-
-      const reservationPath = `/${locale}/reservations`;
-
-      const adminPath = `/${locale}/admin`;
-
       if (normalizedPath === menuPath) {
         event.preventDefault();
 
@@ -392,6 +434,7 @@ export default function AuthModalProvider({
 
       if (normalizedPath === loginPath) {
         event.preventDefault();
+
         event.stopImmediatePropagation();
 
         openLogin();
@@ -401,6 +444,7 @@ export default function AuthModalProvider({
 
       if (normalizedPath === registerPath) {
         event.preventDefault();
+
         event.stopImmediatePropagation();
 
         openRegister();
@@ -410,6 +454,7 @@ export default function AuthModalProvider({
 
       if (normalizedPath === accountPath) {
         event.preventDefault();
+
         event.stopImmediatePropagation();
 
         if (isLoggedIn) {
@@ -442,6 +487,7 @@ export default function AuthModalProvider({
           normalizedPath.startsWith(`${adminPath}/`))
       ) {
         event.preventDefault();
+
         event.stopImmediatePropagation();
 
         openLogin(`${url.pathname}${url.search}${url.hash}`);
@@ -466,24 +512,40 @@ export default function AuthModalProvider({
   const value = useMemo(
     () => ({
       openLogin,
+
       openRegister,
+
       openAccount,
+
       openMenu,
+
       openReservation,
+
       closeAuth,
+
       closeAccount,
+
       closeMenu,
+
       closeReservation,
     }),
     [
       openLogin,
+
       openRegister,
+
       openAccount,
+
       openMenu,
+
       openReservation,
+
       closeAuth,
+
       closeAccount,
+
       closeMenu,
+
       closeReservation,
     ],
   );

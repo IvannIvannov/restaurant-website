@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { notFound } from "next/navigation";
 
-import { createClient } from "../../lib/supabase/server";
+import { getCurrentUser } from "../../lib/supabase/server";
 
 import AuthModalProvider from "./AuthModalProvider";
 
@@ -28,17 +28,23 @@ const metadataByLocale: Record<
 > = {
   bg: {
     title: "Ресторант, меню и резервации",
+
     description:
       "Разгледайте интерактивното меню, предстоящите събития и направете онлайн резервация.",
+
     locale: "bg_BG",
+
     alternateLocale: "en_US",
   },
 
   en: {
     title: "Restaurant, menu and reservations",
+
     description:
       "Explore our interactive menu, upcoming events and make your reservation online.",
+
     locale: "en_US",
+
     alternateLocale: "bg_BG",
   },
 };
@@ -64,6 +70,7 @@ export async function generateMetadata({
   }
 
   const currentLocale = locale as Locale;
+
   const metadata = metadataByLocale[currentLocale];
 
   return {
@@ -119,11 +126,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   return (
     <AuthModalProvider locale={locale} isLoggedIn={Boolean(user)}>

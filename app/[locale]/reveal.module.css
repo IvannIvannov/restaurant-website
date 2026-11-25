@@ -1,0 +1,76 @@
+.reveal {
+    min-width: 0;
+
+    opacity: 1;
+
+    --reveal-delay: 0s;
+    --reveal-distance: 18px;
+    --reveal-duration: 700ms;
+    --reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.entered {
+    animation-name: revealEntrance;
+
+    animation-duration: var(--reveal-duration);
+
+    animation-timing-function: var(--reveal-easing);
+
+    animation-delay: var(--reveal-delay);
+
+    animation-fill-mode: backwards;
+
+    animation-iteration-count: 1;
+}
+
+@keyframes revealEntrance {
+    from {
+        opacity: 0.65;
+
+        transform: translateY(var(--reveal-distance));
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 850px) {
+    .reveal {
+        --reveal-distance: 12px;
+        --reveal-duration: 600ms;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+    .reveal {
+        --reveal-distance: 8px;
+        --reveal-duration: 500ms;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal,
+    .entered {
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+}

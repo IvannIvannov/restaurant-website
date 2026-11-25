@@ -1,8 +1,14 @@
 "use client";
 
-import type { ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type CSSProperties,
+} from "react";
 
-import { motion, useReducedMotion } from "framer-motion";
+import styles from "./reveal.module.css";
 
 type Props = {
   children: ReactNode;
@@ -17,35 +23,61 @@ export default function Reveal({
   amount = 0.12,
   className,
 }: Props) {
-  const reduceMotion = useReducedMotion();
+  const elementRef = useRef<HTMLDivElement>(null);
 
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  const [hasEntered, setHasEntered] = useState(false);
+
+  useEffect(() => {
+    const element = elementRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        setHasEntered(true);
+
+        observer.disconnect();
+      },
+      {
+        threshold: Math.max(0, Math.min(amount, 1)),
+        rootMargin: "0px 0px -20px 0px",
+      },
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [amount]);
+
+  const classes = [
+    styles.reveal,
+    hasEntered ? styles.entered : "",
+    className ?? "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const animationStyle = {
+    "--reveal-delay": `${Math.max(0, delay)}s`,
+  } as CSSProperties;
 
   return (
-    <motion.div
-      className={className}
-      initial={{
-        opacity: 0,
-        y: 16,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-        amount,
-        margin: "0px 0px -40px 0px",
-      }}
-      transition={{
-        duration: 0.65,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
+    <div ref={elementRef} className={classes} style={animationStyle}>
       {children}
-    </motion.div>
+    </div>
   );
 }
