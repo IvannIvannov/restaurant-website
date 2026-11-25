@@ -39,6 +39,10 @@
     white-space: nowrap;
 }
 
+/* =========================
+   GALLERY
+========================= */
+
 .gallery {
     display: flex;
     align-items: flex-start;
@@ -46,9 +50,14 @@
     gap: 22px;
 }
 
+.eventReveal {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
 .event {
     position: relative;
-    flex: 1 1 0;
+    width: 100%;
     min-width: 0;
     transition:
         transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
@@ -80,9 +89,6 @@
     object-fit: cover;
     object-position: center;
     transform: scale(1.025);
-    transition:
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.6s ease;
 }
 
 .krisImage {
@@ -99,7 +105,6 @@
             rgba(16, 21, 17, 0.06) 52%,
             rgba(16, 21, 17, 0.28) 100%);
     pointer-events: none;
-    transition: background 0.45s ease;
 }
 
 .hoverContent {
@@ -115,9 +120,6 @@
     color: #ffffff;
     opacity: 0;
     transform: translateY(12px);
-    transition:
-        opacity 0.35s ease,
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hoverContent span {
@@ -138,6 +140,10 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
+
+/* =========================
+   EVENT INFORMATION
+========================= */
 
 .meta {
     display: flex;
@@ -180,7 +186,6 @@
     font-weight: 500;
     line-height: 0.95;
     letter-spacing: -0.035em;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .eventDate {
@@ -199,11 +204,6 @@
     line-height: 1;
     letter-spacing: 0.08em;
     white-space: nowrap;
-    transition:
-        background 0.3s ease,
-        border-color 0.3s ease,
-        color 0.3s ease,
-        transform 0.35s ease;
 }
 
 .arrow {
@@ -218,16 +218,55 @@
     border-radius: 50%;
     color: #617263;
     font-size: 11px;
-    transition:
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        background 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease;
 }
 
-/* DESKTOP HOVER */
+.eventLink:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 6px;
+}
+
+/* =========================
+   DESKTOP HOVER
+========================= */
 
 @media (hover: hover) and (pointer: fine) {
+    .image {
+        transition:
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            filter 0.6s ease;
+    }
+
+    .overlay {
+        transition: background 0.45s ease;
+    }
+
+    .hoverContent {
+        transition:
+            opacity 0.35s ease,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .titleRow h3 {
+        transition:
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .eventDate {
+        transition:
+            background 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease,
+            transform 0.35s ease;
+    }
+
+    .arrow {
+        transition:
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            background 0.3s ease,
+            color 0.3s ease,
+            border-color 0.3s ease;
+    }
+
     .event:hover {
         transform: translateY(-4px);
     }
@@ -272,7 +311,9 @@
     }
 }
 
-/* TABLET */
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 1000px) {
     .section {
@@ -314,7 +355,9 @@
     }
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 720px) {
     .section {
@@ -358,11 +401,15 @@
         display: none;
     }
 
+    .eventReveal {
+        flex: 0 0 min(78vw, 330px);
+        scroll-snap-align: center;
+    }
+
     .event,
     .centerEvent {
-        flex: 0 0 min(78vw, 330px);
+        width: 100%;
         transform: none;
-        scroll-snap-align: center;
     }
 
     .centerEvent:hover,
@@ -417,15 +464,16 @@
     }
 }
 
-/* SMALL MOBILE */
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media (max-width: 420px) {
     .header h2 {
         font-size: clamp(32px, 9vw, 40px);
     }
 
-    .event,
-    .centerEvent {
+    .eventReveal {
         flex-basis: 82vw;
     }
 
@@ -438,7 +486,9 @@
     }
 }
 
-/* REDUCED MOTION */
+/* =========================
+   REDUCED MOTION
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 

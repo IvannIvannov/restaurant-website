@@ -1,8 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+
+import Reveal from "./Reveal";
 
 import styles from "./upcoming-events.module.css";
 
@@ -94,6 +93,13 @@ const copy = {
   },
 };
 
+const EVENT_IMAGE_SIZES =
+  "(max-width: 420px) 82vw, " +
+  "(max-width: 720px) min(78vw, 330px), " +
+  "(max-width: 1000px) calc((100vw - 92px) / 3), " +
+  "(max-width: 1392px) calc((100vw - 156px) / 3), " +
+  "412px";
+
 export default function UpcomingEvents({ locale }: UpcomingEventsProps) {
   const t = copy[locale];
   const currentEvents = events[locale];
@@ -101,108 +107,75 @@ export default function UpcomingEvents({ locale }: UpcomingEventsProps) {
   return (
     <section id="upcoming-events" className={styles.section}>
       <div className={styles.inner}>
-        <motion.header
-          className={styles.header}
-          initial={{
-            opacity: 0,
-            y: 22,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.4,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          <p className={styles.eyebrow}>{t.eyebrow}</p>
-          <h2>{t.title}</h2>
-        </motion.header>
+        <Reveal amount={0.2}>
+          <header className={styles.header}>
+            <p className={styles.eyebrow}>{t.eyebrow}</p>
 
-        <motion.div
-          className={styles.gallery}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.12,
-              },
-            },
-          }}
-        >
+            <h2>{t.title}</h2>
+          </header>
+        </Reveal>
+
+        <div className={styles.gallery}>
           {currentEvents.map((event, index) => (
-            <motion.article
-              key={`${event.date}-${event.title}`}
-              className={`${styles.event} ${
-                index === 1 ? styles.centerEvent : ""
-              }`}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 35,
-                },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.85,
-                    ease: [0.22, 1, 0.36, 1],
-                  },
-                },
-              }}
+            <Reveal
+              key={event.slug}
+              className={styles.eventReveal}
+              delay={index * 0.12}
+              amount={0.12}
             >
-              <Link
-                href={`/${locale}/reservations?date=${event.reservationDate}&event=${event.slug}`}
-                className={styles.eventLink}
+              <article
+                className={`${styles.event} ${
+                  index === 1 ? styles.centerEvent : ""
+                }`}
               >
-                <div className={styles.visual}>
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    sizes="(max-width: 720px) 82vw, (max-width: 1000px) 33vw, 420px"
-                    className={`${styles.image} ${
-                      event.imagePosition === "kris" ? styles.krisImage : ""
-                    }`}
-                  />
+                <Link
+                  href={`/${locale}/reservations?date=${event.reservationDate}&event=${event.slug}`}
+                  className={styles.eventLink}
+                  prefetch={false}
+                >
+                  <div className={styles.visual}>
+                    <Image
+                      src={event.image}
+                      alt={event.title}
+                      fill
+                      sizes={EVENT_IMAGE_SIZES}
+                      quality={75}
+                      loading="lazy"
+                      decoding="async"
+                      className={`${styles.image} ${
+                        event.imagePosition === "kris" ? styles.krisImage : ""
+                      }`}
+                    />
 
-                  <div className={styles.overlay} />
+                    <div className={styles.overlay} />
 
-                  <div className={styles.hoverContent}>
-                    <span>{event.label}</span>
-                    <p>{t.reserve}</p>
-                  </div>
-                </div>
+                    <div className={styles.hoverContent}>
+                      <span>{event.label}</span>
 
-                <div className={styles.meta}>
-                  <div className={styles.eventInfo}>
-                    <span className={styles.label}>{event.label}</span>
-
-                    <div className={styles.titleRow}>
-                      <h3>{event.title}</h3>
-                      <span className={styles.eventDate}>{event.date}</span>
+                      <p>{t.reserve}</p>
                     </div>
                   </div>
 
-                  <span className={styles.arrow} aria-hidden="true">
-                    ↗
-                  </span>
-                </div>
-              </Link>
-            </motion.article>
+                  <div className={styles.meta}>
+                    <div className={styles.eventInfo}>
+                      <span className={styles.label}>{event.label}</span>
+
+                      <div className={styles.titleRow}>
+                        <h3>{event.title}</h3>
+
+                        <span className={styles.eventDate}>{event.date}</span>
+                      </div>
+                    </div>
+
+                    <span className={styles.arrow} aria-hidden="true">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+              </article>
+            </Reveal>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
