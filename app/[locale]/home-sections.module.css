@@ -32,11 +32,11 @@
 }
 
 .sectionHeadingText {
-    max-width: 650px;
+    max-width: 680px;
 }
 
 .eyebrow {
-    margin: 0 0 12px;
+    margin: 0 0 16px;
 
     color: var(--color-accent);
 
@@ -47,11 +47,17 @@
     text-transform: uppercase;
 }
 
+.eventsSection .eyebrow {
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+}
+
 .sectionHeading h2 {
     margin: 0;
 
     font-family: var(--font-display);
-    font-size: clamp(42px, 5vw, 64px);
+    font-size: clamp(46px, 5.5vw, 76px);
     font-weight: 500;
     line-height: 0.95;
     letter-spacing: -0.045em;
@@ -62,11 +68,11 @@
 
     margin: 0;
 
-    color: rgba(32, 36, 32, 0.78);
+    color: rgba(32, 36, 32, 0.85);
 
     font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 1.8;
+    font-size: 18px;
+    line-height: 1.75;
 }
 
 .eventsGrid {
@@ -148,63 +154,24 @@
     height: 100%;
 
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     padding: 28px;
 }
 
-.eventTop {
-    display: flex;
+/* Hide card numbering and tags */
 
-    align-items: center;
-    justify-content: flex-start;
-
-    gap: 10px;
-}
-
-.eventNumber {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    color: #ffffff;
-
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.02em;
-}
-
+.eventTop,
+.eventNumber,
 .eventTag {
-    display: inline-flex;
-
-    min-height: 34px;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid rgba(255, 255, 255, 0.26);
-    border-radius: 999px;
-
-    background: rgba(8, 12, 8, 0.5);
-
-    padding: 0 14px;
-
-    color: #ffffff;
-
-    font-family: var(--font-body);
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    display: none;
 }
 
 .eventContent {
     display: flex;
 
-    max-width: 320px;
+    width: 100%;
+    max-width: 100%;
 
     flex-direction: column;
     align-items: flex-start;
@@ -218,22 +185,24 @@
     color: #ffffff;
 
     font-family: var(--font-display);
-    font-size: clamp(32px, 2.8vw, 44px);
+    font-size: clamp(36px, 3vw, 48px);
     font-weight: 500;
-    line-height: 0.98;
+    line-height: 1.02;
     letter-spacing: -0.04em;
 
     text-shadow: 0 3px 18px rgba(0, 0, 0, 0.22);
 }
 
 .eventContent p {
+    min-height: 3.3em;
+
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.96);
 
     font-family: var(--font-body);
-    font-size: 12px;
-    line-height: 1.75;
+    font-size: 16px;
+    line-height: 1.65;
 
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
 }
@@ -919,6 +888,7 @@
     top: -220px;
 
     border: 1px solid rgba(65, 88, 67, 0.06);
+
     border-radius: 50%;
 
     pointer-events: none;
@@ -1202,6 +1172,7 @@
     justify-content: center;
 
     border: 1px solid rgba(65, 88, 67, 0.18);
+
     border-radius: 50%;
 
     transition:
@@ -1226,16 +1197,6 @@
             transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .eventTag {
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-
-        transition:
-            background 0.35s ease,
-            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-            border-color 0.35s ease;
-    }
-
     .eventContent {
         transition:
             transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1251,14 +1212,6 @@
         transform: scale(1.07);
     }
 
-    .eventCard:hover .eventTag {
-        transform: translateY(-2px);
-
-        border-color: rgba(255, 255, 255, 0.42);
-
-        background: rgba(8, 12, 8, 0.6);
-    }
-
     .eventCard:hover .eventContent {
         transform: translateY(-5px);
     }
@@ -1267,6 +1220,7 @@
         transform: translateY(-2px);
 
         border-color: var(--color-accent-hover);
+
         background: var(--color-accent-hover);
     }
 
@@ -1407,6 +1361,38 @@
 }
 
 /* =========================
+   RESPONSIVE — LAPTOP
+========================= */
+
+@media (max-width: 1100px) {
+    .sectionHeading {
+        gap: 30px;
+    }
+
+    .sectionHeading h2 {
+        font-size: clamp(44px, 5.5vw, 64px);
+    }
+
+    .sectionDescription {
+        max-width: 340px;
+
+        font-size: 16px;
+    }
+
+    .eventContent h3 {
+        font-size: clamp(32px, 3.4vw, 40px);
+    }
+
+    .eventContent p {
+        font-size: 15px;
+    }
+
+    .eventCardInner {
+        padding: 24px;
+    }
+}
+
+/* =========================
    RESPONSIVE — TABLET
 ========================= */
 
@@ -1415,6 +1401,12 @@
         align-items: flex-start;
 
         flex-direction: column;
+
+        gap: 24px;
+    }
+
+    .sectionDescription {
+        max-width: 620px;
     }
 
     .eventsGrid {
@@ -1428,6 +1420,14 @@
 
     .eventContent {
         max-width: 520px;
+    }
+
+    .eventContent h3 {
+        font-size: 44px;
+    }
+
+    .eventContent p {
+        font-size: 16px;
     }
 
     .contactGrid {
@@ -1557,7 +1557,7 @@
     }
 
     .sectionHeading {
-        gap: 18px;
+        gap: 20px;
 
         margin-bottom: 32px;
     }
@@ -1569,7 +1569,19 @@
         letter-spacing: 0.16em;
     }
 
-    .sectionHeading h2,
+    .eventsSection .eyebrow {
+        margin-bottom: 14px;
+
+        font-size: 12px;
+        letter-spacing: 0.16em;
+    }
+
+    .sectionHeading h2 {
+        font-size: clamp(42px, 11.5vw, 54px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+    }
+
     .contactIntro h2,
     .reviewsHeading h2 {
         font-size: clamp(38px, 11vw, 48px);
@@ -1577,7 +1589,13 @@
         letter-spacing: -0.04em;
     }
 
-    .sectionDescription,
+    .sectionDescription {
+        max-width: 100%;
+
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
     .contactIntro p,
     .reviewsDescription {
         max-width: 100%;
@@ -1603,33 +1621,22 @@
         padding: 21px;
     }
 
-    .eventTag {
-        min-height: 30px;
-
-        padding: 0 12px;
-
-        font-size: 7px;
-    }
-
-    .eventNumber {
-        font-size: 12px;
-    }
-
     .eventContent {
         max-width: 100%;
 
-        gap: 12px;
+        gap: 14px;
     }
 
     .eventContent h3 {
-        font-size: 33px;
-        line-height: 1;
+        font-size: 38px;
+
+        line-height: 1.02;
     }
 
     .eventContent p {
-        max-width: 320px;
+        max-width: 100%;
 
-        font-size: 11px;
+        font-size: 15px;
         line-height: 1.65;
     }
 
@@ -1713,6 +1720,7 @@
         margin: 31px 0;
 
         font-size: 18px;
+
         line-height: 1.5;
     }
 
@@ -1747,6 +1755,7 @@
         max-width: 330px;
 
         font-size: 10px;
+
         line-height: 1.75;
     }
 
@@ -1779,6 +1788,10 @@
     }
 }
 
+/* =========================
+   SMALL MOBILE
+========================= */
+
 @media (max-width: 400px) {
 
     .eventsSection,
@@ -1795,6 +1808,14 @@
 
     .eventCardInner {
         padding: 19px;
+    }
+
+    .eventContent h3 {
+        font-size: 35px;
+    }
+
+    .eventContent p {
+        font-size: 15px;
     }
 
     .contactActions {
@@ -1828,7 +1849,6 @@
 
     .eventCard,
     .eventImage,
-    .eventTag,
     .eventContent,
     .contactItem,
     .contactLabel,
@@ -1857,7 +1877,6 @@
     .eventCard:hover,
     .eventCard:hover .eventImage,
     .eventCard:hover .eventContent,
-    .eventCard:hover .eventTag,
     .contactItem:hover,
     .reviewCard:hover,
     .reviewCard:hover::before,
